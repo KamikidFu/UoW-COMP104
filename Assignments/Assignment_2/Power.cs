@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BattleshipHiddenThreat
 {
@@ -14,10 +15,19 @@ namespace BattleshipHiddenThreat
         {
             name_ = NAME;
         }
-
         public override void useCard(Card target)
         {
-           //Full Game Required
+
+        }
+
+        public void useCard(Card target, Button targetButton)
+        {
+            if (this.Name == "Shield")
+            {
+                Ship myShip = (Ship)target;
+                myShip.ShieldNum += 2;
+                targetButton.Text += "(Shield:" + myShip.ShieldNum + ")";     
+            }
         }
     }
 }

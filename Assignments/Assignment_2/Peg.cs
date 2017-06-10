@@ -18,37 +18,55 @@ namespace BattleshipHiddenThreat
             attackNum_ = ATTACKNUMBER;
             color_ = COLOR;
         }
-
         public override void useCard(Card target)
         {
-            if(target is Ship)
+         //Peg use usePegCard to do work   
+        }
+
+        public void usePegCard(Card target, string Mode)
+        {
+            if (Mode == "Base")
             {
-                Ship targetShip = (Ship)target;
-                if(this.color_=="White")
+                if (target is Ship)
                 {
-                    if(targetShip.Name=="Submarine")
+                    Ship targetShip = (Ship)target;
+                    if (targetShip.Name != "Sea")
                     {
-                        if (targetShip.ShieldNum > 0)
-                        {
-                            targetShip.ShieldNum -= this.attackNum_;
-                        }
-                        else
-                        {
-                            targetShip.HealthNum -= this.attackNum_;
-                        }
+                        targetShip.HealthNum -= this.attackNum_;
                     }
                 }
-                else
+            }
+            else
+            {
+                if (target is Ship)
                 {
-                    if(targetShip.Name!="Sea" && targetShip.Name!="Submarine")
+                    Ship targetShip = (Ship)target;
+                    if (this.color_ == "White")
                     {
-                        if (targetShip.ShieldNum > 0)
+                        if (targetShip.Name == "Submarine")
                         {
-                            targetShip.ShieldNum -= this.attackNum_;
+                            if (targetShip.ShieldNum > 0)
+                            {
+                                targetShip.ShieldNum -= this.attackNum_;
+                            }
+                            else
+                            {
+                                targetShip.HealthNum -= this.attackNum_;
+                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        if (targetShip.Name != "Sea" && targetShip.Name != "Submarine")
                         {
-                            targetShip.HealthNum -= this.attackNum_;
+                            if (targetShip.ShieldNum > 0)
+                            {
+                                targetShip.ShieldNum -= this.attackNum_;
+                            }
+                            else
+                            {
+                                targetShip.HealthNum -= this.attackNum_;
+                            }
                         }
                     }
                 }

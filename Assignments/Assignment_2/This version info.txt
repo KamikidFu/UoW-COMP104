@@ -1,3 +1,8 @@
+Version: 10082330
+1. Applied Shield card for AI but having bugs
+2. Applied Submarine Power
+3. Actually need a new logic for Full Play AI
+
 Version: 10072330
 1. Fix 10052317, add try catch to return a null to find new ship if there is no red peg.
 2. Simply fix 10052320, now just show a message box, until all power cards are ready.
