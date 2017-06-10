@@ -25,6 +25,7 @@ namespace BattleshipHiddenThreat
         Ship robotFindShip = null;
         Ship robotFindWhiteExceptionShip = null;
         Ship robotFindRedExceptionShip = null;
+        List<Ship> robotFindShips = new List<Ship>();
         //Instance Variables
         History history = new History(0);
         Ship[,] playerDeployment_ = new Ship[3, 4];
@@ -102,12 +103,12 @@ namespace BattleshipHiddenThreat
             for (int i = 0; i < 5; i++)
             {
                 tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
-                if(human_.MyCards.InHandCards[i] is Peg)
+                if (human_.MyCards.InHandCards[i] is Peg)
                 {
                     Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
                     tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                 }
-                
+
             }
             listBox_GameHistory.DataSource = null;
             history.Add((history.HistoryCounter++), "Game Start." + playerName + " joins game. Team is " + playerTeam + ".");
@@ -151,6 +152,130 @@ namespace BattleshipHiddenThreat
             }
         }
 
+        private void robotPlay()
+        {
+            if(robotFindShips.Count!=0)
+            {
+                Random rand = new Random();
+                Ship targetShip = robotFindShips[rand.Next(robotFindShips.Count)];
+                Peg currentCard = (Peg)robotPlay_ChooseOneCardAttack(targetShip);
+                if(currentCard!=null)
+                {
+                    currentCard.useCard(targetShip);
+                    if (targetShip.Name != "Sea")
+                    {
+                        tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text = playerDeployment_[targetShip.DeploymentY, targetShip.DeploymentX].Name + "\n(Health:" + playerDeployment_[targetShip.DeploymentY, targetShip.DeploymentX].HealthNum + ")";
+                    }
+                    if (!targetShip.Name.Contains("Sea")&& targetShip.HealthNum<=0)
+                    {
+                        tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = false;
+                        updateHistory("Player's " + targetShip.Name + " is now sunk.");
+                        robotFindShips.Remove(targetShip);
+                        robotDiscover++;
+                    }
+                }
+                else
+                {
+                    robotPlay_FindNewShip();
+                }
+            }
+            else
+            {
+                robotPlay_FindNewShip();
+            }
+            if (robotDiscover == 5)
+            {
+                updateHistory("Robot Wins The Game.");
+                MessageBox.Show(":-(\nSad... You Lose...");
+            }
+            if (robot_.MyCards.InHandCards.Count < 5)
+            {
+                robot_.MyCards.drawCards(5 - robot_.MyCards.InHandCards.Count);
+            }
+        }
+        private void robotPlay_FindNewShip()
+        {
+            Random rand = new Random();
+            Peg currentCard = (Peg)robot_.MyCards.InHandCards[rand.Next(5)];
+            if (currentCard.Color != "White")
+            {
+                for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
+                {
+                    if (robot_.MyCards.InHandCards[i].Name.Contains("White"))
+                    {
+                        currentCard = (Peg)robot_.MyCards.InHandCards[i];
+                        break;
+                    }
+                }
+            }
+            Point playerSea = robotDiscoverMatrix[rand.Next(robotDiscoverMatrix.Count)];
+            robotDiscoverMatrix.Remove(playerSea);
+            if (robotDiscoveredMatrix[playerSea.Y, playerSea.X] != 1)
+            {
+                Ship targetShip = playerDeployment_[playerSea.Y, playerSea.X];
+                targetShip.DeploymentX = playerSea.X;
+                targetShip.DeploymentY = playerSea.Y;
+                if (targetShip.Name != "Sea")
+                {
+                    robotFindShips.Add(targetShip);
+                }
+                currentCard.useCard(targetShip);
+                updateHistory("Robot use " + currentCard.Name + " to find " + human_.Name + "'s " + targetShip.Name);
+                robot_.MyCards.InHandCards.Remove(currentCard);
+                tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY*4+targetShip.DeploymentX].Enabled = true;
+                if (targetShip.Name != "Sea")
+                {
+                    tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text = playerDeployment_[playerSea.Y, playerSea.X].Name + "\n(Health:" + playerDeployment_[playerSea.Y, playerSea.X].HealthNum + ")";
+                }
+                if(targetShip.HealthNum<=0 && !targetShip.Name.Contains("Sea"))
+                {
+                    tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = false;
+                    updateHistory("Player's " + robotFindWhiteExceptionShip.Name + " is now sunk.");
+                    robotFindShips.Remove(targetShip);
+                    robotDiscover++;
+                }
+                robotDiscoveredMatrix[playerSea.Y, playerSea.X] = 1;
+            }
+        }
+
+        private HandCard robotPlay_ChooseOneCardAttack(Ship targerShip)
+        {
+            if(targerShip.Name!="Submarine")
+            {
+                Dictionary<int, HandCard> choosedCardWithDamage = new Dictionary<int, HandCard>();
+                for(int i=0;i<robot_.MyCards.InHandCards.Count;i++)
+                {
+                    if(robot_.MyCards.InHandCards[i].Name.Contains("Red"))
+                    {
+                        Peg choosedPeg = (Peg)robot_.MyCards.InHandCards[i];
+                        try
+                        {
+                            choosedCardWithDamage.Add(choosedPeg.AttackNum - targerShip.HealthNum, choosedPeg);
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                }
+                int maxDamage = choosedCardWithDamage.Keys.Max();
+                HandCard attack = choosedCardWithDamage[maxDamage];
+                return attack;               
+            }
+            else
+            {
+                for(int i=0;i<robot_.MyCards.InHandCards.Count;i++)
+                {
+                    if(robot_.MyCards.InHandCards[i].Name.Contains("White"))
+                    {
+                        return robot_.MyCards.InHandCards[i];
+                    }
+                }
+                robotPlay_FindNewShip();
+                return null;
+            }
+        }
+
         private void robotAutoPlay()
         {
             if (robotFindShip == null || robotFindShip.Name == "Sea")
@@ -158,7 +283,7 @@ namespace BattleshipHiddenThreat
                 Random rand = new Random();
                 int cardIndex = rand.Next(5);
                 Peg currentCard = (Peg)robot_.MyCards.InHandCards[cardIndex];
-                if (currentCard.Color!="White" && robothavingWhite!=false)
+                if (currentCard.Color != "White" && robothavingWhite != false)
                 {
                     for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
                     {
@@ -176,8 +301,8 @@ namespace BattleshipHiddenThreat
                 //robotYDiscover.Remove(playerSeaY);
                 Point playerSea = robotDiscoverMatrix[rand.Next(robotDiscoverMatrix.Count)];
                 robotDiscoverMatrix.Remove(playerSea);
-                if (robotDiscoveredMatrix[playerSea.Y, playerSea.X] !=1)
-                { 
+                if (robotDiscoveredMatrix[playerSea.Y, playerSea.X] != 1)
+                {
                     Ship targerShip = playerDeployment_[playerSea.Y, playerSea.X];
                     robotFindShip = targerShip;
                     currentCard.useCard(targerShip);
@@ -188,11 +313,11 @@ namespace BattleshipHiddenThreat
                     tableLayoutPanel3_PlayerSea.Controls[playerShipButtonIndex].Enabled = true;
                     if (robotFindShip.Name != "Sea")
                     {
-                        tableLayoutPanel3_PlayerSea.Controls[playerShipButtonIndex].Text = playerDeployment_[playerSea.Y,playerSea.X].Name+"\n(Health:" + playerDeployment_[playerSea.Y, playerSea.X].HealthNum + ")";                       
+                        tableLayoutPanel3_PlayerSea.Controls[playerShipButtonIndex].Text = playerDeployment_[playerSea.Y, playerSea.X].Name + "\n(Health:" + playerDeployment_[playerSea.Y, playerSea.X].HealthNum + ")";
                     }
                     else
                     {
-                        robotDiscover++;
+                        //robotDiscover++;
                     }
                     robotDiscoveredMatrix[playerSea.Y, playerSea.X] = 1;
                 }
@@ -204,64 +329,67 @@ namespace BattleshipHiddenThreat
             }
             else
             {
-                if (robotFindShip.Name != "Submarine")
+                if (robotFindShip != null)
                 {
-                    for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
+                    if (robotFindShip.Name != "Submarine")
                     {
-                        if (robot_.MyCards.InHandCards[i].Name.Contains("Red"))
+                        for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
                         {
-                            Peg hit = (Peg)robot_.MyCards.InHandCards[i];
-                            if (hit.AttackNum >= robotFindShip.HealthNum)
+                            if (robot_.MyCards.InHandCards[i].Name.Contains("Red"))
                             {
+                                Peg hit = (Peg)robot_.MyCards.InHandCards[i];
+                                if (hit.AttackNum >= robotFindShip.HealthNum)
+                                {
+                                    hit.useCard(robotFindShip);
+                                    updateHistory("Robot use " + hit.Name + " to attack " + human_.Name + "'s " + robotFindShip.Name + ". Damage is " + hit.AttackNum + ".");
+                                    tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredShipButtonIndex].Text = robotFindShip.Name + "\n(Health:" + robotFindShip.HealthNum + ")";
+                                    robot_.MyCards.InHandCards.Remove(hit);
+                                    break;
+                                }
+                                else
+                                {
+                                    hit.useCard(robotFindShip);
+                                    updateHistory("Robot use " + hit.Name + " to attack " + human_.Name + "'s " + robotFindShip.Name + ". Damage is " + hit.AttackNum + ".");
+                                    tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredShipButtonIndex].Text = robotFindShip.Name + "\n(Health:" + robotFindShip.HealthNum + ")";
+                                    robot_.MyCards.InHandCards.Remove(hit);
+                                    break;
+                                }
+                            }
+                            if (i == 4)
+                            {
+                                robotExceptionPlayWithoutRedPeg();
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
+                        {
+                            if (robot_.MyCards.InHandCards[i].Name.Contains("White"))
+                            {
+                                Peg hit = (Peg)robot_.MyCards.InHandCards[i];
                                 hit.useCard(robotFindShip);
-                                updateHistory("Robot use " + hit.Name + " to attack "+human_.Name+"'s " + robotFindShip.Name+". Damage is "+hit.AttackNum+".");
+                                updateHistory("Robot use " + hit.Name + " to attack  " + human_.Name + "'s " + robotFindShip.Name + ". Damage is " + hit.AttackNum + ".");
                                 tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredShipButtonIndex].Text = robotFindShip.Name + "\n(Health:" + robotFindShip.HealthNum + ")";
                                 robot_.MyCards.InHandCards.Remove(hit);
                                 break;
                             }
-                            else
+                            //if(i==4)
+                            //{
+                            //    robotAutoPlay();
+                            //    break;
+                            //}
+                            //如果没有白弹且存在潜艇时AI将不做任何事情了
+                            //此时，我们要让AI用红弹任意射击其他目标实验
+                            if (i == 4)
                             {
-                                hit.useCard(robotFindShip);
-                                updateHistory("Robot use " + hit.Name + " to attack " + human_.Name + "'s " +robotFindShip.Name + ". Damage is " + hit.AttackNum + ".");
-                                tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredShipButtonIndex].Text = robotFindShip.Name + "\n(Health:" + robotFindShip.HealthNum + ")";
-                                robot_.MyCards.InHandCards.Remove(hit);
+                                robotExceptionPlayWithoutWhitePeg();
                                 break;
                             }
                         }
-                        if(i==4                            )
-                        {
-                            robotExceptionPlayWithoutRedPeg();
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    for(int i=0;i<robot_.MyCards.InHandCards.Count;i++)
-                    {
-                        if(robot_.MyCards.InHandCards[i].Name.Contains("White"))
-                        {
-                            Peg hit = (Peg)robot_.MyCards.InHandCards[i];
-                            hit.useCard(robotFindShip);
-                            updateHistory("Robot use " + hit.Name + " to attack  " + human_.Name + "'s " + robotFindShip.Name + ". Damage is " + hit.AttackNum + ".");
-                            tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredShipButtonIndex].Text = robotFindShip.Name + "\n(Health:" + robotFindShip.HealthNum + ")";
-                            robot_.MyCards.InHandCards.Remove(hit);
-                            break;
-                        }
-                        //if(i==4)
-                        //{
-                        //    robotAutoPlay();
-                        //    break;
-                        //}
-                        //如果没有白弹且存在潜艇时AI将不做任何事情了
-                        //此时，我们要让AI用红弹任意射击其他目标实验
-                        if(i==4)
-                        {
-                            robotExceptionPlayWithoutWhitePeg();
-                            break;
-                        }
-                    }
 
+                    }
                 }
             }
             if (robotFindShip.HealthNum <= 0 && robotFindShip.Name!="Sea")
@@ -269,21 +397,21 @@ namespace BattleshipHiddenThreat
                 tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredShipButtonIndex].Enabled = false;
                 updateHistory("Player's "+robotFindShip.Name+" is now sunk.");
                 robotFindShip = null;
-                robotDiscover++;
+                //robotDiscover++;
             }
             if(robotFindWhiteExceptionShip != null && robotFindWhiteExceptionShip.HealthNum<=0 &&robotFindWhiteExceptionShip.Name!="Sea")
             {
                 tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredExceptionShipButtonIndex].Enabled = false;
                 updateHistory("Player's "+ robotFindWhiteExceptionShip.Name + " is now sunk.");
                 robotFindWhiteExceptionShip = null;
-                robotDiscover++;
+               // robotDiscover++;
             }
             if(robotFindRedExceptionShip!=null&&robotFindRedExceptionShip.HealthNum<=0&&robotFindRedExceptionShip.Name!="Sea")
             {
                 tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredExceptionShipButtonIndex].Enabled = false;
                 updateHistory("Player's " + robotFindWhiteExceptionShip.Name + " is now sunk.");
                 robotFindWhiteExceptionShip = null;
-                robotDiscover++;
+                //robotDiscover++;
             }
             if (robot_.MyCards.InHandCards.Count < 5)
             {
@@ -317,7 +445,7 @@ namespace BattleshipHiddenThreat
                     tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredExceptionShipButtonIndex].Enabled = false;
                     updateHistory("Player's " + robotFindRedExceptionShip.Name + " is now sunk.");
                     robotFindRedExceptionShip = null;
-                    robotDiscover++;
+                    //robotDiscover++;
                 }
                 robotDiscoveredMatrix[playerSea.Y, playerSea.X] = 1;
             }
@@ -357,7 +485,7 @@ namespace BattleshipHiddenThreat
                     tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredExceptionShipButtonIndex].Enabled = false;
                     updateHistory("Player's "+ robotFindWhiteExceptionShip.Name + " is now sunk.");
                     robotFindWhiteExceptionShip = null;
-                    robotDiscover++;
+                    //robotDiscover++;
                 }
                 robotDiscoveredMatrix[playerSea.Y, playerSea.X] = 1;
             }
@@ -392,59 +520,9 @@ namespace BattleshipHiddenThreat
                 updateHistory("Player Wins The Game.");
                 MessageBox.Show(":-)\nGreat! You Win!");
             }
-            else if(robotDiscover==12)
-            {
-                updateHistory("Robot Wins The Game.");
-                MessageBox.Show(":-(\nSad... You Lose...");
-            }
         }
 
-        private void updateHandCards()
-        {
-            //###############################################################################
-            //This following commented codes are trying to add new row to TableLayoutPanel and new button to it
-            //However, I try to make it, it do can add button and shift to a new line but it may have trouble 
-            //or add difficulty to do further stuff. So I dicide to leave these unenficient code.
-            //***This is the latest version I fix these code, may not right doing its works
-            //###############################################################################
-            //TableLayoutPanel newTableLayoutPanel4_PlayerHandCards = new TableLayoutPanel();
-            //int handCardsNum = (tableLayoutPanel4_PlayerHandCards.Controls.Count) + 1;
-            //int rowNum = 1;
-            //int columnCounter = 0;
-            //float columnSize = 100 * ((float)1 / 5);
-            //TableLayoutPanelCellPosition pos = new TableLayoutPanelCellPosition(0,0);
-            //tableLayoutPanel4_PlayerHandCards.Controls.Clear();
-            //groupBox3_HandCard.Controls.RemoveAt(0);
-            //groupBox3_HandCard.Controls.Clear();
-            //newTableLayoutPanel4_PlayerHandCards.ColumnCount = 5;            
-            //if(handCardsNum > 5)
-            //{
-            //    rowNum *= (int)(handCardsNum / 5) + 1;
-            //    newTableLayoutPanel4_PlayerHandCards.RowCount = rowNum;
-            //}
-            //float rowSize = 100 * ((float)1 / rowNum);
-            //for (int j = 0; j < rowNum; j++)
-            //{
-            //    newTableLayoutPanel4_PlayerHandCards.RowStyles.Add(new RowStyle(SizeType.Percent, rowSize));
-            //    while(columnCounter != handCardsNum)
-            //    {
-            //        columnCounter++;
-            //        newTableLayoutPanel4_PlayerHandCards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, columnSize));
-            //        newTableLayoutPanel4_PlayerHandCards.SetColumn(new Button() { Text = "Card No." + columnCounter.ToString() }, pos.Column);
-            //        newTableLayoutPanel4_PlayerHandCards.Controls.Add(new Button() { Text = "Card No." + columnCounter.ToString() }, pos.Column, pos.Row);
-            //        pos.Column++;
-            //        if (columnCounter % 5 == 0) 
-            //        {
-            //            pos.Column = 0;
-            //            break;
-            //        }
-            //    }
-            //    pos.Row++;
-            //}           
-            //groupBox3_HandCard.Controls.Add(newTableLayoutPanel4_PlayerHandCards);
-            //groupBox3_HandCard.Controls[0].Dock = DockStyle.Fill;
-            //groupBox3_HandCard.Controls[0].Name = "tableLayoutPanel4_PlayerHandCards";            
-        }
+       
 
         private void updateHistory(string addHistory)
         {
@@ -491,7 +569,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 
-                robotAutoPlay();
+                robotPlay();
                 robotMatchShip(button_RobotShip1);
             }
             else
@@ -530,7 +608,7 @@ namespace BattleshipHiddenThreat
                         tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                     }
                 }
-                robotAutoPlay();
+                robotPlay();
                 robotMatchShip(button_RobotShip2);
             }
             else
@@ -569,7 +647,7 @@ namespace BattleshipHiddenThreat
                         tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                     }
                 }
-                robotAutoPlay();
+                robotPlay();
                 robotMatchShip(button_RobotShip3);
             }
             else
@@ -608,7 +686,7 @@ namespace BattleshipHiddenThreat
                         tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                     }
                 }
-                robotAutoPlay();
+                robotPlay();
                 robotMatchShip(button_RobotShip4);
             }
             else
@@ -647,7 +725,7 @@ namespace BattleshipHiddenThreat
                         tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                     }
                 }
-                robotAutoPlay();
+                robotPlay();
                 robotMatchShip(button_RobotShip5);
             }
             else
@@ -686,7 +764,7 @@ namespace BattleshipHiddenThreat
                         tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                     }
                 }
-                robotAutoPlay();
+                robotPlay();
                 robotMatchShip(button_RobotShip6);
             }
             else
@@ -725,7 +803,7 @@ namespace BattleshipHiddenThreat
                         tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                     }
                 }
-                robotAutoPlay();
+                robotPlay();
                 robotMatchShip(button_RobotShip7);
             }
             else
@@ -764,7 +842,7 @@ namespace BattleshipHiddenThreat
                         tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                     }
                 }
-                robotAutoPlay();
+                robotPlay();
                 robotMatchShip(button_RobotShip8);
             }
             else
@@ -803,7 +881,7 @@ namespace BattleshipHiddenThreat
                         tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                     }
                 }
-                robotAutoPlay();
+                robotPlay();
                 robotMatchShip(button_RobotShip9);
             }
             else
@@ -842,7 +920,7 @@ namespace BattleshipHiddenThreat
                         tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                     }
                 }
-                robotAutoPlay();
+                robotPlay();
                 robotMatchShip(button_RobotShip10);
             }
             else
@@ -881,7 +959,7 @@ namespace BattleshipHiddenThreat
                         tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                     }
                 }
-                robotAutoPlay();
+                robotPlay();
                 robotMatchShip(button_RobotShip11);
             }
             else
@@ -920,7 +998,7 @@ namespace BattleshipHiddenThreat
                         tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                     }
                 }
-                robotAutoPlay();
+                robotPlay();
                 robotMatchShip(button_RobotShip12);
             }
             else
@@ -958,7 +1036,8 @@ namespace BattleshipHiddenThreat
                 string outputData = "";
             for(int i=0;i<5;i++)
             {
-                outputData += robot_.MyCards.InHandCards[i].Name + "\n";
+                    Peg card = (Peg)robot_.MyCards.InHandCards[i];
+                outputData += robot_.MyCards.InHandCards[i].Name + "   "+card.AttackNum+"\n";
             }
             MessageBox.Show(outputData);
             }

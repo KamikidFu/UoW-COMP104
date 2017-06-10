@@ -1,3 +1,8 @@
+Version: 10042330
+1. Rebuild the whole AI play logic, become more efficient and reasonable.
+2. Fix 10032330-4 and 10032330-5 bugs.
+3. Also leave the original code of AI play for final judgement.
+
 Version: 10032330
 1. After playing the base game many times, continue to fix any bugs and improve the algorithms to make it more efficient.
 2. Catched screenshoot of some cases of game running and implement the Debug function in the game, in some way it is kind of cheating, however, the function will be cancled at last.

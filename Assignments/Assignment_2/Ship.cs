@@ -11,6 +11,8 @@ namespace BattleshipHiddenThreat
         private string name_;
         private int healthNum_;
         private int shieldNum_;
+        private int deploymentX_;
+        private int deploymentY_;
 
         public int HealthNum
         {
@@ -31,6 +33,32 @@ namespace BattleshipHiddenThreat
             set
             {
                 shieldNum_ = value;
+            }
+        }
+
+        public int DeploymentX
+        {
+            get
+            {
+                return deploymentX_;
+            }
+
+            set
+            {
+                deploymentX_ = value;
+            }
+        }
+
+        public int DeploymentY
+        {
+            get
+            {
+                return deploymentY_;
+            }
+
+            set
+            {
+                deploymentY_ = value;
             }
         }
 
