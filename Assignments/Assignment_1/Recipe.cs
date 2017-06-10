@@ -17,7 +17,7 @@ namespace Assignment_Framework_with_Classes
     /// Written by Yunhao Fu and Jiayi Hu, 2016
     /// Thank you very much :-)
     /// </summary>
-    class Recipe : INotifyPropertyChanged
+    public class Recipe : INotifyPropertyChanged
     {
         //***********************************
         //* Event Handling
@@ -101,18 +101,18 @@ namespace Assignment_Framework_with_Classes
             //Register decleared above is for a list-changed event to handler on the enrolment list.
             Requirements_.ListChanged += new ListChangedEventHandler(RequirementListChanged);
         }
-        public Recipe(string NAME, uint YIELD)
-        {
-            // Initialise variable
-            name_ = NAME;
-            yield_ = YIELD;
-            previousYield_ = YIELD;
-            instruction_ = "";
-            // Create an empty list of requirements for this new recipe
-            Requirements_ = new BindingList<RecipeItems>();
-            //Register decleared above is for a list-changed event to handler on the enrolment list.
-            Requirements_.ListChanged += new ListChangedEventHandler(RequirementListChanged);
-        }
+        //public Recipe(string NAME, uint YIELD)
+        //{
+        //    // Initialise variable
+        //    name_ = NAME;
+        //    yield_ = YIELD;
+        //    previousYield_ = YIELD;
+        //    instruction_ = "";
+        //    // Create an empty list of requirements for this new recipe
+        //    Requirements_ = new BindingList<RecipeItems>();
+        //    //Register decleared above is for a list-changed event to handler on the enrolment list.
+        //    Requirements_.ListChanged += new ListChangedEventHandler(RequirementListChanged);
+        //}
         //***********************************
         //* Public Method        
        /// <summary>
@@ -129,12 +129,42 @@ namespace Assignment_Framework_with_Classes
                 {
                     if(requirements_[i].IngredientName==ingredientList[j].Name)
                     {
-                        cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity);
+                        //cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity);
+                        //Need in one unit to calculate
+                        if (requirements_[i].Unit == ingredientList[j].Unit)
+                        {
+                            cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity);
+                        }
+                        else if (requirements_[i].Unit == "lb" && ingredientList[j].Unit == "oz")
+                        {
+                            cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity * 16);
+                        }
+                        else if (requirements_[i].Unit == "tbsp" && ingredientList[j].Unit == "tsp")
+                        {
+                            cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity * 3);
+                        }
+                        else if(requirements_[i].Unit=="cup" && ingredientList[j].Unit=="tbsp")
+                        {
+                            cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity * 16);
+                        }
+                        else if(requirements_[i].Unit=="cup"&&ingredientList[j].Unit=="tsp")
+                        {
+                            cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity * 48);
+                        }
+                        else if (requirements_[i].Unit == "kg" && ingredientList[j].Unit == "g")
+                        {
+                            cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity * 1000);
+                        }
+                        else if (requirements_[i].Unit == "l" && ingredientList[j].Unit == "ml")
+                        {
+                            cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity * 1000);
+                        }
                     }
                 }
             }
             return cost;
         }
+
         /// <summary>
         /// Calculate the energy of this recipe
         /// </summary>
@@ -155,6 +185,7 @@ namespace Assignment_Framework_with_Classes
             }
             return energy;
         }
+
         /// <summary>
         /// Add ingredient which the recipe need
         /// </summary>
@@ -163,6 +194,7 @@ namespace Assignment_Framework_with_Classes
         {
             this.requirements_.Add(RecipeNeedItem);
         }
+
 
         public void changeQuantity(uint newYield)
         {
@@ -174,6 +206,199 @@ namespace Assignment_Framework_with_Classes
             previousYield_ = newYield;
         }
 
+        public void changeUnit(string toUnit)
+        {
+            if (toUnit == "Metric")
+            {
+                //bool needChange = false;
+                //for(int i =0;i<this.requirements_.Count;i++)
+                //{
+                //    if (this.requirements_[i].Unit == "ml" || this.requirements_[i].Unit == "g" || this.requirements_[i].Unit == "kg" || this.requirements_[i].Unit == "l")
+                //    {
+                //        needChange = false;
+                //    }
+                //    else
+                //    {
+                //        needChange = true;
+                //    }
+                //}
+                foreach (RecipeItems checkItems in this.requirements_)
+                {
+                    //if (checkItems.Unit == "cup" || checkItems.Unit == "tbsp" || checkItems.Unit == "tsp" || checkItems.Unit == "lb" || checkItems.Unit == "oz") 
+                    //{
+                    //Change Unit
+                    //checkItems.Quantity = changedQuantity;
+                    //checkItems.Unit = changedUnit;
+                    double changedQuantity = 0.0d;
+                    string changedUnit = "";                    
+                    if (checkItems.Unit == "cup" || checkItems.Unit == "cup ")
+                    {
+                        changedQuantity = checkItems.Quantity * 240;
+                        if (changedQuantity >= 1000)
+                        {
+                            changedQuantity /= 1000;
+                            changedUnit = "l";
+                        }
+                        else
+                        {
+                            changedUnit = "ml";
+                        }
+                    }
+                    else if (checkItems.Unit == "tbsp" || checkItems.Unit=="tbsp ")
+                    {
+                        changedQuantity = checkItems.Quantity * 15;
+                        changedUnit = "ml";
+                    }
+                    else if (checkItems.Unit == "tsp" || checkItems.Unit == "tsp ")
+                    {
+                        changedQuantity = checkItems.Quantity * 5;
+                        changedUnit = "ml";
+                    }
+                    else if (checkItems.Unit == "lb" || checkItems.Unit == "lb ")
+                    {
+                        changedQuantity = checkItems.Quantity * 453.592;
+                        if (changedQuantity >= 1000)
+                        {
+                            changedQuantity /= 1000;
+                            changedUnit = "kg";
+                        }
+                        else
+                        {
+                            changedUnit = "g";
+                        }
+                    }
+                    else if (checkItems.Unit == "oz" || checkItems.Unit == "oz ")
+                    {
+                        changedQuantity = checkItems.Quantity * 28.3495;
+                        changedUnit = "g";
+                    }
+                    else { continue; }
+                    checkItems.Quantity = changedQuantity;
+                    checkItems.Unit = changedUnit;
+                }
+            }
+
+            if (toUnit == "Imperial")
+            {
+                foreach (RecipeItems checkItems in this.requirements_)
+                {
+                    double changedQuantity = 0.0d;
+                    string changedUnit = "";
+                    if (checkItems.Unit == "ml" || checkItems.Unit == "ml ")
+                    {
+                        changedQuantity = checkItems.Quantity / 5;
+                        if (changedQuantity >= 3)
+                        {
+                            changedQuantity /= 3;
+                            changedUnit = "tbsp";
+                        }
+                        else
+                        {
+                            changedUnit = "tsp";
+                        }
+                    }
+                    else if (checkItems.Unit == "l" || checkItems.Unit == "l ")
+                    {
+                        changedQuantity = checkItems.Quantity * 1000 / 240;
+                        changedUnit = "cup";
+                    }
+                    else if (checkItems.Unit == "g" || checkItems.Unit == "g ")
+                    {
+                        changedQuantity = checkItems.Quantity / 28.3495;
+                        if (changedQuantity <= 16)
+                        {
+                            changedUnit = "oz";
+                        }
+                        else
+                        {
+                            changedQuantity /= 16;
+                            changedUnit = "lb";
+                        }
+                    }
+                    else if (checkItems.Unit == "kg" || checkItems.Unit == "kg ")
+                    {
+                        changedQuantity = (checkItems.Quantity * 1000) / 28.3495;
+                        if (changedQuantity <= 16)
+                        {
+                            changedUnit = "oz";
+                        }
+                        else
+                        {
+                            changedQuantity /= 16;
+                            changedUnit = "lb";
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                    checkItems.Quantity = changedQuantity;
+                    checkItems.Unit = changedUnit;
+                }
+            }
+            //if(needChange)
+            //{
+            //    foreach(RecipeItems items in this.requirements_)
+            //    {
+            //        if(items.Unit=="cup"|| items.Unit == "tbsp"||items.Unit=="tsp")                                                  
+            //    }
+            //}
+
+
+        }
+
+        public void updateUnit()
+        {
+            foreach (RecipeItems checkItems in this.requirements_)
+            {
+                if (checkItems.Unit == "tsp" && checkItems.Quantity > 3 && checkItems.Quantity < 48)
+                {
+                    checkItems.Quantity /= 3;
+                    checkItems.Unit = "tbsp";
+                }
+                else if (checkItems.Unit == "tsp" && checkItems.Quantity >= 48)
+                {
+                    checkItems.Quantity /= 48;
+                    checkItems.Unit = "cup";
+                }
+                else if (checkItems.Unit == "tbsp" && checkItems.Quantity > 16)
+                {
+                    checkItems.Quantity /= 16;
+                    checkItems.Unit = "cup";
+                }
+                else if (checkItems.Unit == "oz" && checkItems.Quantity > 16)
+                {
+                    checkItems.Quantity /= 16;
+                    checkItems.Unit = "lb";
+                }
+                else if (checkItems.Unit == "g" && checkItems.Quantity > 1000)
+                {
+                    checkItems.Quantity /= 1000;
+                    checkItems.Unit = "kg";
+                }
+                else if (checkItems.Unit == "ml" && checkItems.Quantity > 1000)
+                {
+                    checkItems.Quantity /= 1000;
+                    checkItems.Unit = "l";
+                }
+                else if (checkItems.Unit == "cup" && checkItems.Quantity < 1)
+                {
+                    checkItems.Quantity *= 16;
+                    checkItems.Unit = "tbsp";
+                }
+                else if (checkItems.Unit == "kg" && checkItems.Quantity < 1)
+                {
+                    checkItems.Quantity *= 1000;
+                    checkItems.Unit = "g";
+                }
+                else if (checkItems.Unit == "l" && checkItems.Quantity < 1)
+                {
+                    checkItems.Quantity *= 1000;
+                    checkItems.Unit = "ml";
+                }
+                else continue;
+            }
+        }
 
         //***********************************
         //*Properties
@@ -224,6 +449,19 @@ namespace Assignment_Framework_with_Classes
             set
             {
                 requirements_ = value;
+            }
+        }
+
+        public uint PreviousYield
+        {
+            get
+            {
+                return previousYield_;
+            }
+
+            set
+            {
+                previousYield_ = value;
             }
         }
     }

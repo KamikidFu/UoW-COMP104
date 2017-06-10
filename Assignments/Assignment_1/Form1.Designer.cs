@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,8 +51,11 @@
             this.RemoveItem_button2 = new System.Windows.Forms.Button();
             this.ChangeInstruction_button3 = new System.Windows.Forms.Button();
             this.Read_button4 = new System.Windows.Forms.Button();
-            this.Recipe_openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.Print_button5 = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.imperial_radioButton2 = new System.Windows.Forms.RadioButton();
+            this.metric_radioButton1 = new System.Windows.Forms.RadioButton();
+            this.Recipe_openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.yieldDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.instructionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,6 +75,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Ingredients_dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Require_dataGridView3)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.recipeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeItemsBindingSource)).BeginInit();
@@ -104,7 +109,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(250, 82);
@@ -115,7 +120,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(259, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(563, 82);
@@ -126,7 +131,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.Location = new System.Drawing.Point(828, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(335, 82);
@@ -137,7 +142,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label4.Location = new System.Drawing.Point(1169, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(252, 82);
@@ -188,6 +193,16 @@
             dataGridViewCellStyle1.NullValue = null;
             this.Require_dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.Require_dataGridView3.AutoGenerateColumns = false;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Require_dataGridView3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.Require_dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Require_dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ingredientNameDataGridViewTextBoxColumn,
@@ -216,9 +231,9 @@
             // 
             this.tableLayoutPanel2.ColumnCount = 11;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.650727F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.724719F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.707865F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.407303F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.373596F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.339888F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.126404F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.199438F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 2.738764F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.44382F));
@@ -237,13 +252,14 @@
             this.tableLayoutPanel2.Controls.Add(this.ChangeInstruction_button3, 8, 0);
             this.tableLayoutPanel2.Controls.Add(this.Read_button4, 9, 0);
             this.tableLayoutPanel2.Controls.Add(this.Print_button5, 9, 1);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox1, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 506);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 71F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1424, 126);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
@@ -263,10 +279,10 @@
             // 
             this.cost_label6.AutoSize = true;
             this.cost_label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cost_label6.Font = new System.Drawing.Font("Microsoft YaHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cost_label6.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cost_label6.Location = new System.Drawing.Point(97, 0);
             this.cost_label6.Name = "cost_label6";
-            this.cost_label6.Size = new System.Drawing.Size(104, 34);
+            this.cost_label6.Size = new System.Drawing.Size(99, 34);
             this.cost_label6.TabIndex = 1;
             this.cost_label6.Text = "...";
             // 
@@ -275,9 +291,9 @@
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("Microsoft YaHei UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(207, 0);
+            this.label7.Location = new System.Drawing.Point(202, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(118, 34);
+            this.label7.Size = new System.Drawing.Size(127, 34);
             this.label7.TabIndex = 2;
             this.label7.Text = "Calories:";
             // 
@@ -286,9 +302,9 @@
             this.energy_label8.AutoSize = true;
             this.energy_label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.energy_label8.Font = new System.Drawing.Font("Microsoft YaHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.energy_label8.Location = new System.Drawing.Point(331, 0);
+            this.energy_label8.Location = new System.Drawing.Point(335, 0);
             this.energy_label8.Name = "energy_label8";
-            this.energy_label8.Size = new System.Drawing.Size(71, 34);
+            this.energy_label8.Size = new System.Drawing.Size(67, 34);
             this.energy_label8.TabIndex = 3;
             this.energy_label8.Text = "...";
             // 
@@ -355,20 +371,56 @@
             this.Read_button4.UseVisualStyleBackColor = true;
             this.Read_button4.Click += new System.EventHandler(this.Read_button4_Click);
             // 
-            // Recipe_openFileDialog1
-            // 
-            this.Recipe_openFileDialog1.FileName = "Open New Recipe";
-            // 
             // Print_button5
             // 
             this.Print_button5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Print_button5.Location = new System.Drawing.Point(934, 37);
             this.Print_button5.Name = "Print_button5";
-            this.Print_button5.Size = new System.Drawing.Size(77, 38);
+            this.Print_button5.Size = new System.Drawing.Size(77, 65);
             this.Print_button5.TabIndex = 10;
             this.Print_button5.Text = "Print";
             this.Print_button5.UseVisualStyleBackColor = true;
             this.Print_button5.Click += new System.EventHandler(this.Print_button5_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.imperial_radioButton2);
+            this.groupBox1.Controls.Add(this.metric_radioButton1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(3, 37);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(88, 65);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Uint:";
+            // 
+            // imperial_radioButton2
+            // 
+            this.imperial_radioButton2.AutoSize = true;
+            this.imperial_radioButton2.Location = new System.Drawing.Point(6, 43);
+            this.imperial_radioButton2.Name = "imperial_radioButton2";
+            this.imperial_radioButton2.Size = new System.Drawing.Size(71, 16);
+            this.imperial_radioButton2.TabIndex = 1;
+            this.imperial_radioButton2.TabStop = true;
+            this.imperial_radioButton2.Text = "Imperial";
+            this.imperial_radioButton2.UseVisualStyleBackColor = true;
+            this.imperial_radioButton2.CheckedChanged += new System.EventHandler(this.imperial_radioButton2_CheckedChanged);
+            // 
+            // metric_radioButton1
+            // 
+            this.metric_radioButton1.AutoSize = true;
+            this.metric_radioButton1.Location = new System.Drawing.Point(6, 20);
+            this.metric_radioButton1.Name = "metric_radioButton1";
+            this.metric_radioButton1.Size = new System.Drawing.Size(59, 16);
+            this.metric_radioButton1.TabIndex = 0;
+            this.metric_radioButton1.TabStop = true;
+            this.metric_radioButton1.Text = "Metric";
+            this.metric_radioButton1.UseVisualStyleBackColor = true;
+            this.metric_radioButton1.CheckedChanged += new System.EventHandler(this.metric_radioButton1_CheckedChanged);
+            // 
+            // Recipe_openFileDialog1
+            // 
+            this.Recipe_openFileDialog1.FileName = "Open New Recipe";
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -464,6 +516,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.Require_dataGridView3)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.recipeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeItemsBindingSource)).EndInit();
@@ -509,6 +563,9 @@
         private System.Windows.Forms.Button Read_button4;
         private System.Windows.Forms.OpenFileDialog Recipe_openFileDialog1;
         private System.Windows.Forms.Button Print_button5;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton imperial_radioButton2;
+        private System.Windows.Forms.RadioButton metric_radioButton1;
     }
 }
 

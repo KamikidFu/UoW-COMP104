@@ -16,11 +16,11 @@ namespace Assignment_Framework_with_Classes
         /// <summary>
         /// The list of all recipes. We like to use datagrid view to show things.
         /// </summary>
-        private BindingList<Recipe> recipes_;
+        internal BindingList<Recipe> recipes_;
         /// <summary>
         /// The list of all papers. We like to use datagrid view to show things.
         /// </summary>
-        private BindingList<Ingredient> ingredients_;
+        internal BindingList<Ingredient> ingredients_;
         public Form1()
         {
             InitializeComponent();
@@ -129,6 +129,10 @@ namespace Assignment_Framework_with_Classes
             //Remove the instruction columns in Recipes_dataGridView1
             Recipes_dataGridView1.Columns.RemoveAt(2);
             Ingredients_dataGridView2.DataSource = ingredients_;
+            Require_dataGridView3.DefaultCellStyle.Format = "N2";
+            Ingredients_dataGridView2.DefaultCellStyle.Format = "N2";
+
+            metric_radioButton1.Checked = true;
         }
 
         /// <summary>
@@ -285,13 +289,32 @@ namespace Assignment_Framework_with_Classes
             int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
             if (recipeIndex >= 0)
             {
-                Recipe rep = recipes_[recipeIndex];
-                rep.changeQuantity(rep.Yield);
-                Require_dataGridView3.DataSource = null;
-                Require_dataGridView3.DataSource = rep.Requirements_;
-                cost_label6.Text = rep.calculateCost(ingredients_).ToString("c");
-                energy_label8.Text = rep.calculateEnergy(ingredients_).ToString("f2");
+                try
+                {
+                    Recipe rep = recipes_[recipeIndex];
+                    rep.changeQuantity(rep.Yield);
+                    rep.updateUnit();
+                    Require_dataGridView3.DataSource = null;
+                    Require_dataGridView3.DataSource = rep.Requirements_;
+                    cost_label6.Text = rep.calculateCost(ingredients_).ToString("c");
+                    energy_label8.Text = rep.calculateEnergy(ingredients_).ToString("N2");
+                    //if(metric_radioButton1.Checked)
+                    //{
+                    //    rep.changeUnit(imperial_radioButton2.Text);
+                    //        }
+                    //else if(imperial_radioButton2.Checked)
+                    //{
+                    //    rep.changeUnit(imperial_radioButton2.Text);
+                    //}
+                    //Need a update method in recipe*
+                }
+                catch
+                {
+                    MessageBox.Show("Unexpected error happen!");
+                }
+                
             }
+
         }
 
         private void Read_button4_Click(object sender, EventArgs e)
@@ -320,7 +343,8 @@ namespace Assignment_Framework_with_Classes
                             errorLine = oneLineData;
                             splitedData = oneLineData.Split(',');
                             newRecipe.Name = splitedData[0];
-                            newRecipe.Yield = uint.Parse(splitedData[1]);
+                            newRecipe.Yield=uint.Parse(splitedData[1]);
+                            newRecipe.PreviousYield = uint.Parse(splitedData[1]);
                             recipes_.Add(newRecipe);
                             continue;
                         }else if (oneLineData == "#Ingredients")
@@ -507,6 +531,15 @@ namespace Assignment_Framework_with_Classes
                     }
                     reader.Close();
 
+                    if(metric_radioButton1.Checked)
+                    {
+                        newRecipe.changeUnit("Metric");
+                    }
+                    else if(imperial_radioButton2.Checked)
+                    {
+                        newRecipe.changeUnit("Imperial");
+                    }
+
                     Recipes_dataGridView1.DataSource = null;
                     Recipes_dataGridView1.DataSource = recipes_;
                     Ingredients_dataGridView2.DataSource = null;
@@ -524,8 +557,88 @@ namespace Assignment_Framework_with_Classes
 
         private void Print_button5_Click(object sender, EventArgs e)
         {
-            DisplayForm printIt = new DisplayForm();
-            printIt.Show();
+            Recipe retRecipe;
+            int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+            if (recipeIndex >= 0)
+            {
+                retRecipe = recipes_[recipeIndex];
+                DisplayForm printIt = new DisplayForm(retRecipe);
+                printIt.Show();
+            }
+            else
+            {
+                MessageBox.Show("Is there no recipe selected to be shown?");
+            }
         }
+
+        private void metric_radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string toUnit = "Metric";
+                foreach (Recipe unit in recipes_)
+                {
+                    unit.changeUnit(toUnit);
+                }
+                int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+                if (recipeIndex >= 0)
+                {
+                    Recipe retRecipe = recipes_[recipeIndex];
+                    Require_dataGridView3.DataSource = null;
+                    Require_dataGridView3.DataSource = retRecipe.Requirements_;
+                }
+                foreach (Ingredient unit in ingredients_)
+                {
+                    unit.changeUnit(toUnit);
+                }
+                Ingredients_dataGridView2.DataSource = null;
+                Ingredients_dataGridView2.DataSource = ingredients_;
+            }
+            catch
+            { }
+        }
+
+        private void imperial_radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string toUnit = "Imperial";
+                foreach (Recipe unit in recipes_)
+                {
+                    unit.changeUnit(toUnit);
+                }
+                int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+                if (recipeIndex >= 0)
+                {
+                    Recipe retRecipe = recipes_[recipeIndex];
+                    Require_dataGridView3.DataSource = null;
+                    Require_dataGridView3.DataSource = retRecipe.Requirements_;
+                }
+
+                foreach (Ingredient unit in ingredients_)
+                {
+                    unit.changeUnit(toUnit);
+                }
+                Ingredients_dataGridView2.DataSource = null;
+                Ingredients_dataGridView2.DataSource = ingredients_;
+            }
+            catch
+            { }
+        }
+
+        //public Recipe callRecipe()
+        //{
+        //    Recipe retRecipe;
+        //    int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+        //    if (recipeIndex >= 0)
+        //    {
+        //        retRecipe = recipes_[recipeIndex];
+        //        return retRecipe;
+        //    }
+        //    else
+        //    {
+        //        return retRecipe = null;
+        //    }
+        //}
     }
 }

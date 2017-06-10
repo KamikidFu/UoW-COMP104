@@ -14,7 +14,7 @@ namespace Assignment_Framework_with_Classes
     /// Written by Yunhao Fu and Jiayi Hu, 2016
     /// Thank you very much :-)
     /// </summary>
-    class Ingredient : INotifyPropertyChanged
+    public class Ingredient : INotifyPropertyChanged
     {
         //***********************************
         //* Event Handling
@@ -81,6 +81,138 @@ namespace Assignment_Framework_with_Classes
             price_ = PRICE;
             energy_ = ENERGY;
         }
+
+        //***********************************
+        //Method
+        public void changeUnit(string toUnit)
+        {
+            if (toUnit == "Metric")
+            {
+                //bool needChange = false;
+                //for(int i =0;i<this.requirements_.Count;i++)
+                //{
+                //    if (this.requirements_[i].Unit == "ml" || this.requirements_[i].Unit == "g" || this.requirements_[i].Unit == "kg" || this.requirements_[i].Unit == "l")
+                //    {
+                //        needChange = false;
+                //    }
+                //    else
+                //    {
+                //        needChange = true;
+                //    }
+                //}
+                
+             
+                    //if (checkItems.Unit == "cup" || checkItems.Unit == "tbsp" || checkItems.Unit == "tsp" || checkItems.Unit == "lb" || checkItems.Unit == "oz") 
+                    //{
+                    //Change Unit
+                    //checkItems.Quantity = changedQuantity;
+                    //checkItems.Unit = changedUnit;
+                    double changedQuantity = 0.0d;
+                    string changedUnit = "";
+                    if (this.unit_== "cup")
+                    {
+                        changedQuantity = this.defaultQuantity_ * 240;
+                        if (changedQuantity > 1000)
+                        {
+                            changedQuantity /= 1000;
+                            changedUnit = "l";
+                        }
+                        else
+                        {
+                            changedUnit = "ml";
+                        }
+                    }
+                    else if (this.unit_ == "tbsp")
+                    {
+                        changedQuantity = this.defaultQuantity_ * 15;
+                        changedUnit = "ml";
+                    }
+                    else if (this.unit_ == "tsp")
+                    {
+                        changedQuantity = this.defaultQuantity_ * 5;
+                        changedUnit = "ml";
+                    }
+                    else if (this.unit_ == "lb")
+                    {
+                        changedQuantity = this.defaultQuantity_ * 453.592;
+                        if (changedQuantity > 1000)
+                        {
+                            changedQuantity /= 1000;
+                            changedUnit = "kg";
+                        }
+                        else
+                        {
+                            changedUnit = "g";
+                        }
+                    }
+                    else if (this.unit_ == "oz")
+                    {
+                        changedQuantity = this.defaultQuantity_ * 28.3495;
+                        changedUnit = "g";
+                    }
+                    else { return; }
+                    this.defaultQuantity_ = changedQuantity;
+                    this.unit_ = changedUnit;
+                }          
+
+            if (toUnit == "Imperial")
+            {
+                
+                    double changedQuantity = 0.0d;
+                    string changedUnit = "";
+                    if (this.unit_ == "ml")
+                    {
+                        changedQuantity = this.defaultQuantity_ / 5;
+                        if (changedQuantity > 5)
+                        {
+                            changedQuantity /= 3;
+                            changedUnit = "tbsp";
+                        }
+                        else
+                        {
+                            changedUnit = "tsp";
+                        }
+                    }
+                    else if (this.unit_ == "l")
+                    {
+                        changedQuantity = this.defaultQuantity_ / 240;
+                        changedUnit = "cup";
+                    }
+                    else if (this.unit_ == "g")
+                    {
+                        changedQuantity = this.defaultQuantity_ / 28.3495;
+                        if (changedQuantity < 16)
+                        {
+                            changedUnit = "oz";
+                        }
+                        else
+                        {
+                            changedQuantity /= 16;
+                            changedUnit = "lb";
+                        }
+                    }
+                    else if (this.unit_ == "kg")
+                    {
+                        changedQuantity = (this.defaultQuantity_ * 1000) / 28.3495;
+                        if (changedQuantity < 16)
+                        {
+                            changedUnit = "oz";
+                        }
+                        else
+                        {
+                            changedQuantity /= 16;
+                            changedUnit = "lb";
+                        }
+                    }
+                    else
+                    {
+                    return;
+                    }
+                    this.defaultQuantity_ = changedQuantity;
+                    this.unit_ = changedUnit;
+                }
+            }
+        
 
         //***********************************
         //*Properties
