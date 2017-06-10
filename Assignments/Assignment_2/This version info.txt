@@ -1,0 +1,4 @@
+Version: 09291150
+1. Add switch windows, Main game form and Game setting form
+2. New tablelayout in respective groupbox
+3. Some logic problem fixed
