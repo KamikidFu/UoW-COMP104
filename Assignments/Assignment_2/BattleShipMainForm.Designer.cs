@@ -166,6 +166,7 @@
             this.button_PlayerShip1.TabIndex = 0;
             this.button_PlayerShip1.Text = "Player Ship";
             this.button_PlayerShip1.UseVisualStyleBackColor = true;
+            this.button_PlayerShip1.Click += new System.EventHandler(this.button_PlayerShip1_Click);
             // 
             // button_PlayerShip2
             // 
@@ -176,6 +177,7 @@
             this.button_PlayerShip2.TabIndex = 1;
             this.button_PlayerShip2.Text = "Player Ship";
             this.button_PlayerShip2.UseVisualStyleBackColor = true;
+            this.button_PlayerShip2.Click += new System.EventHandler(this.button_PlayerShip2_Click);
             // 
             // button_PlayerShip3
             // 
@@ -186,6 +188,7 @@
             this.button_PlayerShip3.TabIndex = 2;
             this.button_PlayerShip3.Text = "Player Ship";
             this.button_PlayerShip3.UseVisualStyleBackColor = true;
+            this.button_PlayerShip3.Click += new System.EventHandler(this.button_PlayerShip3_Click);
             // 
             // button_PlayerShip4
             // 
@@ -196,6 +199,7 @@
             this.button_PlayerShip4.TabIndex = 3;
             this.button_PlayerShip4.Text = "Player Ship";
             this.button_PlayerShip4.UseVisualStyleBackColor = true;
+            this.button_PlayerShip4.Click += new System.EventHandler(this.button_PlayerShip4_Click);
             // 
             // button_PlayerShip5
             // 
@@ -206,6 +210,7 @@
             this.button_PlayerShip5.TabIndex = 4;
             this.button_PlayerShip5.Text = "Player Ship";
             this.button_PlayerShip5.UseVisualStyleBackColor = true;
+            this.button_PlayerShip5.Click += new System.EventHandler(this.button_PlayerShip5_Click);
             // 
             // button_PlayerShip6
             // 
@@ -216,6 +221,7 @@
             this.button_PlayerShip6.TabIndex = 5;
             this.button_PlayerShip6.Text = "Player Ship";
             this.button_PlayerShip6.UseVisualStyleBackColor = true;
+            this.button_PlayerShip6.Click += new System.EventHandler(this.button_PlayerShip6_Click);
             // 
             // button_PlayerShip7
             // 
@@ -226,6 +232,7 @@
             this.button_PlayerShip7.TabIndex = 6;
             this.button_PlayerShip7.Text = "Player Ship";
             this.button_PlayerShip7.UseVisualStyleBackColor = true;
+            this.button_PlayerShip7.Click += new System.EventHandler(this.button_PlayerShip7_Click);
             // 
             // button_PlayerShip8
             // 
@@ -236,6 +243,7 @@
             this.button_PlayerShip8.TabIndex = 7;
             this.button_PlayerShip8.Text = "Player Ship";
             this.button_PlayerShip8.UseVisualStyleBackColor = true;
+            this.button_PlayerShip8.Click += new System.EventHandler(this.button_PlayerShip8_Click);
             // 
             // button_PlayerShip9
             // 
@@ -246,6 +254,7 @@
             this.button_PlayerShip9.TabIndex = 8;
             this.button_PlayerShip9.Text = "Player Ship";
             this.button_PlayerShip9.UseVisualStyleBackColor = true;
+            this.button_PlayerShip9.Click += new System.EventHandler(this.button_PlayerShip9_Click);
             // 
             // button_PlayerShip10
             // 
@@ -256,6 +265,7 @@
             this.button_PlayerShip10.TabIndex = 9;
             this.button_PlayerShip10.Text = "Player Ship";
             this.button_PlayerShip10.UseVisualStyleBackColor = true;
+            this.button_PlayerShip10.Click += new System.EventHandler(this.button_PlayerShip10_Click);
             // 
             // button_PlayerShip11
             // 
@@ -266,6 +276,7 @@
             this.button_PlayerShip11.TabIndex = 10;
             this.button_PlayerShip11.Text = "Player Ship";
             this.button_PlayerShip11.UseVisualStyleBackColor = true;
+            this.button_PlayerShip11.Click += new System.EventHandler(this.button_PlayerShip11_Click);
             // 
             // button_PlayerShip12
             // 
@@ -276,6 +287,7 @@
             this.button_PlayerShip12.TabIndex = 11;
             this.button_PlayerShip12.Text = "Player Ship";
             this.button_PlayerShip12.UseVisualStyleBackColor = true;
+            this.button_PlayerShip12.Click += new System.EventHandler(this.button_PlayerShip12_Click);
             // 
             // groupBox3_HandCard
             // 
@@ -327,6 +339,7 @@
             this.radioButton1_MyCard1.TabStop = true;
             this.radioButton1_MyCard1.Text = "My Card";
             this.radioButton1_MyCard1.UseVisualStyleBackColor = true;
+            this.radioButton1_MyCard1.CheckedChanged += new System.EventHandler(this.radioButton1_MyCard1_CheckedChanged);
             // 
             // radioButton2_MyCard2
             // 
@@ -340,6 +353,7 @@
             this.radioButton2_MyCard2.TabStop = true;
             this.radioButton2_MyCard2.Text = "My Card";
             this.radioButton2_MyCard2.UseVisualStyleBackColor = true;
+            this.radioButton2_MyCard2.CheckedChanged += new System.EventHandler(this.radioButton2_MyCard2_CheckedChanged);
             // 
             // radioButton3_MyCard3
             // 
@@ -353,6 +367,7 @@
             this.radioButton3_MyCard3.TabStop = true;
             this.radioButton3_MyCard3.Text = "My Card";
             this.radioButton3_MyCard3.UseVisualStyleBackColor = true;
+            this.radioButton3_MyCard3.CheckedChanged += new System.EventHandler(this.radioButton3_MyCard3_CheckedChanged);
             // 
             // radioButton4_MyCard4
             // 
@@ -366,6 +381,7 @@
             this.radioButton4_MyCard4.TabStop = true;
             this.radioButton4_MyCard4.Text = "My Card";
             this.radioButton4_MyCard4.UseVisualStyleBackColor = true;
+            this.radioButton4_MyCard4.CheckedChanged += new System.EventHandler(this.radioButton4_MyCard4_CheckedChanged);
             // 
             // radioButton5_MyCard5
             // 
@@ -379,6 +395,7 @@
             this.radioButton5_MyCard5.TabStop = true;
             this.radioButton5_MyCard5.Text = "My Card";
             this.radioButton5_MyCard5.UseVisualStyleBackColor = true;
+            this.radioButton5_MyCard5.CheckedChanged += new System.EventHandler(this.radioButton5_MyCard5_CheckedChanged);
             // 
             // radioButton6_MyCard6
             // 

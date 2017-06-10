@@ -15,6 +15,7 @@ namespace BattleshipHiddenThreat
         private List<HandCard> restDestructionCards_;
         private List<HandCard> usedDestructionCards_;
         private List<HandCard> inHandCards_;
+        private static Random rand_ = new Random();
 
         public List<HandCard> InHandCards
         {
@@ -71,7 +72,6 @@ namespace BattleshipHiddenThreat
         {
             int index = 0;
             int randIndexOfShip = 0;
-            Random rand_ = new Random();
             if (mode_ == "Full")
             {
                 cardsIndex_ = new int[26];
@@ -85,7 +85,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
             }
-            else
+            else if(mode_=="Base")
             {
                 cardsIndex_ = new int[20];
                 while (index !=19)
@@ -98,6 +98,20 @@ namespace BattleshipHiddenThreat
                     }
                 }
             }
+            else
+            {
+                cardsIndex_ = new int[restDestructionCards_.Count];
+                while(index!=restDestructionCards_.Count-1)
+                {
+                    randIndexOfShip = rand_.Next(restDestructionCards_.Count);
+                    if (!cardsIndex_.Contains(randIndexOfShip))
+                    {
+                        cardsIndex_[index] = randIndexOfShip;
+                        index++;
+                    }
+                }
+
+            }
         }
         public void drawCards(int HowManyCardsToDraw)
         {
@@ -105,21 +119,36 @@ namespace BattleshipHiddenThreat
             {
                 if (this.mode_ == "Full")
                 {
-
-                }
-                else
-                {
-
-                    for (int i = 0; i < HowManyCardsToDraw; i++)
+                    for(int i=0;i<HowManyCardsToDraw;i++)
                     {
-                        if (currentIndexOFCardsIndex_ < 20)
+                        if (currentIndexOFCardsIndex_<restDestructionCards_.Count)
                         {
                             inHandCards_.Add(restDestructionCards_[cardsIndex_[currentIndexOFCardsIndex_]]);
                             currentIndexOFCardsIndex_++;
                         }
                         else
                         {
-                            initialRestDeckCards();
+                            deckExchange();
+                            randomCards();
+                            currentIndexOFCardsIndex_ = 0;
+                            inHandCards_.Add(restDestructionCards_[cardsIndex_[currentIndexOFCardsIndex_]]);
+                            currentIndexOFCardsIndex_++;
+                        }
+                    }
+                }
+                else
+                {
+
+                    for (int i = 0; i < HowManyCardsToDraw; i++)
+                    {
+                        if (currentIndexOFCardsIndex_ < restDestructionCards_.Count)
+                        {
+                            inHandCards_.Add(restDestructionCards_[cardsIndex_[currentIndexOFCardsIndex_]]);
+                            currentIndexOFCardsIndex_++;
+                        }
+                        else
+                        {
+                            deckExchange();
                             randomCards();
                             currentIndexOFCardsIndex_ = 0;
                             inHandCards_.Add(restDestructionCards_[cardsIndex_[currentIndexOFCardsIndex_]]);
@@ -130,6 +159,10 @@ namespace BattleshipHiddenThreat
                 }
             }
           }
+        private void deckExchange()
+        {
+            restDestructionCards_ = usedDestructionCards_;
+        }
         public void discards(HandCard whichToDiscard)
         {
             usedDestructionCards_.Add(whichToDiscard);

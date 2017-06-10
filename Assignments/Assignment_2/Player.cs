@@ -20,19 +20,17 @@ namespace BattleshipHiddenThreat
             team_ = TEAM;
             mode_ = MODE;
             myCards_ = new HandCard(Name+"'sCards",mode_);
-            //if(name_!= "ToBeHonestThisIsTheRobotNameQuiteLongButIdentifiablePlayWillNeverChooseThisLongName")
-            //{
-            //}
         }
         
 
         public void drawCards(int howManyToDraw)
-        {
+        {           
             myCards_.drawCards(howManyToDraw);
         }
 
         public void disCards(HandCard whichOneTodiscard)
         {
+            if(whichOneTodiscard!=null)
             myCards_.discards(whichOneTodiscard);
         }
         public HandCard MyCards

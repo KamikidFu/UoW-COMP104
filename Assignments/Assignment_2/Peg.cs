@@ -28,14 +28,28 @@ namespace BattleshipHiddenThreat
                 {
                     if(targetShip.Name=="Submarine")
                     {
-                        targetShip.HealthNum -= this.attackNum_;
+                        if (targetShip.ShieldNum > 0)
+                        {
+                            targetShip.ShieldNum -= this.attackNum_;
+                        }
+                        else
+                        {
+                            targetShip.HealthNum -= this.attackNum_;
+                        }
                     }
                 }
                 else
                 {
                     if(targetShip.Name!="Sea" && targetShip.Name!="Submarine")
                     {
-                        targetShip.HealthNum -= this.attackNum_;
+                        if (targetShip.ShieldNum > 0)
+                        {
+                            targetShip.ShieldNum -= this.attackNum_;
+                        }
+                        else
+                        {
+                            targetShip.HealthNum -= this.attackNum_;
+                        }
                     }
                 }
             }

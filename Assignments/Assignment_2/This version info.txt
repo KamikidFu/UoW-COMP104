@@ -1,6 +1,15 @@
+Version: 10052330
+1. Fix player winning logic, i.e. fix 10032330-5 bug.
+2. Fix bug 10021200-2, where use the used deck of cards to new deck of cards when run out of previous one.
+3. Base Game is Compelet!
+4. Start coding Full Game, Shield Function is ready to use. While other bugs come.
+5. Bug,10052317, can not find the attacking card when have all power card or some power card and white peg.
+6. Bug, 10052320, AI did not act when it is its first round.
+7. Bug, 10052321, Need new logic when performing AI, i.e. Power uses as power way, peg uses as peg way. Need if statement.
+
 Version: 10042330
 1. Rebuild the whole AI play logic, become more efficient and reasonable.
-2. Fix 10032330-4 and 10032330-5 bugs.
+2. Fix 10032330-4 bug.
 3. Also leave the original code of AI play for final judgement.
 
 Version: 10032330
