@@ -70,7 +70,7 @@ namespace Assignment_Framework_with_Classes
         ///<summary>
         ///One binding list to store the ingredients required in the recipe
         ///</summary>
-        private BindingList<Ingredient> requirements_;
+        private BindingList<RecipeItems> requirements_;
 
 
         //***********************************
@@ -91,9 +91,9 @@ namespace Assignment_Framework_with_Classes
             yield_ = YIELD;
             instruction_ = INSTRUCTION;
             // Create an empty list of requirements for this new recipe
-            requirements_ = new BindingList<Ingredient>();
+            Requirements_ = new BindingList<RecipeItems>();
             //Register decleared above is for a list-changed event to handler on the enrolment list.
-            requirements_.ListChanged += new ListChangedEventHandler(RequirementListChanged);
+            Requirements_.ListChanged += new ListChangedEventHandler(RequirementListChanged);
         }
 
         //***********************************
@@ -138,6 +138,19 @@ namespace Assignment_Framework_with_Classes
             set
             {
                 instruction_ = value;
+            }
+        }
+
+        internal BindingList<RecipeItems> Requirements_
+        {
+            get
+            {
+                return requirements_;
+            }
+
+            set
+            {
+                requirements_ = value;
             }
         }
     }
