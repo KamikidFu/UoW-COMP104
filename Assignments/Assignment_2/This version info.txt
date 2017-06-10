@@ -1,3 +1,8 @@
+Version: 09302315
+1. Robot now randomly deploy their ships into sea
+2. Player can check robot ships(buttons) to show what the ship is
+3. Improve algorithm of robot deployment
+
 Version: 09301111
 1. Player now can deploy their ships into sea
 2. Add some methods to help deploying nicely

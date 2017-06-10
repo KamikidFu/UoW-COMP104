@@ -10,14 +10,28 @@ namespace BattleshipHiddenThreat
     {
         private string name_;
         private int healthNum_;
-
-        public int HealthNum_
+        private int shieldNum_;
+        public int HealthNum
         {
             get
             {
                 return healthNum_;
             }
         }
+
+        public int ShieldNum
+        {
+            get
+            {
+                return shieldNum_;
+            }
+
+            set
+            {
+                shieldNum_ = value;
+            }
+        }
+
         public Ship(string NAME, int HEALTHNUM):base(NAME)
         {
             name_ = NAME;

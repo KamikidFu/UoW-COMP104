@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleshipHiddenThreat
 {
-    public partial class Peg: Card
+    public partial class Peg: HandCard
     {
         private string name_;
         private int attackNum_;

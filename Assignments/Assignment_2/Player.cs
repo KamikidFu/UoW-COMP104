@@ -10,6 +10,6 @@ namespace BattleshipHiddenThreat
     {
         private string name_;
         private string team_;
-        
+        //private List<>
     }
 }

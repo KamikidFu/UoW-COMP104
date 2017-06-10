@@ -465,6 +465,7 @@
             this.button_RobotShip1.TabIndex = 0;
             this.button_RobotShip1.Text = "Robot Ship";
             this.button_RobotShip1.UseVisualStyleBackColor = true;
+            this.button_RobotShip1.Click += new System.EventHandler(this.button_RobotShip1_Click);
             // 
             // button_RobotShip2
             // 
@@ -475,6 +476,7 @@
             this.button_RobotShip2.TabIndex = 1;
             this.button_RobotShip2.Text = "Robot Ship";
             this.button_RobotShip2.UseVisualStyleBackColor = true;
+            this.button_RobotShip2.Click += new System.EventHandler(this.button_RobotShip2_Click);
             // 
             // button_RobotShip3
             // 
@@ -485,6 +487,7 @@
             this.button_RobotShip3.TabIndex = 2;
             this.button_RobotShip3.Text = "Robot Ship";
             this.button_RobotShip3.UseVisualStyleBackColor = true;
+            this.button_RobotShip3.Click += new System.EventHandler(this.button_RobotShip3_Click);
             // 
             // button_RobotShip4
             // 
@@ -495,6 +498,7 @@
             this.button_RobotShip4.TabIndex = 3;
             this.button_RobotShip4.Text = "Robot Ship";
             this.button_RobotShip4.UseVisualStyleBackColor = true;
+            this.button_RobotShip4.Click += new System.EventHandler(this.button_RobotShip4_Click);
             // 
             // button_RobotShip5
             // 
@@ -505,6 +509,7 @@
             this.button_RobotShip5.TabIndex = 4;
             this.button_RobotShip5.Text = "Robot Ship";
             this.button_RobotShip5.UseVisualStyleBackColor = true;
+            this.button_RobotShip5.Click += new System.EventHandler(this.button_RobotShip5_Click);
             // 
             // button_RobotShip6
             // 
@@ -515,6 +520,7 @@
             this.button_RobotShip6.TabIndex = 5;
             this.button_RobotShip6.Text = "Robot Ship";
             this.button_RobotShip6.UseVisualStyleBackColor = true;
+            this.button_RobotShip6.Click += new System.EventHandler(this.button_RobotShip6_Click);
             // 
             // button_RobotShip7
             // 
@@ -525,6 +531,7 @@
             this.button_RobotShip7.TabIndex = 6;
             this.button_RobotShip7.Text = "Robot Ship";
             this.button_RobotShip7.UseVisualStyleBackColor = true;
+            this.button_RobotShip7.Click += new System.EventHandler(this.button_RobotShip7_Click);
             // 
             // button_RobotShip8
             // 
@@ -535,6 +542,7 @@
             this.button_RobotShip8.TabIndex = 7;
             this.button_RobotShip8.Text = "Robot Ship";
             this.button_RobotShip8.UseVisualStyleBackColor = true;
+            this.button_RobotShip8.Click += new System.EventHandler(this.button_RobotShip8_Click);
             // 
             // button_RobotShip9
             // 
@@ -545,6 +553,7 @@
             this.button_RobotShip9.TabIndex = 8;
             this.button_RobotShip9.Text = "Robot Ship";
             this.button_RobotShip9.UseVisualStyleBackColor = true;
+            this.button_RobotShip9.Click += new System.EventHandler(this.button_RobotShip9_Click);
             // 
             // button_RobotShip10
             // 
@@ -555,6 +564,7 @@
             this.button_RobotShip10.TabIndex = 9;
             this.button_RobotShip10.Text = "Robot Ship";
             this.button_RobotShip10.UseVisualStyleBackColor = true;
+            this.button_RobotShip10.Click += new System.EventHandler(this.button_RobotShip10_Click);
             // 
             // button_RobotShip11
             // 
@@ -565,6 +575,7 @@
             this.button_RobotShip11.TabIndex = 10;
             this.button_RobotShip11.Text = "Robot Ship";
             this.button_RobotShip11.UseVisualStyleBackColor = true;
+            this.button_RobotShip11.Click += new System.EventHandler(this.button_RobotShip11_Click);
             // 
             // button_RobotShip12
             // 
@@ -575,6 +586,7 @@
             this.button_RobotShip12.TabIndex = 11;
             this.button_RobotShip12.Text = "Robot Ship";
             this.button_RobotShip12.UseVisualStyleBackColor = true;
+            this.button_RobotShip12.Click += new System.EventHandler(this.button_RobotShip12_Click);
             // 
             // menuStrip1_SettingMenu
             // 
