@@ -14,7 +14,7 @@ namespace Assignment_Framework_with_Classes
     /// Written by Yunhao Fu and Jiayi Hu, 2016
     /// Thank you very much :-)
     /// </summary>
-    class Ingredient : INotifyPropertyChanged
+    public class Ingredient : INotifyPropertyChanged
     {
         //***********************************
         //* Event Handling

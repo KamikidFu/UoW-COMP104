@@ -29,29 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.Recipes_dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.yieldDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.instructionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.recipeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Ingredients_dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.defaultQuantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.energyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unitDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ingredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Require_dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.ingredientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unitDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.recipeItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Instructions_richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
@@ -64,15 +50,34 @@
             this.RemoveItem_button2 = new System.Windows.Forms.Button();
             this.ChangeInstruction_button3 = new System.Windows.Forms.Button();
             this.Read_button4 = new System.Windows.Forms.Button();
+            this.Print_button5 = new System.Windows.Forms.Button();
             this.Recipe_openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.metric_radioButton1 = new System.Windows.Forms.RadioButton();
+            this.imperial_radioButton2 = new System.Windows.Forms.RadioButton();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.yieldDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.instructionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.recipeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.defaultQuantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.energyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unitDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ingredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ingredientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unitDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.recipeItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Recipes_dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.recipeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Ingredients_dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Require_dataGridView3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.recipeItemsBindingSource)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.recipeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.recipeItemsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -103,7 +108,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(250, 82);
@@ -114,7 +119,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(259, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(563, 82);
@@ -125,7 +130,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.Location = new System.Drawing.Point(828, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(335, 82);
@@ -136,7 +141,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label4.Location = new System.Drawing.Point(1169, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(252, 82);
@@ -162,28 +167,6 @@
             this.Recipes_dataGridView1.SelectionChanged += new System.EventHandler(this.Recipes_dataGridView1_SelectionChanged);
             this.Recipes_dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Recipes_dataGridView1_KeyDown);
             // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // yieldDataGridViewTextBoxColumn
-            // 
-            this.yieldDataGridViewTextBoxColumn.DataPropertyName = "Yield";
-            this.yieldDataGridViewTextBoxColumn.HeaderText = "Yield";
-            this.yieldDataGridViewTextBoxColumn.Name = "yieldDataGridViewTextBoxColumn";
-            // 
-            // instructionDataGridViewTextBoxColumn
-            // 
-            this.instructionDataGridViewTextBoxColumn.DataPropertyName = "Instruction";
-            this.instructionDataGridViewTextBoxColumn.HeaderText = "Instruction";
-            this.instructionDataGridViewTextBoxColumn.Name = "instructionDataGridViewTextBoxColumn";
-            // 
-            // recipeBindingSource
-            // 
-            this.recipeBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.Recipe);
-            // 
             // Ingredients_dataGridView2
             // 
             this.Ingredients_dataGridView2.AutoGenerateColumns = false;
@@ -202,46 +185,12 @@
             this.Ingredients_dataGridView2.Size = new System.Drawing.Size(563, 412);
             this.Ingredients_dataGridView2.TabIndex = 5;
             // 
-            // nameDataGridViewTextBoxColumn1
-            // 
-            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
-            // 
-            // defaultQuantityDataGridViewTextBoxColumn
-            // 
-            this.defaultQuantityDataGridViewTextBoxColumn.DataPropertyName = "Default_Quantity";
-            this.defaultQuantityDataGridViewTextBoxColumn.HeaderText = "Default_Quantity";
-            this.defaultQuantityDataGridViewTextBoxColumn.Name = "defaultQuantityDataGridViewTextBoxColumn";
-            // 
-            // priceDataGridViewTextBoxColumn
-            // 
-            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
-            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
-            // 
-            // energyDataGridViewTextBoxColumn
-            // 
-            this.energyDataGridViewTextBoxColumn.DataPropertyName = "Energy";
-            this.energyDataGridViewTextBoxColumn.HeaderText = "Energy";
-            this.energyDataGridViewTextBoxColumn.Name = "energyDataGridViewTextBoxColumn";
-            // 
-            // unitDataGridViewTextBoxColumn
-            // 
-            this.unitDataGridViewTextBoxColumn.DataPropertyName = "Unit";
-            this.unitDataGridViewTextBoxColumn.HeaderText = "Unit";
-            this.unitDataGridViewTextBoxColumn.Name = "unitDataGridViewTextBoxColumn";
-            // 
-            // ingredientBindingSource
-            // 
-            this.ingredientBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.Ingredient);
-            // 
             // Require_dataGridView3
             // 
             this.Require_dataGridView3.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Format = "N2";
-            dataGridViewCellStyle1.NullValue = null;
-            this.Require_dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Require_dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.Require_dataGridView3.AutoGenerateColumns = false;
             this.Require_dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Require_dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -257,28 +206,6 @@
             this.Require_dataGridView3.TabIndex = 6;
             this.Require_dataGridView3.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Require_dataGridView3_CellEndEdit);
             this.Require_dataGridView3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Require_dataGridView3_KeyDown);
-            // 
-            // ingredientNameDataGridViewTextBoxColumn
-            // 
-            this.ingredientNameDataGridViewTextBoxColumn.DataPropertyName = "IngredientName";
-            this.ingredientNameDataGridViewTextBoxColumn.HeaderText = "IngredientName";
-            this.ingredientNameDataGridViewTextBoxColumn.Name = "ingredientNameDataGridViewTextBoxColumn";
-            // 
-            // quantityDataGridViewTextBoxColumn
-            // 
-            this.quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
-            this.quantityDataGridViewTextBoxColumn.HeaderText = "Quantity";
-            this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
-            // 
-            // unitDataGridViewTextBoxColumn1
-            // 
-            this.unitDataGridViewTextBoxColumn1.DataPropertyName = "Unit";
-            this.unitDataGridViewTextBoxColumn1.HeaderText = "Unit";
-            this.unitDataGridViewTextBoxColumn1.Name = "unitDataGridViewTextBoxColumn1";
-            // 
-            // recipeItemsBindingSource
-            // 
-            this.recipeItemsBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.RecipeItems);
             // 
             // Instructions_richTextBox1
             // 
@@ -313,13 +240,15 @@
             this.tableLayoutPanel2.Controls.Add(this.RemoveItem_button2, 7, 0);
             this.tableLayoutPanel2.Controls.Add(this.ChangeInstruction_button3, 8, 0);
             this.tableLayoutPanel2.Controls.Add(this.Read_button4, 9, 0);
+            this.tableLayoutPanel2.Controls.Add(this.Print_button5, 9, 1);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox1, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 506);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 71F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1424, 126);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
@@ -431,9 +360,134 @@
             this.Read_button4.UseVisualStyleBackColor = true;
             this.Read_button4.Click += new System.EventHandler(this.Read_button4_Click);
             // 
+            // Print_button5
+            // 
+            this.Print_button5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Print_button5.Location = new System.Drawing.Point(934, 37);
+            this.Print_button5.Name = "Print_button5";
+            this.Print_button5.Size = new System.Drawing.Size(77, 65);
+            this.Print_button5.TabIndex = 10;
+            this.Print_button5.Text = "Print";
+            this.Print_button5.UseVisualStyleBackColor = true;
+            this.Print_button5.Click += new System.EventHandler(this.Print_button5_Click);
+            // 
             // Recipe_openFileDialog1
             // 
             this.Recipe_openFileDialog1.FileName = "Open New Recipe";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.imperial_radioButton2);
+            this.groupBox1.Controls.Add(this.metric_radioButton1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(3, 37);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(88, 65);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Uint:";
+            // 
+            // metric_radioButton1
+            // 
+            this.metric_radioButton1.AutoSize = true;
+            this.metric_radioButton1.Location = new System.Drawing.Point(6, 20);
+            this.metric_radioButton1.Name = "metric_radioButton1";
+            this.metric_radioButton1.Size = new System.Drawing.Size(59, 16);
+            this.metric_radioButton1.TabIndex = 0;
+            this.metric_radioButton1.TabStop = true;
+            this.metric_radioButton1.Text = "Metric";
+            this.metric_radioButton1.UseVisualStyleBackColor = true;
+            this.metric_radioButton1.CheckedChanged += new System.EventHandler(this.metric_radioButton1_CheckedChanged);
+            // 
+            // imperial_radioButton2
+            // 
+            this.imperial_radioButton2.AutoSize = true;
+            this.imperial_radioButton2.Location = new System.Drawing.Point(6, 43);
+            this.imperial_radioButton2.Name = "imperial_radioButton2";
+            this.imperial_radioButton2.Size = new System.Drawing.Size(71, 16);
+            this.imperial_radioButton2.TabIndex = 1;
+            this.imperial_radioButton2.TabStop = true;
+            this.imperial_radioButton2.Text = "Imperial";
+            this.imperial_radioButton2.UseVisualStyleBackColor = true;
+            this.imperial_radioButton2.CheckedChanged += new System.EventHandler(this.imperial_radioButton2_CheckedChanged);
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // yieldDataGridViewTextBoxColumn
+            // 
+            this.yieldDataGridViewTextBoxColumn.DataPropertyName = "Yield";
+            this.yieldDataGridViewTextBoxColumn.HeaderText = "Yield";
+            this.yieldDataGridViewTextBoxColumn.Name = "yieldDataGridViewTextBoxColumn";
+            // 
+            // instructionDataGridViewTextBoxColumn
+            // 
+            this.instructionDataGridViewTextBoxColumn.DataPropertyName = "Instruction";
+            this.instructionDataGridViewTextBoxColumn.HeaderText = "Instruction";
+            this.instructionDataGridViewTextBoxColumn.Name = "instructionDataGridViewTextBoxColumn";
+            // 
+            // recipeBindingSource
+            // 
+            this.recipeBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.Recipe);
+            // 
+            // nameDataGridViewTextBoxColumn1
+            // 
+            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            // 
+            // defaultQuantityDataGridViewTextBoxColumn
+            // 
+            this.defaultQuantityDataGridViewTextBoxColumn.DataPropertyName = "Default_Quantity";
+            this.defaultQuantityDataGridViewTextBoxColumn.HeaderText = "Default_Quantity";
+            this.defaultQuantityDataGridViewTextBoxColumn.Name = "defaultQuantityDataGridViewTextBoxColumn";
+            // 
+            // priceDataGridViewTextBoxColumn
+            // 
+            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
+            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
+            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            // 
+            // energyDataGridViewTextBoxColumn
+            // 
+            this.energyDataGridViewTextBoxColumn.DataPropertyName = "Energy";
+            this.energyDataGridViewTextBoxColumn.HeaderText = "Energy";
+            this.energyDataGridViewTextBoxColumn.Name = "energyDataGridViewTextBoxColumn";
+            // 
+            // unitDataGridViewTextBoxColumn
+            // 
+            this.unitDataGridViewTextBoxColumn.DataPropertyName = "Unit";
+            this.unitDataGridViewTextBoxColumn.HeaderText = "Unit";
+            this.unitDataGridViewTextBoxColumn.Name = "unitDataGridViewTextBoxColumn";
+            // 
+            // ingredientBindingSource
+            // 
+            this.ingredientBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.Ingredient);
+            // 
+            // ingredientNameDataGridViewTextBoxColumn
+            // 
+            this.ingredientNameDataGridViewTextBoxColumn.DataPropertyName = "IngredientName";
+            this.ingredientNameDataGridViewTextBoxColumn.HeaderText = "IngredientName";
+            this.ingredientNameDataGridViewTextBoxColumn.Name = "ingredientNameDataGridViewTextBoxColumn";
+            // 
+            // quantityDataGridViewTextBoxColumn
+            // 
+            this.quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
+            this.quantityDataGridViewTextBoxColumn.HeaderText = "Quantity";
+            this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
+            // 
+            // unitDataGridViewTextBoxColumn1
+            // 
+            this.unitDataGridViewTextBoxColumn1.DataPropertyName = "Unit";
+            this.unitDataGridViewTextBoxColumn1.HeaderText = "Unit";
+            this.unitDataGridViewTextBoxColumn1.Name = "unitDataGridViewTextBoxColumn1";
+            // 
+            // recipeItemsBindingSource
+            // 
+            this.recipeItemsBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.RecipeItems);
             // 
             // Form1
             // 
@@ -447,13 +501,15 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Recipes_dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.recipeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Ingredients_dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Require_dataGridView3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.recipeItemsBindingSource)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.recipeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.recipeItemsBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -495,6 +551,10 @@
         private System.Windows.Forms.Button ChangeInstruction_button3;
         private System.Windows.Forms.Button Read_button4;
         private System.Windows.Forms.OpenFileDialog Recipe_openFileDialog1;
+        private System.Windows.Forms.Button Print_button5;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton imperial_radioButton2;
+        private System.Windows.Forms.RadioButton metric_radioButton1;
     }
 }
 

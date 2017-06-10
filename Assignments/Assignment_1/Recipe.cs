@@ -17,7 +17,7 @@ namespace Assignment_Framework_with_Classes
     /// Written by Yunhao Fu and Jiayi Hu, 2016
     /// Thank you very much :-)
     /// </summary>
-    class Recipe : INotifyPropertyChanged
+    public class Recipe : INotifyPropertyChanged
     {
         //***********************************
         //* Event Handling
@@ -172,6 +172,151 @@ namespace Assignment_Framework_with_Classes
                 requirements_[i].Quantity *= yieldChange;
             }
             previousYield_ = newYield;
+        }
+
+        public void changeUnit(string toUnit)
+        {
+            if (toUnit == "Metric")
+            {
+                //bool needChange = false;
+                //for(int i =0;i<this.requirements_.Count;i++)
+                //{
+                //    if (this.requirements_[i].Unit == "ml" || this.requirements_[i].Unit == "g" || this.requirements_[i].Unit == "kg" || this.requirements_[i].Unit == "l")
+                //    {
+                //        needChange = false;
+                //    }
+                //    else
+                //    {
+                //        needChange = true;
+                //    }
+                //}
+                foreach (RecipeItems checkItems in this.requirements_)
+                {
+                    //if (checkItems.Unit == "cup" || checkItems.Unit == "tbsp" || checkItems.Unit == "tsp" || checkItems.Unit == "lb" || checkItems.Unit == "oz") 
+                    //{
+                    //Change Unit
+                    //checkItems.Quantity = changedQuantity;
+                    //checkItems.Unit = changedUnit;
+                    double changedQuantity = 0.0d;
+                    string changedUnit = "";                    
+                    if (checkItems.Unit == "cup")
+                    {
+                        changedQuantity = checkItems.Quantity * 240;
+                        if (changedQuantity > 1000)
+                        {
+                            changedQuantity /= 1000;
+                            changedUnit = "l";
+                        }
+                        else
+                        {
+                            changedUnit = "ml";
+                        }
+                    }
+                    else if (checkItems.Unit == "tbsp")
+                    {
+                        changedQuantity = checkItems.Quantity * 15;
+                        changedUnit = "ml";
+                    }
+                    else if (checkItems.Unit == "tsp")
+                    {
+                        changedQuantity = checkItems.Quantity * 5;
+                        changedUnit = "ml";
+                    }
+                    else if (checkItems.Unit == "lb")
+                    {
+                        changedQuantity = checkItems.Quantity * 453.592;
+                        if (changedQuantity > 1000)
+                        {
+                            changedQuantity /= 1000;
+                            changedUnit = "kg";
+                        }
+                        else
+                        {
+                            changedUnit = "g";
+                        }
+                    }
+                    else if (checkItems.Unit == "oz")
+                    {
+                        changedQuantity = checkItems.Quantity * 28.3495;
+                        changedUnit = "g";
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+            else if (toUnit == "Imperial")
+            {
+                foreach (RecipeItems checkItems in this.requirements_)
+                {
+                    double changedQuantity = 0.0d;
+                    string changedUnit = "";
+                    if (checkItems.Unit == "ml")
+                    {
+                        changedQuantity = checkItems.Quantity / 5;
+                        if (changedQuantity>5)
+                        {
+                            changedQuantity /= 3;
+                            changedUnit = "tbsp";
+                        }
+                        else
+                        {
+                            changedUnit = "tsp";
+                        }
+                    }
+                    else if (checkItems.Unit == "l")
+                    {
+                        changedQuantity = checkItems.Quantity / 240;
+                        changedUnit = "cup";
+                    }
+                    else if (checkItems.Unit == "g")
+                    {
+                        changedQuantity = checkItems.Quantity / 28.3495;
+                        if(changedQuantity<16)
+                        {
+                            changedUnit = "oz";
+                        }
+                        else
+                        {
+                            changedQuantity /= 16;
+                            changedUnit = "lb";
+                        }
+                    }
+                    else if (checkItems.Unit == "kg")
+                    {
+                        changedQuantity = (checkItems.Quantity * 1000) / 28.3495;
+                        if (changedQuantity < 16)
+                        {
+                            changedUnit = "oz";
+                        }
+                        else
+                        {
+                            changedQuantity /= 16;
+                            changedUnit = "lb";
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                    checkItems.Quantity = changedQuantity;
+                    checkItems.Unit = changedUnit;
+                }
+            }
+            else
+            {
+                return;
+            }
+            //if(needChange)
+            //{
+            //    foreach(RecipeItems items in this.requirements_)
+            //    {
+            //        if(items.Unit=="cup"|| items.Unit == "tbsp"||items.Unit=="tsp")                                                  
+            //    }
+            //}
+
+
         }
 
 

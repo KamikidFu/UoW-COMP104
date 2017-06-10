@@ -16,11 +16,11 @@ namespace Assignment_Framework_with_Classes
         /// <summary>
         /// The list of all recipes. We like to use datagrid view to show things.
         /// </summary>
-        private BindingList<Recipe> recipes_;
+        internal BindingList<Recipe> recipes_;
         /// <summary>
         /// The list of all papers. We like to use datagrid view to show things.
         /// </summary>
-        private BindingList<Ingredient> ingredients_;
+        internal BindingList<Ingredient> ingredients_;
         public Form1()
         {
             InitializeComponent();
@@ -521,5 +521,64 @@ namespace Assignment_Framework_with_Classes
                 }
             }
         }
+
+        private void Print_button5_Click(object sender, EventArgs e)
+        {
+            Recipe retRecipe;
+            int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+            if (recipeIndex >= 0)
+            {
+                retRecipe = recipes_[recipeIndex];
+                DisplayForm printIt = new DisplayForm(retRecipe);
+                printIt.Show();
+            }
+            else
+            {
+                MessageBox.Show("Is there no recipe selected to be shown?");
+            }
+        }
+
+        private void metric_radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            string toUnit = "Metric";
+            Recipe unitRecipe;
+            int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+            if (recipeIndex >= 0)
+            {
+                unitRecipe = recipes_[recipeIndex];
+                unitRecipe.changeUnit(toUnit);
+                Require_dataGridView3.DataSource = null;
+                Require_dataGridView3.DataSource = unitRecipe.Requirements_;
+            }
+        }
+
+        private void imperial_radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            string toUnit = "Imperial";
+            Recipe unitRecipe;
+            int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+            if (recipeIndex >= 0)
+            {
+                unitRecipe = recipes_[recipeIndex];
+                unitRecipe.changeUnit(toUnit);
+                Require_dataGridView3.DataSource = null;
+                Require_dataGridView3.DataSource = unitRecipe.Requirements_;
+            }
+        }
+
+        //public Recipe callRecipe()
+        //{
+        //    Recipe retRecipe;
+        //    int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+        //    if (recipeIndex >= 0)
+        //    {
+        //        retRecipe = recipes_[recipeIndex];
+        //        return retRecipe;
+        //    }
+        //    else
+        //    {
+        //        return retRecipe = null;
+        //    }
+        //}
     }
 }
