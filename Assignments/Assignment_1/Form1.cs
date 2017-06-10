@@ -106,8 +106,7 @@ namespace Assignment_Framework_with_Classes
                     else if (splitedData[0] == recipes_[i].Name)
                     {
                         continue;
-                    }
-                    
+                    }                    
                     else if (splitedData.Length == 2)
                     {
                         recipes_[i].Requirements_.Add(new RecipeItems(splitedData[0], double.Parse(splitedData[1]), ""));
@@ -141,16 +140,24 @@ namespace Assignment_Framework_with_Classes
         {
             try {
                 int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
-                if (recipeIndex >= 0)
+                if (recipeIndex >= 0 && recipeIndex<(recipes_.Count))
                 {
+                    Instructions_richTextBox1.Enabled = true;
                     Recipe rep = recipes_[recipeIndex];
                     Instructions_richTextBox1.Text = rep.Instruction;
                     Require_dataGridView3.DataSource = rep.Requirements_;
+                    cost_label6.Text = rep.calculateCost(ingredients_).ToString("c");
+                    energy_label8.Text = rep.calculateEnergy(ingredients_).ToString("f2");
+                }
+                else
+                {
+                    Instructions_richTextBox1.Enabled = false;
                 }
             }
             catch
             {
-                MessageBox.Show(":-) \nNow, there is no recipes. \nPlease edit a new one for all functionality.", "Information");
+                Require_dataGridView3.DataSource = null; 
+                MessageBox.Show(":-) \nNow, there is no recipes. \nPlease edit a new one for all functionality.", "Information");                
             }
         }
 
@@ -163,6 +170,202 @@ namespace Assignment_Framework_with_Classes
                 recipes_.Remove(rep);
                 Recipes_dataGridView1.DataSource = null;
                 Recipes_dataGridView1.DataSource = recipes_;
+            }
+        }
+
+        private void Require_dataGridView3_KeyDown(object sender, KeyEventArgs e)
+        {
+            int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+            int recipeItemIndex = Require_dataGridView3.CurrentCell.RowIndex;
+            if (recipeIndex >= 0 && recipeItemIndex>=0 && e.KeyCode == Keys.Delete)
+            {
+                Recipe rep = recipes_[recipeIndex];
+                rep.Requirements_.RemoveAt(recipeItemIndex);
+                Require_dataGridView3.DataSource = null;
+                Require_dataGridView3.DataSource = rep.Requirements_;
+                Recipes_dataGridView1.DataSource = null;
+                Recipes_dataGridView1.DataSource = recipes_;
+            }
+        }
+
+        private void Require_dataGridView3_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+            int recipeItemIndex = Require_dataGridView3.CurrentCell.RowIndex;
+            if (recipeIndex >= 0 && recipeItemIndex >= 0)
+            {
+                Recipe rep = recipes_[recipeIndex];
+                Require_dataGridView3.DataSource = rep.Requirements_;
+                cost_label6.Text = rep.calculateCost(ingredients_).ToString("c");
+                energy_label8.Text = rep.calculateEnergy(ingredients_).ToString("f2");
+            }
+        }
+              
+
+        private void RemoveItem_button2_Click(object sender, EventArgs e)
+        {
+            int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+            int recipeItemIndex = Require_dataGridView3.CurrentCell.RowIndex;
+            if (recipeIndex >= 0 && recipeItemIndex >= 0)
+            {
+                Recipe rep = recipes_[recipeIndex];
+                rep.Requirements_.RemoveAt(recipeItemIndex);
+                Require_dataGridView3.DataSource = null;
+                Require_dataGridView3.DataSource = rep.Requirements_;
+                Recipes_dataGridView1.DataSource = null;
+                Recipes_dataGridView1.DataSource = recipes_;
+            }
+        }
+
+        private void AddItem_button1_Click(object sender, EventArgs e)
+        {
+            int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+            int ingredientIndex = Ingredients_dataGridView2.CurrentCell.RowIndex;
+            int quantity = 0;
+            if (int.TryParse(quantity_textBox1.Text, out quantity))
+            {
+                if (recipeIndex >= 0 && ingredientIndex >= 0)
+                {
+                    Recipe rep = recipes_[recipeIndex];
+                    Ingredient ing = ingredients_[ingredientIndex];
+                    RecipeItems newItems = new RecipeItems(ing.Name, quantity, ing.Unit);
+
+                    bool isFind = false;
+                    foreach (RecipeItems repICheck in rep.Requirements_)
+                    {
+                        if (newItems.IngredientName == repICheck.IngredientName)
+                        {
+                            MessageBox.Show("Recipe has the same ingredient, the quantity will add to previous value. :-)");
+                            repICheck.Quantity += quantity;
+                            isFind = true;
+                            break;
+                        }
+                    }
+                    if (!isFind) rep.Add(newItems);
+
+                    Require_dataGridView3.DataSource = null;
+                    Require_dataGridView3.DataSource = rep.Requirements_;
+                    cost_label6.Text = rep.calculateCost(ingredients_).ToString("c");
+                    energy_label8.Text = rep.calculateEnergy(ingredients_).ToString("f2");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Unexpected value in quantity textbox!");
+            }
+        }
+
+        private void ChangeInstruction_button3_Click(object sender, EventArgs e)
+        {
+            string newInstruction = Instructions_richTextBox1.Text;
+            int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+            if(recipeIndex>=0)
+            {
+                Recipe rep = recipes_[recipeIndex];
+                if (rep.Instruction != newInstruction)
+                {
+                    rep.Instruction = "";
+                    rep.Instruction = newInstruction;
+                    Instructions_richTextBox1.Text = rep.Instruction;
+                    MessageBox.Show(":-) \nBravo~ New Instruction is saved!");
+                }
+                else
+                {
+                    MessageBox.Show("There is no changes in instruction.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Wrong Recipe Index Catched!");
+            }
+        }
+
+        private void Recipes_dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+            if (recipeIndex >= 0)
+            {
+                Recipe rep = recipes_[recipeIndex];
+                rep.changeQuantity(rep.Yield);
+                Require_dataGridView3.DataSource = null;
+                Require_dataGridView3.DataSource = rep.Requirements_;
+                cost_label6.Text = rep.calculateCost(ingredients_).ToString("c");
+                energy_label8.Text = rep.calculateEnergy(ingredients_).ToString("f2");
+            }
+        }
+
+        private void Read_button4_Click(object sender, EventArgs e)
+        {
+            StreamReader reader;
+            Recipe_openFileDialog1.Filter = "TXT Files| *.txt";
+            
+                if (Recipe_openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    reader = File.OpenText(Recipe_openFileDialog1.FileName);
+                    Recipe newRecipe = new Recipe();
+                try
+                {
+                    while (!reader.EndOfStream)
+                    {                      
+                        string oneLineData = reader.ReadLine();
+                        string[] splitedData = oneLineData.Split(',');
+                        if (oneLineData == "#Name,Servings")
+                        {
+                            string[] recipeData = reader.ReadLine().Split(',');
+                            if(recipeData.Length==2)
+                            {
+                                newRecipe.Name = recipeData[0];
+                                newRecipe.Yield = uint.Parse(recipeData[1]);
+                                recipes_.Add(newRecipe);
+                            }
+                            continue;
+                        }else if(oneLineData== "#Ingredients")
+                        {
+                            continue;
+                        }
+                        else if(oneLineData== "#Name,Quantity,Unit")
+                        {
+                            string IngredientLineData = "";
+                            IngredientLineData = reader.ReadLine();
+                            while (IngredientLineData != "#Instructions")
+                            {
+                                string[] splitedNewLineData = IngredientLineData.Split(',');
+                                if (splitedNewLineData.Length == 2)
+                                {
+                                    string name = splitedData[0];
+                                    double quantity = double.Parse(splitedData[1]);
+                                    newRecipe.Requirements_.Add(new RecipeItems(name, quantity, ""));
+                                }
+                                else if (splitedData.Length == 3)
+                                {
+                                    string name = splitedData[0];
+                                    double quantity = double.Parse(splitedData[1]);
+                                    string unit = splitedData[2];
+                                    newRecipe.Requirements_.Add(new RecipeItems(name, quantity, unit));
+                                }
+                                IngredientLineData = reader.ReadLine();
+                            }
+                            continue;                            
+                        }
+                        else if(oneLineData.Contains('#'))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            newRecipe.Instruction += oneLineData;
+                        }
+                    }
+                    reader.Close();
+
+                    Recipes_dataGridView1.DataSource = null;
+                    Recipes_dataGridView1.DataSource = recipes_;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    recipes_.Remove(newRecipe);
+                }
             }
         }
     }

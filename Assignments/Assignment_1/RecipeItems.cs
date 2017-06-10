@@ -71,6 +71,9 @@ namespace Assignment_Framework_with_Classes
             quantity_ = QUANTITY;
             unit_ = UNIT;
         }
+
+        //***********************************
+        //*Properties
         public string IngredientName
         {
             get
@@ -107,7 +110,17 @@ namespace Assignment_Framework_with_Classes
                 }
             }
         }
+        public string Unit
+        {
+            get
+            {
+                return unit_;
+            }
 
-       
+            set
+            {
+                unit_ = value;
+            }
+        }
     }
 }

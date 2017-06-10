@@ -51,7 +51,8 @@ namespace Assignment_Framework_with_Classes
             }
         }
 
-
+        
+                   
 
         //***********************************
         //*Instance Variables
@@ -63,6 +64,10 @@ namespace Assignment_Framework_with_Classes
         ///Yield of recipe, e.g. "1" means 1 serving it normally produces
         ///</summary>
         private uint yield_;
+        /// <summary>
+        /// Previous yield for every recipes, like a reference when change yield.
+        /// </summary>
+        private uint previousYield_;
         ///<summary>
         ///Instructions of recipe, e.g. "..." means how to make the thing
         ///</summary>
@@ -89,18 +94,86 @@ namespace Assignment_Framework_with_Classes
             // Initialise variable
             name_ = NAME;
             yield_ = YIELD;
+            previousYield_ = YIELD;
             instruction_ = INSTRUCTION;
             // Create an empty list of requirements for this new recipe
             Requirements_ = new BindingList<RecipeItems>();
             //Register decleared above is for a list-changed event to handler on the enrolment list.
             Requirements_.ListChanged += new ListChangedEventHandler(RequirementListChanged);
         }
-
+        public Recipe(string NAME, uint YIELD)
+        {
+            // Initialise variable
+            name_ = NAME;
+            yield_ = YIELD;
+            previousYield_ = YIELD;
+            instruction_ = "";
+            // Create an empty list of requirements for this new recipe
+            Requirements_ = new BindingList<RecipeItems>();
+            //Register decleared above is for a list-changed event to handler on the enrolment list.
+            Requirements_.ListChanged += new ListChangedEventHandler(RequirementListChanged);
+        }
         //***********************************
-        //* Public Method
+        //* Public Method        
+       /// <summary>
+       /// Calculate the cost of this recipe
+       /// </summary>
+       /// <param name="ingredientList">A ingredient reference list which at least contains price</param>
+       /// <returns></returns>
+        public double calculateCost(BindingList<Ingredient> ingredientList)
+        {
+            double cost = 0.0d;
+            for(int i=0;i<requirements_.Count;i++)
+            {
+                for(int j=0;j<ingredientList.Count;j++)
+                {
+                    if(requirements_[i].IngredientName==ingredientList[j].Name)
+                    {
+                        cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity);
+                    }
+                }
+            }
+            return cost;
+        }
         /// <summary>
-        /// 
+        /// Calculate the energy of this recipe
         /// </summary>
+        /// <param name="ingredientList">A ingredient reference list which at least contains price</param>
+        /// <returns></returns>
+        public double calculateEnergy(BindingList<Ingredient> ingredientList)
+        {
+            double energy = 0.0d;
+            for (int i = 0; i < requirements_.Count; i++)
+            {
+                for (int j = 0; j < ingredientList.Count; j++)
+                {
+                    if (requirements_[i].IngredientName == ingredientList[j].Name)
+                    {
+                        energy = energy + (((double)ingredientList[j].Energy / ingredientList[j].Default_Quantity) * requirements_[i].Quantity);
+                    }
+                }
+            }
+            return energy;
+        }
+        /// <summary>
+        /// Add ingredient which the recipe need
+        /// </summary>
+        /// <param name="RecipeNeedItem">A new RecipeItems object from ingredients</param>
+        public void Add(RecipeItems RecipeNeedItem)
+        {
+            this.requirements_.Add(RecipeNeedItem);
+        }
+
+        public void changeQuantity(uint newYield)
+        {
+            double yieldChange = (double)newYield / this.previousYield_;
+            for (int i = 0; i < requirements_.Count; i++)
+            {
+                requirements_[i].Quantity *= yieldChange;
+            }
+            previousYield_ = newYield;
+        }
+
 
         //***********************************
         //*Properties
