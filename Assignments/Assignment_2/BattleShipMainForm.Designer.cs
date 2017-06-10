@@ -339,7 +339,7 @@
             this.radioButton1_MyCard1.TabStop = true;
             this.radioButton1_MyCard1.Text = "My Card";
             this.radioButton1_MyCard1.UseVisualStyleBackColor = true;
-            this.radioButton1_MyCard1.CheckedChanged += new System.EventHandler(this.radioButton1_MyCard1_CheckedChanged);
+            this.radioButton1_MyCard1.Click += new System.EventHandler(this.radioButton1_MyCard1_Click);
             // 
             // radioButton2_MyCard2
             // 
@@ -353,7 +353,7 @@
             this.radioButton2_MyCard2.TabStop = true;
             this.radioButton2_MyCard2.Text = "My Card";
             this.radioButton2_MyCard2.UseVisualStyleBackColor = true;
-            this.radioButton2_MyCard2.CheckedChanged += new System.EventHandler(this.radioButton2_MyCard2_CheckedChanged);
+            this.radioButton2_MyCard2.Click += new System.EventHandler(this.radioButton2_MyCard2_Click);
             // 
             // radioButton3_MyCard3
             // 
@@ -367,7 +367,7 @@
             this.radioButton3_MyCard3.TabStop = true;
             this.radioButton3_MyCard3.Text = "My Card";
             this.radioButton3_MyCard3.UseVisualStyleBackColor = true;
-            this.radioButton3_MyCard3.CheckedChanged += new System.EventHandler(this.radioButton3_MyCard3_CheckedChanged);
+            this.radioButton3_MyCard3.Click += new System.EventHandler(this.radioButton3_MyCard3_Click);
             // 
             // radioButton4_MyCard4
             // 
@@ -381,7 +381,7 @@
             this.radioButton4_MyCard4.TabStop = true;
             this.radioButton4_MyCard4.Text = "My Card";
             this.radioButton4_MyCard4.UseVisualStyleBackColor = true;
-            this.radioButton4_MyCard4.CheckedChanged += new System.EventHandler(this.radioButton4_MyCard4_CheckedChanged);
+            this.radioButton4_MyCard4.Click += new System.EventHandler(this.radioButton4_MyCard4_Click);
             // 
             // radioButton5_MyCard5
             // 
@@ -395,7 +395,7 @@
             this.radioButton5_MyCard5.TabStop = true;
             this.radioButton5_MyCard5.Text = "My Card";
             this.radioButton5_MyCard5.UseVisualStyleBackColor = true;
-            this.radioButton5_MyCard5.CheckedChanged += new System.EventHandler(this.radioButton5_MyCard5_CheckedChanged);
+            this.radioButton5_MyCard5.Click += new System.EventHandler(this.radioButton5_MyCard5_Click);
             // 
             // radioButton6_MyCard6
             // 
@@ -409,6 +409,7 @@
             this.radioButton6_MyCard6.Text = "My Card";
             this.radioButton6_MyCard6.UseVisualStyleBackColor = true;
             this.radioButton6_MyCard6.Visible = false;
+            this.radioButton6_MyCard6.Click += new System.EventHandler(this.radioButton6_MyCard6_Click);
             // 
             // radioButton7_MyCard7
             // 
@@ -422,6 +423,7 @@
             this.radioButton7_MyCard7.Text = "My Card";
             this.radioButton7_MyCard7.UseVisualStyleBackColor = true;
             this.radioButton7_MyCard7.Visible = false;
+            this.radioButton7_MyCard7.Click += new System.EventHandler(this.radioButton7_MyCard7_Click);
             // 
             // radioButton8_MyCard8
             // 
@@ -435,6 +437,7 @@
             this.radioButton8_MyCard8.Text = "My Card";
             this.radioButton8_MyCard8.UseVisualStyleBackColor = true;
             this.radioButton8_MyCard8.Visible = false;
+            this.radioButton8_MyCard8.Click += new System.EventHandler(this.radioButton8_MyCard8_Click);
             // 
             // radioButton9_MyCard9
             // 
@@ -448,6 +451,7 @@
             this.radioButton9_MyCard9.Text = "My Card";
             this.radioButton9_MyCard9.UseVisualStyleBackColor = true;
             this.radioButton9_MyCard9.Visible = false;
+            this.radioButton9_MyCard9.Click += new System.EventHandler(this.radioButton9_MyCard9_Click);
             // 
             // radioButton10_MyCard10
             // 
@@ -461,6 +465,7 @@
             this.radioButton10_MyCard10.Text = "My Card";
             this.radioButton10_MyCard10.UseVisualStyleBackColor = true;
             this.radioButton10_MyCard10.Visible = false;
+            this.radioButton10_MyCard10.Click += new System.EventHandler(this.radioButton10_MyCard10_Click);
             // 
             // groupBox1_Robot
             // 

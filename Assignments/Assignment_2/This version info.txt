@@ -1,3 +1,11 @@
+Version: 10062300
+1. Fix robot find two ships(10062300-1) bug.
+2. Fix radio button event handler(10062300-2) that just check once, use click event.
+3. 10052320 bug is that the power card doesnot implement, it comes nothings.
+4. 10052321 bug, if statement is add-on while the power card is not ready.
+5. 10052317 bug, because it can not find the max int of attack due to power cards.
+
+
 Version: 10052330
 1. Fix player winning logic, i.e. fix 10032330-5 bug.
 2. Fix bug 10021200-2, where use the used deck of cards to new deck of cards when run out of previous one.

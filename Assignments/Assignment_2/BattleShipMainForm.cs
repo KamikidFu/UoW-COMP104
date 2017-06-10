@@ -429,6 +429,9 @@ namespace BattleshipHiddenThreat
                 else
                 {
                    powerCurrentCard = (Power)currentCard;
+                    MessageBox.Show("Sorry, Power Card is not implemented yet!");
+                    robot_.MyCards.InHandCards.Remove(powerCurrentCard);
+                    robot_.disCards(powerCurrentCard);
                 }
             }
             else
@@ -466,12 +469,12 @@ namespace BattleshipHiddenThreat
             {
                 for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
                 {
-                    if (robot_.MyCards.InHandCards[i].Name.Contains("White"))
+                    if (robot_.MyCards.InHandCards[i].Name==("White Peg"))
                     {
                         return robot_.MyCards.InHandCards[i];
                     }
                 }
-                robotPlay_FindNewShipOrOtherAct();
+                //robotPlay_FindNewShipOrOtherAct();
                 return null;
             }
         }
@@ -529,6 +532,7 @@ namespace BattleshipHiddenThreat
                     if (r.Checked)
                     {
                         playerCardIndex = i;
+                        break;
                     }
                 }
             }
@@ -547,6 +551,11 @@ namespace BattleshipHiddenThreat
                     {
                         Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
                         tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                    else if(human_.MyCards.InHandCards[i] is Power)
+                    {
+                        Power powerCard = (Power)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = powerCard.Name;
                     }
                 }
             }
@@ -620,11 +629,6 @@ namespace BattleshipHiddenThreat
         private void radioButton1_MyCard1_CheckedChanged(object sender, EventArgs e)
         {
             playerShieldUse(radioButton1_MyCard1);
-        }
-
-        private void radioButton2_MyCard2_CheckedChanged(object sender, EventArgs e)
-        {
-            playerShieldUse(radioButton2_MyCard2);
         }
 
         private void radioButton3_MyCard3_CheckedChanged(object sender, EventArgs e)
@@ -711,6 +715,56 @@ namespace BattleshipHiddenThreat
         {
             playerShipsAct(button_RobotShip12);
             robotPlay();
+        }
+
+        private void radioButton2_MyCard2_Click(object sender, EventArgs e)
+        {
+            playerShieldUse(radioButton2_MyCard2);
+        }
+
+        private void radioButton1_MyCard1_Click(object sender, EventArgs e)
+        {
+            playerShieldUse(radioButton1_MyCard1);
+        }
+
+        private void radioButton3_MyCard3_Click(object sender, EventArgs e)
+        {
+            playerShieldUse(radioButton3_MyCard3);
+        }
+
+        private void radioButton4_MyCard4_Click(object sender, EventArgs e)
+        {
+            playerShieldUse(radioButton4_MyCard4);
+        }
+
+        private void radioButton5_MyCard5_Click(object sender, EventArgs e)
+        {
+            playerShieldUse(radioButton5_MyCard5);
+        }
+
+        private void radioButton6_MyCard6_Click(object sender, EventArgs e)
+        {
+            playerShieldUse(radioButton6_MyCard6);
+        }
+
+        private void radioButton7_MyCard7_Click(object sender, EventArgs e)
+        {
+            playerShieldUse(radioButton7_MyCard7);
+        }
+
+        private void radioButton8_MyCard8_Click(object sender, EventArgs e)
+        {
+            playerShieldUse(radioButton8_MyCard8);
+        }
+
+        private void radioButton9_MyCard9_Click(object sender, EventArgs e)
+        {
+            playerShieldUse(radioButton9_MyCard9);
+        }
+
+        private void radioButton10_MyCard10_Click(object sender, EventArgs e)
+        {
+            playerShieldUse(radioButton10_MyCard10);
         }
     }
 }
