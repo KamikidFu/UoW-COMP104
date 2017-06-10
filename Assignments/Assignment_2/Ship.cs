@@ -11,12 +11,14 @@ namespace BattleshipHiddenThreat
         private string name_;
         private int healthNum_;
         private int shieldNum_;
+
         public int HealthNum
         {
             get
             {
                 return healthNum_;
             }
+            set { healthNum_ = value; }
         }
 
         public int ShieldNum
@@ -40,7 +42,7 @@ namespace BattleshipHiddenThreat
 
         public override void useCard(Card target)
         {
-           
+            //Full Game Required
         }
 
         public override string ToString()

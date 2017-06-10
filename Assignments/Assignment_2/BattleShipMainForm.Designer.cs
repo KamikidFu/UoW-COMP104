@@ -45,16 +45,16 @@
             this.button_PlayerShip12 = new System.Windows.Forms.Button();
             this.groupBox3_HandCard = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4_PlayerHandCards = new System.Windows.Forms.TableLayoutPanel();
-            this.button_myCard1 = new System.Windows.Forms.Button();
-            this.button_myCard2 = new System.Windows.Forms.Button();
-            this.button_myCard3 = new System.Windows.Forms.Button();
-            this.button_myCard4 = new System.Windows.Forms.Button();
-            this.button_myCard5 = new System.Windows.Forms.Button();
-            this.button_myCard6 = new System.Windows.Forms.Button();
-            this.button_myCard7 = new System.Windows.Forms.Button();
-            this.button_myCard8 = new System.Windows.Forms.Button();
-            this.button_myCard9 = new System.Windows.Forms.Button();
-            this.button_myCard10 = new System.Windows.Forms.Button();
+            this.radioButton1_MyCard1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2_MyCard2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3_MyCard3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4_MyCard4 = new System.Windows.Forms.RadioButton();
+            this.radioButton5_MyCard5 = new System.Windows.Forms.RadioButton();
+            this.radioButton6_MyCard6 = new System.Windows.Forms.RadioButton();
+            this.radioButton7_MyCard7 = new System.Windows.Forms.RadioButton();
+            this.radioButton8_MyCard8 = new System.Windows.Forms.RadioButton();
+            this.radioButton9_MyCard9 = new System.Windows.Forms.RadioButton();
+            this.radioButton10_MyCard10 = new System.Windows.Forms.RadioButton();
             this.groupBox1_Robot = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2_RobotSea = new System.Windows.Forms.TableLayoutPanel();
             this.button_RobotShip1 = new System.Windows.Forms.Button();
@@ -291,16 +291,16 @@
             this.tableLayoutPanel4_PlayerHandCards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel4_PlayerHandCards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel4_PlayerHandCards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.button_myCard1, 0, 0);
-            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.button_myCard2, 1, 0);
-            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.button_myCard3, 2, 0);
-            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.button_myCard4, 3, 0);
-            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.button_myCard5, 4, 0);
-            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.button_myCard6, 0, 1);
-            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.button_myCard7, 1, 1);
-            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.button_myCard8, 2, 1);
-            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.button_myCard9, 3, 1);
-            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.button_myCard10, 4, 1);
+            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.radioButton1_MyCard1, 0, 0);
+            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.radioButton2_MyCard2, 1, 0);
+            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.radioButton3_MyCard3, 2, 0);
+            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.radioButton4_MyCard4, 3, 0);
+            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.radioButton5_MyCard5, 4, 0);
+            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.radioButton6_MyCard6, 0, 1);
+            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.radioButton7_MyCard7, 1, 1);
+            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.radioButton8_MyCard8, 2, 1);
+            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.radioButton9_MyCard9, 3, 1);
+            this.tableLayoutPanel4_PlayerHandCards.Controls.Add(this.radioButton10_MyCard10, 4, 1);
             this.tableLayoutPanel4_PlayerHandCards.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4_PlayerHandCards.Location = new System.Drawing.Point(3, 17);
             this.tableLayoutPanel4_PlayerHandCards.Name = "tableLayoutPanel4_PlayerHandCards";
@@ -310,110 +310,135 @@
             this.tableLayoutPanel4_PlayerHandCards.Size = new System.Drawing.Size(681, 81);
             this.tableLayoutPanel4_PlayerHandCards.TabIndex = 0;
             // 
-            // button_myCard1
+            // radioButton1_MyCard1
             // 
-            this.button_myCard1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_myCard1.Location = new System.Drawing.Point(3, 3);
-            this.button_myCard1.Name = "button_myCard1";
-            this.button_myCard1.Size = new System.Drawing.Size(130, 34);
-            this.button_myCard1.TabIndex = 0;
-            this.button_myCard1.Text = "My Card";
-            this.button_myCard1.UseVisualStyleBackColor = true;
+            this.radioButton1_MyCard1.AutoSize = true;
+            this.radioButton1_MyCard1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton1_MyCard1.Enabled = false;
+            this.radioButton1_MyCard1.Location = new System.Drawing.Point(3, 3);
+            this.radioButton1_MyCard1.Name = "radioButton1_MyCard1";
+            this.radioButton1_MyCard1.Size = new System.Drawing.Size(130, 34);
+            this.radioButton1_MyCard1.TabIndex = 0;
+            this.radioButton1_MyCard1.TabStop = true;
+            this.radioButton1_MyCard1.Text = "My Card";
+            this.radioButton1_MyCard1.UseVisualStyleBackColor = true;
             // 
-            // button_myCard2
+            // radioButton2_MyCard2
             // 
-            this.button_myCard2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_myCard2.Location = new System.Drawing.Point(139, 3);
-            this.button_myCard2.Name = "button_myCard2";
-            this.button_myCard2.Size = new System.Drawing.Size(130, 34);
-            this.button_myCard2.TabIndex = 1;
-            this.button_myCard2.Text = "My Card";
-            this.button_myCard2.UseVisualStyleBackColor = true;
+            this.radioButton2_MyCard2.AutoSize = true;
+            this.radioButton2_MyCard2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton2_MyCard2.Enabled = false;
+            this.radioButton2_MyCard2.Location = new System.Drawing.Point(139, 3);
+            this.radioButton2_MyCard2.Name = "radioButton2_MyCard2";
+            this.radioButton2_MyCard2.Size = new System.Drawing.Size(130, 34);
+            this.radioButton2_MyCard2.TabIndex = 1;
+            this.radioButton2_MyCard2.TabStop = true;
+            this.radioButton2_MyCard2.Text = "My Card";
+            this.radioButton2_MyCard2.UseVisualStyleBackColor = true;
             // 
-            // button_myCard3
+            // radioButton3_MyCard3
             // 
-            this.button_myCard3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_myCard3.Location = new System.Drawing.Point(275, 3);
-            this.button_myCard3.Name = "button_myCard3";
-            this.button_myCard3.Size = new System.Drawing.Size(130, 34);
-            this.button_myCard3.TabIndex = 2;
-            this.button_myCard3.Text = "My Card";
-            this.button_myCard3.UseVisualStyleBackColor = true;
+            this.radioButton3_MyCard3.AutoSize = true;
+            this.radioButton3_MyCard3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton3_MyCard3.Enabled = false;
+            this.radioButton3_MyCard3.Location = new System.Drawing.Point(275, 3);
+            this.radioButton3_MyCard3.Name = "radioButton3_MyCard3";
+            this.radioButton3_MyCard3.Size = new System.Drawing.Size(130, 34);
+            this.radioButton3_MyCard3.TabIndex = 2;
+            this.radioButton3_MyCard3.TabStop = true;
+            this.radioButton3_MyCard3.Text = "My Card";
+            this.radioButton3_MyCard3.UseVisualStyleBackColor = true;
             // 
-            // button_myCard4
+            // radioButton4_MyCard4
             // 
-            this.button_myCard4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_myCard4.Location = new System.Drawing.Point(411, 3);
-            this.button_myCard4.Name = "button_myCard4";
-            this.button_myCard4.Size = new System.Drawing.Size(130, 34);
-            this.button_myCard4.TabIndex = 3;
-            this.button_myCard4.Text = "My Card";
-            this.button_myCard4.UseVisualStyleBackColor = true;
+            this.radioButton4_MyCard4.AutoSize = true;
+            this.radioButton4_MyCard4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton4_MyCard4.Enabled = false;
+            this.radioButton4_MyCard4.Location = new System.Drawing.Point(411, 3);
+            this.radioButton4_MyCard4.Name = "radioButton4_MyCard4";
+            this.radioButton4_MyCard4.Size = new System.Drawing.Size(130, 34);
+            this.radioButton4_MyCard4.TabIndex = 3;
+            this.radioButton4_MyCard4.TabStop = true;
+            this.radioButton4_MyCard4.Text = "My Card";
+            this.radioButton4_MyCard4.UseVisualStyleBackColor = true;
             // 
-            // button_myCard5
+            // radioButton5_MyCard5
             // 
-            this.button_myCard5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_myCard5.Location = new System.Drawing.Point(547, 3);
-            this.button_myCard5.Name = "button_myCard5";
-            this.button_myCard5.Size = new System.Drawing.Size(131, 34);
-            this.button_myCard5.TabIndex = 4;
-            this.button_myCard5.Text = "My Card";
-            this.button_myCard5.UseVisualStyleBackColor = true;
+            this.radioButton5_MyCard5.AutoSize = true;
+            this.radioButton5_MyCard5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton5_MyCard5.Enabled = false;
+            this.radioButton5_MyCard5.Location = new System.Drawing.Point(547, 3);
+            this.radioButton5_MyCard5.Name = "radioButton5_MyCard5";
+            this.radioButton5_MyCard5.Size = new System.Drawing.Size(131, 34);
+            this.radioButton5_MyCard5.TabIndex = 4;
+            this.radioButton5_MyCard5.TabStop = true;
+            this.radioButton5_MyCard5.Text = "My Card";
+            this.radioButton5_MyCard5.UseVisualStyleBackColor = true;
             // 
-            // button_myCard6
+            // radioButton6_MyCard6
             // 
-            this.button_myCard6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_myCard6.Location = new System.Drawing.Point(3, 43);
-            this.button_myCard6.Name = "button_myCard6";
-            this.button_myCard6.Size = new System.Drawing.Size(130, 35);
-            this.button_myCard6.TabIndex = 5;
-            this.button_myCard6.Text = "My Card";
-            this.button_myCard6.UseVisualStyleBackColor = true;
-            this.button_myCard6.Visible = false;
+            this.radioButton6_MyCard6.AutoSize = true;
+            this.radioButton6_MyCard6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton6_MyCard6.Location = new System.Drawing.Point(3, 43);
+            this.radioButton6_MyCard6.Name = "radioButton6_MyCard6";
+            this.radioButton6_MyCard6.Size = new System.Drawing.Size(130, 35);
+            this.radioButton6_MyCard6.TabIndex = 5;
+            this.radioButton6_MyCard6.TabStop = true;
+            this.radioButton6_MyCard6.Text = "My Card";
+            this.radioButton6_MyCard6.UseVisualStyleBackColor = true;
+            this.radioButton6_MyCard6.Visible = false;
             // 
-            // button_myCard7
+            // radioButton7_MyCard7
             // 
-            this.button_myCard7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_myCard7.Location = new System.Drawing.Point(139, 43);
-            this.button_myCard7.Name = "button_myCard7";
-            this.button_myCard7.Size = new System.Drawing.Size(130, 35);
-            this.button_myCard7.TabIndex = 6;
-            this.button_myCard7.Text = "My Card";
-            this.button_myCard7.UseVisualStyleBackColor = true;
-            this.button_myCard7.Visible = false;
+            this.radioButton7_MyCard7.AutoSize = true;
+            this.radioButton7_MyCard7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton7_MyCard7.Location = new System.Drawing.Point(139, 43);
+            this.radioButton7_MyCard7.Name = "radioButton7_MyCard7";
+            this.radioButton7_MyCard7.Size = new System.Drawing.Size(130, 35);
+            this.radioButton7_MyCard7.TabIndex = 6;
+            this.radioButton7_MyCard7.TabStop = true;
+            this.radioButton7_MyCard7.Text = "My Card";
+            this.radioButton7_MyCard7.UseVisualStyleBackColor = true;
+            this.radioButton7_MyCard7.Visible = false;
             // 
-            // button_myCard8
+            // radioButton8_MyCard8
             // 
-            this.button_myCard8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_myCard8.Location = new System.Drawing.Point(275, 43);
-            this.button_myCard8.Name = "button_myCard8";
-            this.button_myCard8.Size = new System.Drawing.Size(130, 35);
-            this.button_myCard8.TabIndex = 7;
-            this.button_myCard8.Text = "My Card";
-            this.button_myCard8.UseVisualStyleBackColor = true;
-            this.button_myCard8.Visible = false;
+            this.radioButton8_MyCard8.AutoSize = true;
+            this.radioButton8_MyCard8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton8_MyCard8.Location = new System.Drawing.Point(275, 43);
+            this.radioButton8_MyCard8.Name = "radioButton8_MyCard8";
+            this.radioButton8_MyCard8.Size = new System.Drawing.Size(130, 35);
+            this.radioButton8_MyCard8.TabIndex = 7;
+            this.radioButton8_MyCard8.TabStop = true;
+            this.radioButton8_MyCard8.Text = "My Card";
+            this.radioButton8_MyCard8.UseVisualStyleBackColor = true;
+            this.radioButton8_MyCard8.Visible = false;
             // 
-            // button_myCard9
+            // radioButton9_MyCard9
             // 
-            this.button_myCard9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_myCard9.Location = new System.Drawing.Point(411, 43);
-            this.button_myCard9.Name = "button_myCard9";
-            this.button_myCard9.Size = new System.Drawing.Size(130, 35);
-            this.button_myCard9.TabIndex = 8;
-            this.button_myCard9.Text = "My Card";
-            this.button_myCard9.UseVisualStyleBackColor = true;
-            this.button_myCard9.Visible = false;
+            this.radioButton9_MyCard9.AutoSize = true;
+            this.radioButton9_MyCard9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton9_MyCard9.Location = new System.Drawing.Point(411, 43);
+            this.radioButton9_MyCard9.Name = "radioButton9_MyCard9";
+            this.radioButton9_MyCard9.Size = new System.Drawing.Size(130, 35);
+            this.radioButton9_MyCard9.TabIndex = 8;
+            this.radioButton9_MyCard9.TabStop = true;
+            this.radioButton9_MyCard9.Text = "My Card";
+            this.radioButton9_MyCard9.UseVisualStyleBackColor = true;
+            this.radioButton9_MyCard9.Visible = false;
             // 
-            // button_myCard10
+            // radioButton10_MyCard10
             // 
-            this.button_myCard10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_myCard10.Location = new System.Drawing.Point(547, 43);
-            this.button_myCard10.Name = "button_myCard10";
-            this.button_myCard10.Size = new System.Drawing.Size(131, 35);
-            this.button_myCard10.TabIndex = 9;
-            this.button_myCard10.Text = "My Card";
-            this.button_myCard10.UseVisualStyleBackColor = true;
-            this.button_myCard10.Visible = false;
+            this.radioButton10_MyCard10.AutoSize = true;
+            this.radioButton10_MyCard10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton10_MyCard10.Location = new System.Drawing.Point(547, 43);
+            this.radioButton10_MyCard10.Name = "radioButton10_MyCard10";
+            this.radioButton10_MyCard10.Size = new System.Drawing.Size(131, 35);
+            this.radioButton10_MyCard10.TabIndex = 9;
+            this.radioButton10_MyCard10.TabStop = true;
+            this.radioButton10_MyCard10.Text = "My Card";
+            this.radioButton10_MyCard10.UseVisualStyleBackColor = true;
+            this.radioButton10_MyCard10.Visible = false;
             // 
             // groupBox1_Robot
             // 
@@ -709,6 +734,7 @@
             this.tableLayoutPanel3_PlayerSea.ResumeLayout(false);
             this.groupBox3_HandCard.ResumeLayout(false);
             this.tableLayoutPanel4_PlayerHandCards.ResumeLayout(false);
+            this.tableLayoutPanel4_PlayerHandCards.PerformLayout();
             this.groupBox1_Robot.ResumeLayout(false);
             this.tableLayoutPanel2_RobotSea.ResumeLayout(false);
             this.menuStrip1_SettingMenu.ResumeLayout(false);
@@ -747,16 +773,6 @@
         private System.Windows.Forms.Button button_PlayerShip10;
         private System.Windows.Forms.Button button_PlayerShip11;
         private System.Windows.Forms.Button button_PlayerShip12;
-        private System.Windows.Forms.Button button_myCard1;
-        private System.Windows.Forms.Button button_myCard2;
-        private System.Windows.Forms.Button button_myCard3;
-        private System.Windows.Forms.Button button_myCard4;
-        private System.Windows.Forms.Button button_myCard5;
-        private System.Windows.Forms.Button button_myCard6;
-        private System.Windows.Forms.Button button_myCard7;
-        private System.Windows.Forms.Button button_myCard8;
-        private System.Windows.Forms.Button button_myCard9;
-        private System.Windows.Forms.Button button_myCard10;
         private System.Windows.Forms.Button button_RobotShip1;
         private System.Windows.Forms.Button button_RobotShip2;
         private System.Windows.Forms.Button button_RobotShip3;
@@ -773,6 +789,16 @@
         private System.Windows.Forms.Label label_GameStatus;
         private System.Windows.Forms.ListBox listBox_GameHistory;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RadioButton radioButton1_MyCard1;
+        private System.Windows.Forms.RadioButton radioButton2_MyCard2;
+        private System.Windows.Forms.RadioButton radioButton3_MyCard3;
+        private System.Windows.Forms.RadioButton radioButton4_MyCard4;
+        private System.Windows.Forms.RadioButton radioButton5_MyCard5;
+        private System.Windows.Forms.RadioButton radioButton6_MyCard6;
+        private System.Windows.Forms.RadioButton radioButton7_MyCard7;
+        private System.Windows.Forms.RadioButton radioButton8_MyCard8;
+        private System.Windows.Forms.RadioButton radioButton9_MyCard9;
+        private System.Windows.Forms.RadioButton radioButton10_MyCard10;
     }
 }
 

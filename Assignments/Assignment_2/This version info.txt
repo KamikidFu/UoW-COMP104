@@ -1,3 +1,9 @@
+Version: 10021200
+1. Initialise the deck of player and robot hand cards and deck of destruction.
+2. When deck of destruction is drawed over, new deck of destruction will generate a new group of cards, however, it is not from the used deck. NEED TO BE FIXED.
+3. Implement the hitting ship function.
+4. Fix some bugs
+
 Version: 09302315
 1. Robot now randomly deploy their ships into sea
 2. Player can check robot ships(buttons) to show what the ship is

@@ -17,7 +17,7 @@ namespace BattleshipHiddenThreat
 
         public override void useCard(Card target)
         {
-           
+           //Full Game Required
         }
     }
 }

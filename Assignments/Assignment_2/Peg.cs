@@ -10,11 +10,8 @@ namespace BattleshipHiddenThreat
     {
         private string name_;
         private int attackNum_;
-        private string color_;
-
+        private string color_;       
         
-        
-
         public Peg(string NAME, int ATTACKNUMBER, string COLOR):base(NAME)
         {
             name_ = NAME;
@@ -24,9 +21,27 @@ namespace BattleshipHiddenThreat
 
         public override void useCard(Card target)
         {
+            if(target is Ship)
+            {
+                Ship targetShip = (Ship)target;
+                if(this.color_=="White")
+                {
+                    if(targetShip.Name=="Submarine")
+                    {
+                        targetShip.HealthNum -= this.attackNum_;
+                    }
+                }
+                else
+                {
+                    if(targetShip.Name!="Sea" && targetShip.Name!="Submarine")
+                    {
+                        targetShip.HealthNum -= this.attackNum_;
+                    }
+                }
+            }
         }
 
-        public int AttackNum_
+        public int AttackNum
         {
             get
             {
@@ -34,7 +49,7 @@ namespace BattleshipHiddenThreat
             }
         }
 
-        public string Color_
+        public string Color
         {
             get
             {

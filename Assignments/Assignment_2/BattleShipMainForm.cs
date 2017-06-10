@@ -11,17 +11,20 @@ using System.Windows.Forms;
 namespace BattleshipHiddenThreat
 {
     public partial class BattleShipMainForm : Form
-    {        
+    {
+        int robotDiscover = 0;
+        int playerDiscover = 0;
         //Instance Variables
         History history = new History(0);
         Ship[,] playerDeployment_ = new Ship[3, 4];
         Ship[,] robotDeployment_ = new Ship[3, 4];
-
+        Player human_;
+        Player robot_;
         public BattleShipMainForm()
         {
             InitializeComponent();
             this.Text += "  [Not Start Game - No Mode Info]";
-            if(this.Text.Contains("Not Start Game"))
+            if (this.Text.Contains("Not Start Game"))
             {
                 for (int i = 0; i < groupBox1_Robot.Controls.Count; i++)
                 {
@@ -33,8 +36,8 @@ namespace BattleshipHiddenThreat
                     groupBox3_HandCard.Controls[i].Enabled = false;
                 }
             }
-            
-            history.Add(history.HistoryCounter++,"Application running.");            
+
+            history.Add(history.HistoryCounter++, "Application running.");
             history.Add(history.HistoryCounter++, "Waiting for game starts!");
             label_GameStatus.Text = history.HistoryList[history.HistoryList.Count - 1];
             listBox_GameHistory.DataSource = history.HistoryList;
@@ -44,6 +47,9 @@ namespace BattleshipHiddenThreat
             , Ship[,] playerDeployment, Ship[,] robotDeployment)
         {
             InitializeComponent();
+
+            human_ = new Player(playerName, playerTeam, playMode);
+            string robotTeam = "";
             history = currentHistory;
             playerDeployment_ = playerDeployment;
             robotDeployment_ = robotDeployment;
@@ -54,14 +60,25 @@ namespace BattleshipHiddenThreat
             {
                 groupBox1_Robot.ForeColor = Color.Blue;
                 groupBox2_Player.ForeColor = Color.Red;
+                groupBox3_HandCard.ForeColor = Color.Red;
+                robotTeam = "Blue";
             }
             else
             {
                 groupBox1_Robot.ForeColor = Color.Red;
                 groupBox2_Player.ForeColor = Color.Blue;
+                groupBox3_HandCard.ForeColor = Color.Blue;
+                robotTeam = "Red";
+            }
+            if (playMode == "Full")
+            {
+                robot_ = new Player("NameMaxLengthOfHumanIs16", robotTeam, "Full");
+            }
+            else
+            {
+                robot_ = new Player("NameMaxLengthOfHumanIs16", robotTeam, "Base");
             }
 
-            
             initialDeployShips(tableLayoutPanel3_PlayerSea, playerDeployment_);
 
             for (int j = 0; j < tableLayoutPanel2_RobotSea.Controls.Count; j++)
@@ -69,7 +86,16 @@ namespace BattleshipHiddenThreat
                 tableLayoutPanel2_RobotSea.Controls[j].Name = "Robot Ship";
                 tableLayoutPanel2_RobotSea.Controls[j].Enabled = true;
             }
-
+            for (int i = 0; i < 5; i++)
+            {
+                tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                if(human_.MyCards.InHandCards[i] is Peg)
+                {
+                    Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                }
+                
+            }
             listBox_GameHistory.DataSource = null;
             history.Add((history.HistoryCounter++), "Game Start." + playerName + " joins game. Team is " + playerTeam + ".");
             listBox_GameHistory.DataSource = history.HistoryList;
@@ -97,9 +123,9 @@ namespace BattleshipHiddenThreat
             {
                 if (targetControl.Controls[i] is Button)
                 {
-                    
-                        targetControl.Controls[i].Text = playerDeploy[arrayX, arrayY].Name;
-                    
+
+                    targetControl.Controls[i].Text = playerDeploy[arrayX, arrayY].Name;
+
                     //playerDeployment_[arrayX, arrayY] = playerDeploy[arrayX, arrayY];
                     arrayY++;
                     if (arrayY == 4)
@@ -118,13 +144,22 @@ namespace BattleshipHiddenThreat
             int x = buttonIndex % 4;
             int y = buttonIndex / 4;
             targetButton.Text = robotDeployment_[y, x].Name;
-            if(targetButton.Text=="Sea")
+            if (targetButton.Text == "Sea")
             {
                 targetButton.Enabled = false;
             }
             else
             {
-                targetButton.Text += "\n(Health:" + robotDeployment_[y, x].HealthNum+")";
+                targetButton.Text += "\n(Health:" + robotDeployment_[y, x].HealthNum + ")";
+            }
+            if (robotDeployment_[y, x].HealthNum <= 0)
+            {
+                targetButton.Enabled = false;
+                playerDiscover++;
+            }
+            if (playerDiscover == 12)
+            {
+                MessageBox.Show(":-)\nGreat! You Win!");
             }
         }
 
@@ -175,7 +210,7 @@ namespace BattleshipHiddenThreat
             //groupBox3_HandCard.Controls[0].Name = "tableLayoutPanel4_PlayerHandCards";            
         }
 
-        
+
 
         private void BattleShipMainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -184,62 +219,446 @@ namespace BattleshipHiddenThreat
 
         private void button_RobotShip1_Click(object sender, EventArgs e)
         {
-            robotMatchShip(button_RobotShip1);
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                currentCard.useCard(robotDeployment_[0, 0]);
+                human_.MyCards.InHandCards.Remove(currentCard);
+                human_.MyCards.drawCards(1);
+                for (int i = 0; i < 5; i++)
+                {
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                    if (human_.MyCards.InHandCards[i] is Peg)
+                    {
+                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                }
+                robotMatchShip(button_RobotShip1);
+            }
+            else
+            {
+                MessageBox.Show("Please play one card to robot sea!");
+            }
         }
 
         private void button_RobotShip2_Click(object sender, EventArgs e)
         {
-            robotMatchShip(button_RobotShip2);
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                currentCard.useCard(robotDeployment_[0, 1]);
+                human_.MyCards.InHandCards.Remove(currentCard);
+                human_.MyCards.drawCards(1);
+                for (int i = 0; i < 5; i++)
+                {
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                    if (human_.MyCards.InHandCards[i] is Peg)
+                    {
+                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                }
+                robotMatchShip(button_RobotShip2);
+            }
+            else
+            {
+                MessageBox.Show("Please play one card to robot sea!");
+            }
         }
 
         private void button_RobotShip3_Click(object sender, EventArgs e)
         {
-            robotMatchShip(button_RobotShip3);
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                currentCard.useCard(robotDeployment_[0, 2]);
+                human_.MyCards.InHandCards.Remove(currentCard);
+                human_.MyCards.drawCards(1);
+                for (int i = 0; i < 5; i++)
+                {
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                    if (human_.MyCards.InHandCards[i] is Peg)
+                    {
+                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                }
+                robotMatchShip(button_RobotShip3);
+            }
+            else
+            {
+                MessageBox.Show("Please play one card to robot sea!");
+            }
         }
 
         private void button_RobotShip4_Click(object sender, EventArgs e)
         {
-            robotMatchShip(button_RobotShip4);
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                currentCard.useCard(robotDeployment_[0, 3]);
+                human_.MyCards.InHandCards.Remove(currentCard);
+                human_.MyCards.drawCards(1);
+                for (int i = 0; i < 5; i++)
+                {
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                    if (human_.MyCards.InHandCards[i] is Peg)
+                    {
+                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                }
+                robotMatchShip(button_RobotShip4);
+            }
+            else
+            {
+                MessageBox.Show("Please play one card to robot sea!");
+            }
         }
 
         private void button_RobotShip5_Click(object sender, EventArgs e)
         {
-            robotMatchShip(button_RobotShip5);
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                currentCard.useCard(robotDeployment_[1, 0]);
+                human_.MyCards.InHandCards.Remove(currentCard);
+                human_.MyCards.drawCards(1);
+                for (int i = 0; i < 5; i++)
+                {
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                    if (human_.MyCards.InHandCards[i] is Peg)
+                    {
+                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                }
+                robotMatchShip(button_RobotShip5);
+            }
+            else
+            {
+                MessageBox.Show("Please play one card to robot sea!");
+            }
         }
 
         private void button_RobotShip6_Click(object sender, EventArgs e)
         {
-            robotMatchShip(button_RobotShip6);
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                currentCard.useCard(robotDeployment_[1, 1]);
+                human_.MyCards.InHandCards.Remove(currentCard);
+                human_.MyCards.drawCards(1);
+                for (int i = 0; i < 5; i++)
+                {
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                    if (human_.MyCards.InHandCards[i] is Peg)
+                    {
+                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                }
+                robotMatchShip(button_RobotShip6);
+            }
+            else
+            {
+                MessageBox.Show("Please play one card to robot sea!");
+            }
         }
 
         private void button_RobotShip7_Click(object sender, EventArgs e)
         {
-            robotMatchShip(button_RobotShip7);
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                currentCard.useCard(robotDeployment_[1, 2]);
+                human_.MyCards.InHandCards.Remove(currentCard);
+                human_.MyCards.drawCards(1);
+                for (int i = 0; i < 5; i++)
+                {
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                    if (human_.MyCards.InHandCards[i] is Peg)
+                    {
+                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                }
+                robotMatchShip(button_RobotShip7);
+            }
+            else
+            {
+                MessageBox.Show("Please play one card to robot sea!");
+            }
         }
 
         private void button_RobotShip8_Click(object sender, EventArgs e)
         {
-            robotMatchShip(button_RobotShip8);
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                currentCard.useCard(robotDeployment_[1, 3]);
+                human_.MyCards.InHandCards.Remove(currentCard);
+                human_.MyCards.drawCards(1);
+                for (int i = 0; i < 5; i++)
+                {
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                    if (human_.MyCards.InHandCards[i] is Peg)
+                    {
+                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                }
+                robotMatchShip(button_RobotShip8);
+            }
+            else
+            {
+                MessageBox.Show("Please play one card to robot sea!");
+            }
         }
 
         private void button_RobotShip9_Click(object sender, EventArgs e)
         {
-            robotMatchShip(button_RobotShip9);
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                currentCard.useCard(robotDeployment_[2, 0]);
+                human_.MyCards.InHandCards.Remove(currentCard);
+                human_.MyCards.drawCards(1);
+                for (int i = 0; i < 5; i++)
+                {
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                    if (human_.MyCards.InHandCards[i] is Peg)
+                    {
+                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                }
+                robotMatchShip(button_RobotShip9);
+            }
+            else
+            {
+                MessageBox.Show("Please play one card to robot sea!");
+            }
         }
 
         private void button_RobotShip10_Click(object sender, EventArgs e)
         {
-            robotMatchShip(button_RobotShip10);
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                currentCard.useCard(robotDeployment_[2, 1]);
+                human_.MyCards.InHandCards.Remove(currentCard);
+                human_.MyCards.drawCards(1);
+                for (int i = 0; i < 5; i++)
+                {
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                    if (human_.MyCards.InHandCards[i] is Peg)
+                    {
+                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                }
+                robotMatchShip(button_RobotShip10);
+            }
+            else
+            {
+                MessageBox.Show("Please play one card to robot sea!");
+            }
         }
 
         private void button_RobotShip11_Click(object sender, EventArgs e)
         {
-            robotMatchShip(button_RobotShip11);
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                currentCard.useCard(robotDeployment_[2, 2]);
+                human_.MyCards.InHandCards.Remove(currentCard);
+                human_.MyCards.drawCards(1);
+                for (int i = 0; i < 5; i++)
+                {
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                    if (human_.MyCards.InHandCards[i] is Peg)
+                    {
+                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                }
+                robotMatchShip(button_RobotShip11);
+            }
+            else
+            {
+                MessageBox.Show("Please play one card to robot sea!");
+            }
         }
 
         private void button_RobotShip12_Click(object sender, EventArgs e)
         {
-            robotMatchShip(button_RobotShip12);
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                currentCard.useCard(robotDeployment_[2, 3]);
+                human_.MyCards.InHandCards.Remove(currentCard);
+                human_.MyCards.drawCards(1);
+                for (int i = 0; i < 5; i++)
+                {
+                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                    if (human_.MyCards.InHandCards[i] is Peg)
+                    {
+                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                    }
+                }
+                robotMatchShip(button_RobotShip12);
+            }
+            else
+            {
+                MessageBox.Show("Please play one card to robot sea!");
+            }
         }
     }
 }

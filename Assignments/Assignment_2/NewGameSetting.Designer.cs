@@ -84,6 +84,7 @@
             // 
             this.textBox1_PlayerName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1_PlayerName.Location = new System.Drawing.Point(3, 19);
+            this.textBox1_PlayerName.MaxLength = 16;
             this.textBox1_PlayerName.Name = "textBox1_PlayerName";
             this.textBox1_PlayerName.Size = new System.Drawing.Size(111, 21);
             this.textBox1_PlayerName.TabIndex = 3;
@@ -121,7 +122,7 @@
             this.radioButton4_Mode_Easy.Size = new System.Drawing.Size(47, 16);
             this.radioButton4_Mode_Easy.TabIndex = 1;
             this.radioButton4_Mode_Easy.TabStop = true;
-            this.radioButton4_Mode_Easy.Text = "Easy";
+            this.radioButton4_Mode_Easy.Text = "Base";
             this.radioButton4_Mode_Easy.UseVisualStyleBackColor = true;
             // 
             // radioButton3_Mode_Full

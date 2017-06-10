@@ -156,14 +156,18 @@ namespace BattleshipHiddenThreat
 
         private void radioButton1_Team_Red_CheckedChanged(object sender, EventArgs e)
         {
-            label_SelectedLabel.ForeColor = Color.Red;
-            label_CurrentShip.ForeColor = Color.Red;
+            for (int i = 0; i < this.Controls.Count; i++)
+            {
+                this.Controls[i].ForeColor = Color.Red;
+            }
         }
 
         private void radioButton2_Team_Blue_CheckedChanged(object sender, EventArgs e)
         {
-            label_SelectedLabel.ForeColor = Color.Blue;
-            label_CurrentShip.ForeColor = Color.Blue;
+            for(int i=0;i<this.Controls.Count;i++)
+            {
+                this.Controls[i].ForeColor = Color.Blue;
+            }
         }
 
         /// <summary>
