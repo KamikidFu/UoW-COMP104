@@ -1,3 +1,8 @@
+Version: 10092330
+1. AI Shield bug fixed
+2. Applying power card
+3. Improve AI logic
+
 Version: 10082330
 1. Applied Shield card for AI but having bugs
 2. Applied Submarine Power

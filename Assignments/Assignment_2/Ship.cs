@@ -70,7 +70,11 @@ namespace BattleshipHiddenThreat
 
         public override void useCard(Card target)
         {
-            //Full Game Required
+            if(this.name_=="PT Boat")
+            {
+                Ship targetShip = (Ship)target;
+                targetShip.healthNum_++;
+            }
         }
 
         public override string ToString()

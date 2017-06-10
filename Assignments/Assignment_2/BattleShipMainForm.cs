@@ -141,6 +141,19 @@ namespace BattleshipHiddenThreat
                     robotPlay_Full();
                 }
             }
+            for (int j = 0; j < 3; j++)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (robotDeployment_[j, i].Name != "Sea")
+                    {
+                        robotDeployment_[j, i].DeploymentY = j;
+                        robotDeployment_[j, i].DeploymentX = i;
+                    }
+                }
+            }
+
+
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -429,19 +442,82 @@ namespace BattleshipHiddenThreat
                 }
             }
         }
+        private Ship robot_Full_DamegedShip()
+        {
+            foreach (Ship s in robotDeployment_)
+            {
+                if ((s.Name == "Submarine" && s.HealthNum < 3) || (s.Name == "PT Boat" && s.HealthNum < 2) || (s.Name == "Destroyer" && s.HealthNum < 3)
+                    || (s.Name == "BattleShip" && s.HealthNum < 4) || (s.Name == "Aircraft Carrier" && s.HealthNum < 5))
+                {
+                    return s;
+                }
+            }
+            return null;
+        }
+        private Ship robot_Full_FindAppearedShip(string needFindShip)
+        {
+            for (int i = 0; i < robotDeployment_.Length; i++)
+            {
+                if (tableLayoutPanel2_RobotSea.Controls[i].Text.Contains(needFindShip)
+                    && tableLayoutPanel2_RobotSea.Controls[i].Enabled == true)
+                {
+                    return (Ship)robotDeployment_[i / 4, i % 4];
+                }
+            }
+            return null;
+        }
         private void robotPlay_Full()
         {
             //Full Game
             if (!humanWin)
             {
-                if (robotFindShips.Count != 0)
+                if (robot_Full_DamegedShip() != null)
+                {
+                    Ship damegedShip = robot_Full_DamegedShip();
+                    bool hasShield = false;
+                    int shieldIndex = 0;
+                    foreach (HandCard h in robot_.MyCards.InHandCards)
+                    {
+                        if (h.Name == "Shield")
+                        {
+                            hasShield = true;
+                            break;
+                        }
+                        shieldIndex++;
+                    }
+                    if (hasShield)
+                    {
+                        Power shield = (Power)robot_.MyCards.InHandCards[shieldIndex];
+                        robot_Full_Shield(shield, damegedShip);
+                    }
+                    else if (robot_Full_FindAppearedShip("PT Boat") != null)
+                    {
+                        Ship pt = robot_Full_FindAppearedShip("PT Boat");
+                        pt.useCard(damegedShip);
+                        if (damegedShip.Name != "Sea")
+                        {
+                            tableLayoutPanel2_RobotSea.Controls[damegedShip.DeploymentY * 4 + damegedShip.DeploymentX].Text = robotDeployment_[damegedShip.DeploymentY, damegedShip.DeploymentX].Name + "\n(Health:" + robotDeployment_[damegedShip.DeploymentY, damegedShip.DeploymentX].HealthNum + ")";
+                            if (damegedShip.ShieldNum > 0)
+                            {
+                                tableLayoutPanel2_RobotSea.Controls[damegedShip.DeploymentY * 4 + damegedShip.DeploymentX].Text +=
+                                    "(Shield:" + damegedShip.ShieldNum + ")";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //原本想进行下面的代码，可能不行，需要方法代替，现在去找新船吧
+                        robotPlay_Full_FindNewShipOrOtherAct();
+                    }
+                }
+                else if (robotFindShips.Count != 0)
                 {
                     Random rand = new Random();
                     Ship targetShip = robotFindShips[rand.Next(robotFindShips.Count)];
                     Peg currentCard = (Peg)robotPlay_ChooseOneCardAttack(targetShip);
                     if (currentCard != null)
                     {
-                        currentCard.usePegCard(targetShip,robot_.Mode);
+                        currentCard.usePegCard(targetShip, robot_.Mode);
                         robot_.MyCards.InHandCards.Remove(currentCard);
                         robot_.disCards(currentCard);
                         if (targetShip.Name != "Sea")
@@ -502,7 +578,7 @@ namespace BattleshipHiddenThreat
                     Peg currentCard = (Peg)robotPlay_ChooseOneCardAttack(targetShip);
                     if (currentCard != null)
                     {
-                        currentCard.usePegCard(targetShip,robot_.Mode);
+                        currentCard.usePegCard(targetShip, robot_.Mode);
                         robot_.MyCards.InHandCards.Remove(currentCard);
                         robot_.disCards(currentCard);
                         if (targetShip.Name != "Sea")
@@ -566,7 +642,6 @@ namespace BattleshipHiddenThreat
                     pegCurrentCard = (Peg)currentCard;
                     if (pegCurrentCard.Color != "White")
                     {
-                        //这个地方的括号也乱了！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
                         for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
                         {
                             if (robot_.MyCards.InHandCards[i] is Peg && robot_.MyCards.InHandCards[i].Name.Contains("White"))
@@ -574,47 +649,48 @@ namespace BattleshipHiddenThreat
                                 pegCurrentCard = (Peg)robot_.MyCards.InHandCards[i];
                                 break;
                             }
-                            //Use white or red peg to find/attack ships
-                            Point playerSea = robotDiscoverMatrix[rand.Next(robotDiscoverMatrix.Count)];
-                            robotDiscoverMatrix.Remove(playerSea);
-                            if (robotDiscoveredMatrix[playerSea.Y, playerSea.X] != 1)
+                        }
+                    }
+                    //Use white or red peg to find/attack ships
+                    Point playerSea = robotDiscoverMatrix[rand.Next(robotDiscoverMatrix.Count)];
+                    robotDiscoverMatrix.Remove(playerSea);
+                    if (robotDiscoveredMatrix[playerSea.Y, playerSea.X] != 1)
+                    {
+                        Ship targetShip = playerDeployment_[playerSea.Y, playerSea.X];
+                        targetShip.DeploymentX = playerSea.X;
+                        targetShip.DeploymentY = playerSea.Y;
+                        if (targetShip.Name != "Sea")
+                        {
+                            robotFindShips.Add(targetShip);
+                        }
+                        pegCurrentCard.usePegCard(targetShip, robot_.Mode);
+                        robot_.disCards(pegCurrentCard);
+                        updateHistory("Robot use " + pegCurrentCard.Name + " to find " + human_.Name + "'s " + targetShip.Name);
+                        robot_.MyCards.InHandCards.Remove(pegCurrentCard);
+                        tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = true;
+                        if (targetShip.Name != "Sea")
+                        {
+                            tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text = playerDeployment_[playerSea.Y, playerSea.X].Name + "\n(Health:" + playerDeployment_[playerSea.Y, playerSea.X].HealthNum + ")";
+                            if (targetShip.ShieldNum > 0)
                             {
-                                Ship targetShip = playerDeployment_[playerSea.Y, playerSea.X];
-                                targetShip.DeploymentX = playerSea.X;
-                                targetShip.DeploymentY = playerSea.Y;
-                                if (targetShip.Name != "Sea")
-                                {
-                                    robotFindShips.Add(targetShip);
-                                }
-                                pegCurrentCard.usePegCard(targetShip,robot_.Mode);
-                                robot_.disCards(pegCurrentCard);
-                                updateHistory("Robot use " + pegCurrentCard.Name + " to find " + human_.Name + "'s " + targetShip.Name);
-                                robot_.MyCards.InHandCards.Remove(pegCurrentCard);
-                                tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = true;
-                                if (targetShip.Name != "Sea")
-                                {
-                                    tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text = playerDeployment_[playerSea.Y, playerSea.X].Name + "\n(Health:" + playerDeployment_[playerSea.Y, playerSea.X].HealthNum + ")";
-                                    if (targetShip.ShieldNum > 0)
-                                    {
-                                        tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text +=
-                                            "(Shield:" + targetShip.ShieldNum + ")";
-                                    }
-                                    else
-                                    {
-                                        Power Shield = new Power("Shield");
-                                        human_.MyCards.discards(new HandCard(Shield.Name, "Full"));
-                                    }
-                                }
-                                if (targetShip.HealthNum <= 0 && targetShip.Name != "Sea")
-                                {
-                                    tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = false;
-                                    updateHistory("Player's " + targetShip.Name + " is now sunk.");
-                                    robotFindShips.Remove(targetShip);
-                                    robotDiscover++;
-                                }
-                                robotDiscoveredMatrix[playerSea.Y, playerSea.X] = 1;
+                                tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text +=
+                                    "(Shield:" + targetShip.ShieldNum + ")";
+                            }
+                            else
+                            {
+                                Power Shield = new Power("Shield");
+                                human_.MyCards.discards(new HandCard(Shield.Name, "Full"));
                             }
                         }
+
+                        if (targetShip.HealthNum <= 0 && targetShip.Name != "Sea")
+                        {
+                            tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = false;
+                            updateHistory("Player's " + targetShip.Name + " is now sunk.");
+                            robotFindShips.Remove(targetShip);
+                            robotDiscover++;
+                        }
+                        robotDiscoveredMatrix[playerSea.Y, playerSea.X] = 1;
                     }
 
                 }
@@ -627,70 +703,6 @@ namespace BattleshipHiddenThreat
                         robot_.MyCards.InHandCards.Remove(powerCurrentCard);
                         robot_.disCards(powerCurrentCard);
                     }
-                    else
-                    {
-                        bool realShield = false;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            for (int j = 0; j < 3; j++)
-                            {
-                                if (robotDeployment_[j, i].Name == "Aircraft Carrier" && robotDeployment_[j, i].HealthNum < 5)
-                                {
-                                    Button targerButton = (Button)tableLayoutPanel2_RobotSea.Controls[j * 4 + i];
-                                    powerCurrentCard.useCard(robotDeployment_[j, i], targerButton);
-                                    targerButton.Text += "(Shield:" + robotDeployment_[j, i].ShieldNum + ")";
-                                    realShield = true;
-                                    break;
-                                }
-                                else if (robotDeployment_[j, i].Name == "Battleship" && robotDeployment_[j, i].HealthNum < 4)
-                                {
-                                    Button targerButton = (Button)tableLayoutPanel2_RobotSea.Controls[j * 4 + i];
-                                    powerCurrentCard.useCard(robotDeployment_[j, i], targerButton);
-                                    targerButton.Text += "(Shield:" + robotDeployment_[j, i].ShieldNum + ")";
-                                    realShield = true;
-                                    break;
-                                }
-                                else if (robotDeployment_[j, i].Name == "Destroyer" && robotDeployment_[j, i].HealthNum < 3)
-                                {
-                                    Button targerButton = (Button)tableLayoutPanel2_RobotSea.Controls[j * 4 + i];
-                                    powerCurrentCard.useCard(robotDeployment_[j, i], targerButton);
-                                    targerButton.Text += "(Shield:" + robotDeployment_[j, i].ShieldNum + ")";
-                                    realShield = true;
-                                    break;
-                                }
-                                else if (robotDeployment_[j, i].Name == "PT Boat" && robotDeployment_[j, i].HealthNum < 2)
-                                {
-                                    Button targerButton = (Button)tableLayoutPanel2_RobotSea.Controls[j * 4 + i];
-                                    powerCurrentCard.useCard(robotDeployment_[j, i], targerButton);
-                                    targerButton.Text += "(Shield:" + robotDeployment_[j, i].ShieldNum + ")";
-                                    realShield = true;
-                                    break;
-                                }
-                                else if (robotDeployment_[j, i].Name == "Submarine" && robotDeployment_[j, i].HealthNum < 3)
-                                {
-                                    Button targerButton = (Button)tableLayoutPanel2_RobotSea.Controls[j * 4 + i];
-                                    powerCurrentCard.useCard(robotDeployment_[j, i], targerButton);
-                                    targerButton.Text += "(Shield:" + robotDeployment_[j, i].ShieldNum + ")";
-                                    realShield = true;
-                                    break;
-                                }
-                            }
-                            if (realShield)
-                            {
-                                break;
-                            }
-                        }
-                        if (!realShield)
-                        {
-                            robotPlay_Full_FindNewShipOrOtherAct();
-                        }
-                        else
-                        {
-                            robot_.MyCards.InHandCards.Remove(powerCurrentCard);
-                            robot_.disCards(powerCurrentCard);
-                        }
-                    }
-
                 }
             }
             else
@@ -699,7 +711,12 @@ namespace BattleshipHiddenThreat
                 robotPlay_Full_FindNewShipOrOtherAct();
             }
         }
-    
+
+        private void robot_Full_Shield(Power Shield, Ship targetShip)
+        {
+            Button targetButton = (Button)tableLayoutPanel2_RobotSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX];
+            Shield.useCard(targetShip, targetButton);
+        }
 
         private void robotPlay_Base_FindNewShipOrOtherAct()
         {
@@ -734,7 +751,7 @@ namespace BattleshipHiddenThreat
                         {
                             robotFindShips.Add(targetShip);
                         }
-                        pegCurrentCard.usePegCard(targetShip,robot_.Mode);
+                        pegCurrentCard.usePegCard(targetShip, robot_.Mode);
                         robot_.disCards(pegCurrentCard);
                         updateHistory("Robot use " + currentCard.Name + " to find " + human_.Name + "'s " + targetShip.Name);
                         robot_.MyCards.InHandCards.Remove(pegCurrentCard);
@@ -759,7 +776,7 @@ namespace BattleshipHiddenThreat
                 robot_.drawCards(1);
                 robotPlay_Base_FindNewShipOrOtherAct();
             }
-        }    
+        }
         private HandCard robotPlay_ChooseOneCardAttack(Ship targerShip)
         {
             if (targerShip.Name != "Submarine")
@@ -795,7 +812,7 @@ namespace BattleshipHiddenThreat
             {
                 for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
                 {
-                    if (robot_.MyCards.InHandCards[i].Name==("White Peg"))
+                    if (robot_.MyCards.InHandCards[i].Name == ("White Peg"))
                     {
                         return robot_.MyCards.InHandCards[i];
                     }
@@ -867,7 +884,7 @@ namespace BattleshipHiddenThreat
                 if (currentCard is Peg)
                 {
                     Peg pegCurrent = (Peg)currentCard;
-                    pegCurrent.usePegCard(robotDeployment_[robotY, robotX],human_.Mode);
+                    pegCurrent.usePegCard(robotDeployment_[robotY, robotX], human_.Mode);
                     human_.disCards(pegCurrent);
                     human_.MyCards.InHandCards.Remove(pegCurrent);
                     updateHistory("Player uses " + pegCurrent.Name + " " + pegCurrent.AttackNum + " to attack robot's " + robotDeployment_[robotY, robotX].Name);
@@ -887,7 +904,7 @@ namespace BattleshipHiddenThreat
                         }
                     }
                 }
-                else if(currentCard is Power)
+                else if (currentCard is Power)
                 {
                     //NEED APPLY
                 }
@@ -897,7 +914,7 @@ namespace BattleshipHiddenThreat
                 MessageBox.Show("Please play one card to robot sea!");
             }
         }
-        
+
         private void updateHistory(string addHistory)
         {
             history.Add(history.HistoryCounter++, addHistory);
@@ -906,9 +923,188 @@ namespace BattleshipHiddenThreat
             listBox_GameHistory.DataSource = history.HistoryList;
             listBox_GameHistory.SetSelected(history.HistoryCounter - 1, true);
         }
-        private void playerShieldUse(RadioButton shieldCard)
+
+        private void playerShipsAct_Shield(Button targetShipButton)
         {
-            if (shieldCard.Text == "Shield")
+            int playerCardIndex = -1;
+            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+            {
+                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
+                {
+                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
+                    if (r.Checked)
+                    {
+                        playerCardIndex = i;
+                        break;
+                    }
+                }
+            }
+            if (playerCardIndex > -1)
+            {
+                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
+                if (currentCard is Power)
+                {
+                    Power usePower = (Power)currentCard;
+                    int index = 0;
+                    foreach (Button b in tableLayoutPanel3_PlayerSea.Controls)
+                    {
+                        if (b == targetShipButton)
+                        {
+                            break;
+                        }
+                        index++;
+                    }
+                    Ship targetShip = playerDeployment_[index / 4, index % 4];
+                    usePower.useCard(targetShip);
+                    human_.MyCards.InHandCards.Remove(usePower);
+                    human_.disCards(usePower);
+                    if (human_.Team == "Red")
+                    { targetShipButton.ForeColor = Color.Red; targetShipButton.BackColor = Control.DefaultBackColor; }
+                    else
+                    { targetShipButton.ForeColor = Color.Blue; targetShipButton.BackColor = Control.DefaultBackColor; }
+                    human_.MyCards.InHandCards.Remove(currentCard);
+                    human_.disCards(currentCard);
+                    human_.drawCards(1);
+                    for (int i = 0; i < 5; i++)
+                    {
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                        if (human_.MyCards.InHandCards[i] is Peg)
+                        {
+                            Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                            tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                        }
+                        else if (human_.MyCards.InHandCards[i] is Power)
+                        {
+                            Power powerCard = (Power)human_.MyCards.InHandCards[i];
+                            tableLayoutPanel4_PlayerHandCards.Controls[i].Text = powerCard.Name;
+                        }
+                    }
+                }
+            }
+
+        }    
+
+        private void button_PlayerShip1_Click(object sender, EventArgs e)
+        {
+            if (!baseMode)
+            {
+                playerShipsAct_Shield(button_PlayerShip1);
+                robotPlay_Full();
+            }
+        }
+        private void button_PlayerShip2_Click(object sender, EventArgs e)
+        {
+            if (!baseMode)
+            {
+                playerShipsAct_Shield(button_PlayerShip2);
+                robotPlay_Full();
+            }
+        }
+
+        private void button_PlayerShip3_Click(object sender, EventArgs e)
+        {
+            if (!baseMode)
+            {
+                playerShipsAct_Shield(button_PlayerShip3);
+                robotPlay_Full();
+            }
+        }
+
+        private void button_PlayerShip4_Click(object sender, EventArgs e)
+        {
+            if (!baseMode)
+            {
+                playerShipsAct_Shield(button_PlayerShip4);
+                robotPlay_Full();
+            }
+        }
+
+        private void button_PlayerShip5_Click(object sender, EventArgs e)
+        {
+            if (!baseMode)
+            {
+                playerShipsAct_Shield(button_PlayerShip5);
+                robotPlay_Full();
+            }
+        }
+
+        private void button_PlayerShip6_Click(object sender, EventArgs e)
+        {
+            if (!baseMode)
+            {
+                playerShipsAct_Shield(button_PlayerShip6);
+                robotPlay_Full();
+            }
+        }
+
+        private void button_PlayerShip7_Click(object sender, EventArgs e)
+        {
+            if (!baseMode)
+            {
+                playerShipsAct_Shield(button_PlayerShip7);
+                robotPlay_Full();
+            }
+        }
+
+        private void button_PlayerShip8_Click(object sender, EventArgs e)
+        {
+            if (!baseMode)
+            {
+                playerShipsAct_Shield(button_PlayerShip8);
+                robotPlay_Full();
+            }
+        }
+
+        private void button_PlayerShip9_Click(object sender, EventArgs e)
+        {
+            if (!baseMode)
+            {
+                playerShipsAct_Shield(button_PlayerShip9);
+                robotPlay_Full();
+            }
+        }
+
+        private void button_PlayerShip10_Click(object sender, EventArgs e)
+        {
+            if (!baseMode)
+            {
+                playerShipsAct_Shield(button_PlayerShip10);
+                robotPlay_Full();
+            }
+        }
+
+        private void button_PlayerShip11_Click(object sender, EventArgs e)
+        {
+            if (!baseMode)
+            {
+                playerShipsAct_Shield(button_PlayerShip11);
+                robotPlay_Full();
+            }
+        }
+
+        private void button_PlayerShip12_Click(object sender, EventArgs e)
+        {
+            if (!baseMode)
+            {
+                playerShipsAct_Shield(button_PlayerShip12);
+                robotPlay_Full();
+            }
+        }
+
+        private void playerPowerUse(RadioButton selected)
+        {
+            if (selected.Text == "Discard White Peg or Play 2 Cards")
+            {
+                DialogResult dr =
+                    MessageBox.Show("There are two function to select.\nA.Discard White\nB.Play 2 Cards\nThe default is to use A. Click Yes if you agree or No to use the another.", "Power Card", MessageBoxButtons.YesNo);
+                
+            }
+            else if(selected.Text== "Repair a ship or Draw 3 Cards, then Play 1")
+            {
+                DialogResult dr =
+                    MessageBox.Show("There are two function to select.\nA.Repair a ship then play 1\nB.Draw 3 Cards then play 1\nThe default is to use A. Click Yes if you agree or No to use the another.", "Power Card", MessageBoxButtons.YesNo);
+            }
+            else if (selected.Text == "Shield")
             {
                 for (int i = 0; i < tableLayoutPanel3_PlayerSea.Controls.Count; i++)
                 {
@@ -945,219 +1141,53 @@ namespace BattleshipHiddenThreat
                 }
             }
         }
-
-        private void playerShipsAct(Button targetShipButton)
-        {
-            int playerCardIndex = -1;
-            for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
-            {
-                if (tableLayoutPanel4_PlayerHandCards.Controls[i] is RadioButton)
-                {
-                    RadioButton r = (RadioButton)tableLayoutPanel4_PlayerHandCards.Controls[i];
-                    if (r.Checked)
-                    {
-                        playerCardIndex = i;
-                        break;
-                    }
-                }
-            }
-            if (playerCardIndex > -1)
-            {
-                HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
-                if(currentCard is Power                    )
-                {
-                    Power usePower = (Power)currentCard;
-                    int index = 0;
-                    foreach(Button b in tableLayoutPanel3_PlayerSea.Controls)
-                    {
-                        if (b== targetShipButton)
-                        {
-                            break;
-                        }
-                        index++;
-                    }
-                    Ship targetShip = playerDeployment_[index / 4, index % 4];
-                    usePower.useCard(targetShip);
-                    human_.MyCards.InHandCards.Remove(usePower);
-                    human_.disCards(usePower);
-                    if (human_.Team == "Red")
-                    { targetShipButton.ForeColor = Color.Red; targetShipButton.BackColor = Control.DefaultBackColor; }
-                    else
-                    { targetShipButton.ForeColor = Color.Blue; targetShipButton.BackColor = Control.DefaultBackColor; }
-                    human_.MyCards.InHandCards.Remove(currentCard);
-                    human_.disCards(currentCard);
-                    human_.drawCards(1);
-                    for (int i = 0; i < 5; i++)
-                    {
-                        tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
-                        if (human_.MyCards.InHandCards[i] is Peg)
-                        {
-                            Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
-                            tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
-                        }
-                        else if (human_.MyCards.InHandCards[i] is Power)
-                        {
-                            Power powerCard = (Power)human_.MyCards.InHandCards[i];
-                            tableLayoutPanel4_PlayerHandCards.Controls[i].Text = powerCard.Name;
-                        }
-                    }
-                }
-            }
-        }        
-
-        private void button_PlayerShip1_Click(object sender, EventArgs e)
-        {
-            if (!baseMode)
-            {
-                playerShipsAct(button_PlayerShip1);
-                robotPlay_Full();
-            }
-        }
-        private void button_PlayerShip2_Click(object sender, EventArgs e)
-        {
-            if (!baseMode)
-            {
-                playerShipsAct(button_PlayerShip2);
-                robotPlay_Full();
-            }
-        }
-
-        private void button_PlayerShip3_Click(object sender, EventArgs e)
-        {
-            if (!baseMode)
-            {
-                playerShipsAct(button_PlayerShip3);
-                robotPlay_Full();
-            }
-        }
-
-        private void button_PlayerShip4_Click(object sender, EventArgs e)
-        {
-            if (!baseMode)
-            {
-                playerShipsAct(button_PlayerShip4);
-                robotPlay_Full();
-            }
-        }
-
-        private void button_PlayerShip5_Click(object sender, EventArgs e)
-        {
-            if (!baseMode)
-            {
-                playerShipsAct(button_PlayerShip5);
-                robotPlay_Full();
-            }
-        }
-
-        private void button_PlayerShip6_Click(object sender, EventArgs e)
-        {
-            if (!baseMode)
-            {
-                playerShipsAct(button_PlayerShip6);
-                robotPlay_Full();
-            }
-        }
-
-        private void button_PlayerShip7_Click(object sender, EventArgs e)
-        {
-            if (!baseMode)
-            {
-                playerShipsAct(button_PlayerShip7);
-                robotPlay_Full();
-            }
-        }
-
-        private void button_PlayerShip8_Click(object sender, EventArgs e)
-        {
-            if (!baseMode)
-            {
-                playerShipsAct(button_PlayerShip8);
-                robotPlay_Full();
-            }
-        }
-
-        private void button_PlayerShip9_Click(object sender, EventArgs e)
-        {
-            if (!baseMode)
-            {
-                playerShipsAct(button_PlayerShip9);
-                robotPlay_Full();
-            }
-        }
-
-        private void button_PlayerShip10_Click(object sender, EventArgs e)
-        {
-            if (!baseMode)
-            {
-                playerShipsAct(button_PlayerShip10);
-                robotPlay_Full();
-            }
-        }
-
-        private void button_PlayerShip11_Click(object sender, EventArgs e)
-        {
-            if (!baseMode)
-            {
-                playerShipsAct(button_PlayerShip11);
-                robotPlay_Full();
-            }
-        }
-
-        private void button_PlayerShip12_Click(object sender, EventArgs e)
-        {
-            if (!baseMode)
-            {
-                playerShipsAct(button_PlayerShip12);
-                robotPlay_Full();
-            }
-        }
         private void radioButton1_MyCard1_Click(object sender, EventArgs e)
         {
-            playerShieldUse(radioButton1_MyCard1);
+            playerPowerUse(radioButton1_MyCard1);
         }
         private void radioButton2_MyCard2_Click(object sender, EventArgs e)
         {
-            playerShieldUse(radioButton2_MyCard2);
+            playerPowerUse(radioButton2_MyCard2);
         }       
 
         private void radioButton3_MyCard3_Click(object sender, EventArgs e)
         {
-            playerShieldUse(radioButton3_MyCard3);
+            playerPowerUse(radioButton3_MyCard3);
         }
 
         private void radioButton4_MyCard4_Click(object sender, EventArgs e)
         {
-            playerShieldUse(radioButton4_MyCard4);
+            playerPowerUse(radioButton4_MyCard4);
         }
 
         private void radioButton5_MyCard5_Click(object sender, EventArgs e)
         {
-            playerShieldUse(radioButton5_MyCard5);
+            playerPowerUse(radioButton5_MyCard5);
         }
 
         private void radioButton6_MyCard6_Click(object sender, EventArgs e)
         {
-            playerShieldUse(radioButton6_MyCard6);
+            playerPowerUse(radioButton6_MyCard6);
         }
 
         private void radioButton7_MyCard7_Click(object sender, EventArgs e)
         {
-            playerShieldUse(radioButton7_MyCard7);
+            playerPowerUse(radioButton7_MyCard7);
         }
 
         private void radioButton8_MyCard8_Click(object sender, EventArgs e)
         {
-            playerShieldUse(radioButton8_MyCard8);
+            playerPowerUse(radioButton8_MyCard8);
         }
 
         private void radioButton9_MyCard9_Click(object sender, EventArgs e)
         {
-            playerShieldUse(radioButton9_MyCard9);
+            playerPowerUse(radioButton9_MyCard9);
         }
 
         private void radioButton10_MyCard10_Click(object sender, EventArgs e)
         {
-            playerShieldUse(radioButton10_MyCard10);
+            playerPowerUse(radioButton10_MyCard10);
         }
     }
 }

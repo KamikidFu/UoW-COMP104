@@ -17,12 +17,12 @@ namespace BattleshipHiddenThreat
         }
         public override void useCard(Card target)
         {
-
+            //power coding in main form
         }
 
         public void useCard(Card target, Button targetButton)
         {
-            if (this.Name == "Shield")
+            if (this.name_ == "Shield")
             {
                 Ship myShip = (Ship)target;
                 myShip.ShieldNum += 2;
