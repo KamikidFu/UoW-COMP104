@@ -46,7 +46,7 @@ namespace Assignment_Framework_with_Classes
         ///<summary>
         ///Default quantity of Ingredient, e.g. "1" means 1 unit of ingredient
         ///</summary>
-        private uint defaultQuantity_;
+        private double defaultQuantity_;
         ///<summary>
         ///Price of ingredient, e.g."$1" means this ingredient has price of 1 dollar
         ///</summary>
@@ -72,7 +72,7 @@ namespace Assignment_Framework_with_Classes
         ///<summary>
         ///Create a new recipe by given name, yield, instruction
         ///</summary>
-        public Ingredient(string NAME, uint QUANTITY, string UNIT, uint ENERGY, decimal PRICE)
+        public Ingredient(string NAME, double QUANTITY, string UNIT, uint ENERGY, decimal PRICE)
         {
             // Initialise variable
             name_ = NAME;
@@ -103,7 +103,7 @@ namespace Assignment_Framework_with_Classes
             }
         }
 
-        public uint Default_Quantity
+        public double Default_Quantity
         {
             get
             {

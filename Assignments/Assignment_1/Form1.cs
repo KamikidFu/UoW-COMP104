@@ -54,7 +54,7 @@ namespace Assignment_Framework_with_Classes
                         if (!splitedData[0].Contains('#'))
                         {
                             string name = splitedData[0];
-                            uint quantity = uint.Parse(splitedData[1]);
+                            double quantity = double.Parse(splitedData[1]);
                             string unit = splitedData[2];
                             uint energy = uint.Parse(splitedData[3]);
                             decimal price = decimal.Parse(splitedData[4]);
@@ -303,67 +303,220 @@ namespace Assignment_Framework_with_Classes
                 {
                     reader = File.OpenText(Recipe_openFileDialog1.FileName);
                     Recipe newRecipe = new Recipe();
+                int lineCounter = 0;
+                string errorLine = "";
                 try
                 {
                     while (!reader.EndOfStream)
-                    {                      
+                    {
+                        lineCounter++;
                         string oneLineData = reader.ReadLine();
+                        errorLine = oneLineData;
                         string[] splitedData = oneLineData.Split(',');
                         if (oneLineData == "#Name,Servings")
                         {
-                            string[] recipeData = reader.ReadLine().Split(',');
-                            if(recipeData.Length==2)
-                            {
-                                newRecipe.Name = recipeData[0];
-                                newRecipe.Yield = uint.Parse(recipeData[1]);
-                                recipes_.Add(newRecipe);
-                            }
+                            oneLineData = reader.ReadLine();
+                            lineCounter++;
+                            errorLine = oneLineData;
+                            splitedData = oneLineData.Split(',');
+                            newRecipe.Name = splitedData[0];
+                            newRecipe.Yield = uint.Parse(splitedData[1]);
+                            recipes_.Add(newRecipe);
                             continue;
-                        }else if(oneLineData== "#Ingredients")
+                        }else if (oneLineData == "#Ingredients")
                         {
                             continue;
                         }
-                        else if(oneLineData== "#Name,Quantity,Unit")
+                        else if(oneLineData=="#Name,Quantity,Unit"||oneLineData=="#Name,quantity,unit")
                         {
-                            string IngredientLineData = "";
-                            IngredientLineData = reader.ReadLine();
-                            while (IngredientLineData != "#Instructions")
+                            while (oneLineData != "#Instructions")
                             {
-                                string[] splitedNewLineData = IngredientLineData.Split(',');
-                                if (splitedNewLineData.Length == 2)
+                                oneLineData = reader.ReadLine();
+                                lineCounter++;
+                                errorLine = oneLineData;
+                                splitedData = oneLineData.Split(',');
+                                RecipeItems newItems;
+                                if (splitedData.Length == 2)
                                 {
-                                    string name = splitedData[0];
-                                    double quantity = double.Parse(splitedData[1]);
-                                    newRecipe.Requirements_.Add(new RecipeItems(name, quantity, ""));
+                                    //foreach(Ingredient ing in ingredients_)
+                                    //{
+                                    //    if(ing.Name==splitedData[0])
+                                    //    {
+                                    //        newItems = new RecipeItems(ing.Name, double.Parse(splitedData[1]), "");
+                                    //        newRecipe.Requirements_.Add(newItems);
+                                    //        break;
+                                    //    }
+                                    //}
+                                    bool newIngredient = false;
+                                    for(int i=0;i<ingredients_.Count;i++)
+                                    {
+                                        if(ingredients_[i].Name==splitedData[0])
+                                        {
+                                            newIngredient = false;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            newIngredient = true;
+                                        }
+                                    }
+                                    if(newIngredient)
+                                    {
+                                        ingredients_.Add(new Ingredient(splitedData[0], double.Parse(splitedData[1]), "", 0, 0));
+                                    }
+                                    newItems = new RecipeItems(splitedData[0], double.Parse(splitedData[1]), "");
+                                    newRecipe.Requirements_.Add(newItems);
                                 }
                                 else if (splitedData.Length == 3)
                                 {
-                                    string name = splitedData[0];
-                                    double quantity = double.Parse(splitedData[1]);
-                                    string unit = splitedData[2];
-                                    newRecipe.Requirements_.Add(new RecipeItems(name, quantity, unit));
+                                    //newRecipe.Requirements_.Add(new RecipeItems(splitedData[0], double.Parse(splitedData[1]), splitedData[2]));
+                                    //Ingredient newIng = new Ingredient(splitedData[0], double.Parse(splitedData[1]), splitedData[2], 0, 0);
+                                    //ingredients_.Add(newIng);
+                                    bool newIngredient = false;
+                                    for (int i = 0; i < ingredients_.Count; i++)
+                                    {
+                                        if (ingredients_[i].Name == splitedData[0])
+                                        {
+                                            newIngredient = false;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            newIngredient = true;
+                                        }
+                                    }
+                                    if (newIngredient)
+                                    {
+                                        ingredients_.Add(new Ingredient(splitedData[0], double.Parse(splitedData[1]), splitedData[2], 0, 0));
+                                    }
+                                    newItems = new RecipeItems(splitedData[0], double.Parse(splitedData[1]), splitedData[2]);
+                                    newRecipe.Requirements_.Add(newItems);
                                 }
-                                IngredientLineData = reader.ReadLine();
                             }
-                            continue;                            
-                        }
-                        else if(oneLineData.Contains('#'))
-                        {
-                            continue;
+                            while(!reader.EndOfStream)
+                            {
+                                oneLineData = reader.ReadLine();
+                                lineCounter++;
+                                errorLine = oneLineData;
+                                newRecipe.Instruction += oneLineData + "\n";
+                            }
+                            break;
                         }
                         else
                         {
-                            newRecipe.Instruction += oneLineData;
+                            MessageBox.Show(":-( \nFailed to read, because this recipe file has incorrect syntax at line " + lineCounter.ToString()+"."+
+                                            "\nThe line content is "+oneLineData+"\nNormal syntax needs to be any of:"+"\n#Name,Servings, this should be Line 1"+"\n#Ingredients"
+                                            +"\n#Name,Quantity,Unit"+"\n#Instrctuions");
+                            recipes_.Remove(newRecipe);
+                            break;
                         }
+
+                        //if(lineCounter==1||lineCounter==2 || oneLineData == "#Name,Servings")
+                        //{
+                        //    if(oneLineData== "#Name,Servings")
+                        //    {
+                        //        continue;
+                        //    }
+                        //    else if(splitedData.Length==2)
+                        //    {
+                        //        newRecipe.Name = splitedData[0];
+                        //        newRecipe.Yield = uint.Parse(splitedData[1]);
+                        //        recipes_.Add(newRecipe);
+                        //        continue;
+                        //    }
+                        //}
+                        //if(oneLineData=="#Ingredients")
+                        //{
+                        //    continue;
+                        //}
+                        //if(oneLineData == "#Name,Quantity,Unit" || oneLineData == "#Name,quantity,unit")
+                        //{
+                        //    while (oneLineData != "#Instructions")
+                        //    {
+                        //        oneLineData = reader.ReadLine();
+                        //        splitedData = oneLineData.Split(',');
+                        //        if (splitedData.Length == 2)
+                        //        {
+                        //            newRecipe.Requirements_.Add(new RecipeItems(splitedData[0], double.Parse(splitedData[1]), ""));
+                        //        }
+                        //        else if (splitedData.Length == 3)
+                        //        {
+                        //            newRecipe.Requirements_.Add(new RecipeItems(splitedData[0], double.Parse(splitedData[1]), splitedData[2]));
+                        //        }
+                        //    }
+                        //    continue;
+                        //}
+                        //else
+                        //{
+                        //    newRecipe.Instruction += oneLineData + "\n";
+                        //}
+                        //if (oneLineData == "#Name,Servings")
+                        //{
+                        ////    //if (splitedData.Length == 2)
+                        //    //{
+                        //    //    newRecipe.Name = splitedData[0];
+                        //    //    newRecipe.Yield = uint.Parse(splitedData[1]);
+                        //    //    recipes_.Add(newRecipe);
+                        //    //}
+                        //    continue;
+                        //} else if (lineCounter == 0 ||lineCounter==1)
+                        // {
+                        //    if(splitedData[0].Contains('#'))
+                        //    {
+                        //        continue;
+                        //    }
+                        //    else if(splitedData.Length == 2)
+                        //    {
+                        //        newRecipe.Name = splitedData[0];
+                        //        newRecipe.Yield = uint.Parse(splitedData[1]);
+                        //        recipes_.Add(newRecipe);
+                        //        continue;
+                        //    }
+                        //}
+                        //else if(oneLineData== "#Ingredients")
+                        //{
+                        //    continue;
+                        //}
+                        //else if(oneLineData== "#Name,Quantity,Unit" || oneLineData== "#Name,quantity,unit")
+                        //{
+                        //    string IngredientLineData = "";
+                        //    IngredientLineData = reader.ReadLine();
+                        //    while (IngredientLineData != "#Instructions")
+                        //    {
+                        //        string[] splitedNewLineData = IngredientLineData.Split(',');
+                        //        if (splitedNewLineData.Length == 2)
+                        //        {
+                        //            newRecipe.Requirements_.Add(new RecipeItems(splitedNewLineData[0], double.Parse(splitedNewLineData[1]), ""));
+                        //        }
+                        //        else if (splitedData.Length == 3)
+                        //        {
+                        //            newRecipe.Requirements_.Add(new RecipeItems(splitedNewLineData[0], double.Parse(splitedNewLineData[1]), splitedNewLineData[2]));
+                        //        }
+                        //        IngredientLineData = reader.ReadLine();
+                        //    }
+                        //    continue;                            
+                        //}
+                        //else if(oneLineData.Contains('#'))
+                        //{
+                        //    continue;
+                        //}
+                        //else
+                        //{
+                        //    newRecipe.Instruction += oneLineData;
+                        //}
                     }
                     reader.Close();
 
                     Recipes_dataGridView1.DataSource = null;
                     Recipes_dataGridView1.DataSource = recipes_;
+                    Ingredients_dataGridView2.DataSource = null;
+                    Ingredients_dataGridView2.DataSource = ingredients_;
                 }
-                catch (Exception ex)
+                catch 
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(":-( \nFailed to read, because this recipe file has incorrect syntax at line " + lineCounter.ToString() + "." +
+                                            "\nThe line content is " + errorLine + "\nNormal syntax needs to be any of:" + "\n#Name,Servings, this should be Line 1" + "\n#Ingredients"
+                                            + "\n#Name,Quantity,Unit" + "\n#Instrctuions");
                     recipes_.Remove(newRecipe);
                 }
             }

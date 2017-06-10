@@ -36,8 +36,22 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.Recipes_dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.yieldDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.instructionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.recipeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Ingredients_dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.defaultQuantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.energyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unitDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ingredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Require_dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.ingredientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unitDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.recipeItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Instructions_richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
@@ -51,28 +65,14 @@
             this.ChangeInstruction_button3 = new System.Windows.Forms.Button();
             this.Read_button4 = new System.Windows.Forms.Button();
             this.Recipe_openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.yieldDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.instructionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.recipeBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.defaultQuantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.energyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unitDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ingredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.ingredientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unitDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.recipeItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Recipes_dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Ingredients_dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Require_dataGridView3)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.recipeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Ingredients_dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Require_dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeItemsBindingSource)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -162,6 +162,28 @@
             this.Recipes_dataGridView1.SelectionChanged += new System.EventHandler(this.Recipes_dataGridView1_SelectionChanged);
             this.Recipes_dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Recipes_dataGridView1_KeyDown);
             // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // yieldDataGridViewTextBoxColumn
+            // 
+            this.yieldDataGridViewTextBoxColumn.DataPropertyName = "Yield";
+            this.yieldDataGridViewTextBoxColumn.HeaderText = "Yield";
+            this.yieldDataGridViewTextBoxColumn.Name = "yieldDataGridViewTextBoxColumn";
+            // 
+            // instructionDataGridViewTextBoxColumn
+            // 
+            this.instructionDataGridViewTextBoxColumn.DataPropertyName = "Instruction";
+            this.instructionDataGridViewTextBoxColumn.HeaderText = "Instruction";
+            this.instructionDataGridViewTextBoxColumn.Name = "instructionDataGridViewTextBoxColumn";
+            // 
+            // recipeBindingSource
+            // 
+            this.recipeBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.Recipe);
+            // 
             // Ingredients_dataGridView2
             // 
             this.Ingredients_dataGridView2.AutoGenerateColumns = false;
@@ -179,6 +201,40 @@
             this.Ingredients_dataGridView2.RowTemplate.Height = 23;
             this.Ingredients_dataGridView2.Size = new System.Drawing.Size(563, 412);
             this.Ingredients_dataGridView2.TabIndex = 5;
+            // 
+            // nameDataGridViewTextBoxColumn1
+            // 
+            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            // 
+            // defaultQuantityDataGridViewTextBoxColumn
+            // 
+            this.defaultQuantityDataGridViewTextBoxColumn.DataPropertyName = "Default_Quantity";
+            this.defaultQuantityDataGridViewTextBoxColumn.HeaderText = "Default_Quantity";
+            this.defaultQuantityDataGridViewTextBoxColumn.Name = "defaultQuantityDataGridViewTextBoxColumn";
+            // 
+            // priceDataGridViewTextBoxColumn
+            // 
+            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
+            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
+            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            // 
+            // energyDataGridViewTextBoxColumn
+            // 
+            this.energyDataGridViewTextBoxColumn.DataPropertyName = "Energy";
+            this.energyDataGridViewTextBoxColumn.HeaderText = "Energy";
+            this.energyDataGridViewTextBoxColumn.Name = "energyDataGridViewTextBoxColumn";
+            // 
+            // unitDataGridViewTextBoxColumn
+            // 
+            this.unitDataGridViewTextBoxColumn.DataPropertyName = "Unit";
+            this.unitDataGridViewTextBoxColumn.HeaderText = "Unit";
+            this.unitDataGridViewTextBoxColumn.Name = "unitDataGridViewTextBoxColumn";
+            // 
+            // ingredientBindingSource
+            // 
+            this.ingredientBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.Ingredient);
             // 
             // Require_dataGridView3
             // 
@@ -201,6 +257,28 @@
             this.Require_dataGridView3.TabIndex = 6;
             this.Require_dataGridView3.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Require_dataGridView3_CellEndEdit);
             this.Require_dataGridView3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Require_dataGridView3_KeyDown);
+            // 
+            // ingredientNameDataGridViewTextBoxColumn
+            // 
+            this.ingredientNameDataGridViewTextBoxColumn.DataPropertyName = "IngredientName";
+            this.ingredientNameDataGridViewTextBoxColumn.HeaderText = "IngredientName";
+            this.ingredientNameDataGridViewTextBoxColumn.Name = "ingredientNameDataGridViewTextBoxColumn";
+            // 
+            // quantityDataGridViewTextBoxColumn
+            // 
+            this.quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
+            this.quantityDataGridViewTextBoxColumn.HeaderText = "Quantity";
+            this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
+            // 
+            // unitDataGridViewTextBoxColumn1
+            // 
+            this.unitDataGridViewTextBoxColumn1.DataPropertyName = "Unit";
+            this.unitDataGridViewTextBoxColumn1.HeaderText = "Unit";
+            this.unitDataGridViewTextBoxColumn1.Name = "unitDataGridViewTextBoxColumn1";
+            // 
+            // recipeItemsBindingSource
+            // 
+            this.recipeItemsBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.RecipeItems);
             // 
             // Instructions_richTextBox1
             // 
@@ -357,84 +435,6 @@
             // 
             this.Recipe_openFileDialog1.FileName = "Open New Recipe";
             // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // yieldDataGridViewTextBoxColumn
-            // 
-            this.yieldDataGridViewTextBoxColumn.DataPropertyName = "Yield";
-            this.yieldDataGridViewTextBoxColumn.HeaderText = "Yield";
-            this.yieldDataGridViewTextBoxColumn.Name = "yieldDataGridViewTextBoxColumn";
-            // 
-            // instructionDataGridViewTextBoxColumn
-            // 
-            this.instructionDataGridViewTextBoxColumn.DataPropertyName = "Instruction";
-            this.instructionDataGridViewTextBoxColumn.HeaderText = "Instruction";
-            this.instructionDataGridViewTextBoxColumn.Name = "instructionDataGridViewTextBoxColumn";
-            // 
-            // recipeBindingSource
-            // 
-            this.recipeBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.Recipe);
-            // 
-            // nameDataGridViewTextBoxColumn1
-            // 
-            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
-            // 
-            // defaultQuantityDataGridViewTextBoxColumn
-            // 
-            this.defaultQuantityDataGridViewTextBoxColumn.DataPropertyName = "Default_Quantity";
-            this.defaultQuantityDataGridViewTextBoxColumn.HeaderText = "Default_Quantity";
-            this.defaultQuantityDataGridViewTextBoxColumn.Name = "defaultQuantityDataGridViewTextBoxColumn";
-            // 
-            // priceDataGridViewTextBoxColumn
-            // 
-            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
-            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
-            // 
-            // energyDataGridViewTextBoxColumn
-            // 
-            this.energyDataGridViewTextBoxColumn.DataPropertyName = "Energy";
-            this.energyDataGridViewTextBoxColumn.HeaderText = "Energy";
-            this.energyDataGridViewTextBoxColumn.Name = "energyDataGridViewTextBoxColumn";
-            // 
-            // unitDataGridViewTextBoxColumn
-            // 
-            this.unitDataGridViewTextBoxColumn.DataPropertyName = "Unit";
-            this.unitDataGridViewTextBoxColumn.HeaderText = "Unit";
-            this.unitDataGridViewTextBoxColumn.Name = "unitDataGridViewTextBoxColumn";
-            // 
-            // ingredientBindingSource
-            // 
-            this.ingredientBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.Ingredient);
-            // 
-            // ingredientNameDataGridViewTextBoxColumn
-            // 
-            this.ingredientNameDataGridViewTextBoxColumn.DataPropertyName = "IngredientName";
-            this.ingredientNameDataGridViewTextBoxColumn.HeaderText = "IngredientName";
-            this.ingredientNameDataGridViewTextBoxColumn.Name = "ingredientNameDataGridViewTextBoxColumn";
-            // 
-            // quantityDataGridViewTextBoxColumn
-            // 
-            this.quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
-            this.quantityDataGridViewTextBoxColumn.HeaderText = "Quantity";
-            this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
-            // 
-            // unitDataGridViewTextBoxColumn1
-            // 
-            this.unitDataGridViewTextBoxColumn1.DataPropertyName = "Unit";
-            this.unitDataGridViewTextBoxColumn1.HeaderText = "Unit";
-            this.unitDataGridViewTextBoxColumn1.Name = "unitDataGridViewTextBoxColumn1";
-            // 
-            // recipeItemsBindingSource
-            // 
-            this.recipeItemsBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.RecipeItems);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -447,13 +447,13 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Recipes_dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.recipeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Ingredients_dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Require_dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.recipeItemsBindingSource)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.recipeBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.recipeItemsBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
