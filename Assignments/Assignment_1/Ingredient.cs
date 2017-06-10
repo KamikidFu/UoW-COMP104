@@ -46,7 +46,7 @@ namespace Assignment_Framework_with_Classes
         ///<summary>
         ///Default quantity of Ingredient, e.g. "1" means 1 unit of ingredient
         ///</summary>
-        private uint quantity_;
+        private uint defaultQuantity_;
         ///<summary>
         ///Price of ingredient, e.g."$1" means this ingredient has price of 1 dollar
         ///</summary>
@@ -76,7 +76,7 @@ namespace Assignment_Framework_with_Classes
         {
             // Initialise variable
             name_ = NAME;
-            quantity_ = QUANTITY;
+            defaultQuantity_ = QUANTITY;
             unit_ = UNIT;
             price_ = PRICE;
             energy_ = ENERGY;
@@ -103,19 +103,19 @@ namespace Assignment_Framework_with_Classes
             }
         }
 
-        public uint Quantity
+        public uint Default_Quantity
         {
             get
             {
-                return quantity_;
+                return defaultQuantity_;
             }
 
             set
             {
                 //IF the name of ingredient has changed
-                if (quantity_ != value)
+                if (defaultQuantity_ != value)
                 {
-                    quantity_ = value;
+                    defaultQuantity_ = value;
                     //Send property-changed notification to those that want to know
                     CatchPropertyChanged("Quantity");
                 }

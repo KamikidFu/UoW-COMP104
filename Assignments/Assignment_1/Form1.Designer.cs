@@ -46,12 +46,12 @@
             this.yieldDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.instructionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.recipeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ingredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.defaultQuantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.energyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unitDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ingredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Recipes_dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Ingredients_dataGridView2)).BeginInit();
@@ -63,10 +63,10 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.08279F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.72404F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.05519F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.06536F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 569F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.62069F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.37931F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 2, 0);
@@ -86,17 +86,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 76F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1424, 500);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1424, 542);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(251, 75);
+            this.label1.Size = new System.Drawing.Size(251, 81);
             this.label1.TabIndex = 0;
             this.label1.Text = "Recipes:";
             // 
@@ -104,10 +104,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(260, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(560, 75);
+            this.label2.Size = new System.Drawing.Size(560, 81);
             this.label2.TabIndex = 1;
             this.label2.Text = "Ingredients:";
             // 
@@ -115,10 +115,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.Location = new System.Drawing.Point(826, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(165, 75);
+            this.label3.Size = new System.Drawing.Size(165, 81);
             this.label3.TabIndex = 2;
             this.label3.Text = "Require:";
             // 
@@ -126,10 +126,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label4.Location = new System.Drawing.Point(997, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(424, 75);
+            this.label4.Size = new System.Drawing.Size(424, 81);
             this.label4.TabIndex = 3;
             this.label4.Text = "Instructions:";
             // 
@@ -143,12 +143,13 @@
             this.instructionDataGridViewTextBoxColumn});
             this.Recipes_dataGridView1.DataSource = this.recipeBindingSource;
             this.Recipes_dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Recipes_dataGridView1.Location = new System.Drawing.Point(3, 78);
+            this.Recipes_dataGridView1.Location = new System.Drawing.Point(3, 84);
             this.Recipes_dataGridView1.Name = "Recipes_dataGridView1";
             this.Recipes_dataGridView1.RowTemplate.Height = 23;
-            this.Recipes_dataGridView1.Size = new System.Drawing.Size(251, 374);
+            this.Recipes_dataGridView1.Size = new System.Drawing.Size(251, 405);
             this.Recipes_dataGridView1.TabIndex = 4;
             this.Recipes_dataGridView1.SelectionChanged += new System.EventHandler(this.Recipes_dataGridView1_SelectionChanged);
+            this.Recipes_dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Recipes_dataGridView1_KeyDown);
             // 
             // Ingredients_dataGridView2
             // 
@@ -156,43 +157,43 @@
             this.Ingredients_dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Ingredients_dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn1,
-            this.quantityDataGridViewTextBoxColumn,
+            this.defaultQuantityDataGridViewTextBoxColumn,
             this.priceDataGridViewTextBoxColumn,
             this.energyDataGridViewTextBoxColumn,
             this.unitDataGridViewTextBoxColumn});
             this.Ingredients_dataGridView2.DataSource = this.ingredientBindingSource;
             this.Ingredients_dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Ingredients_dataGridView2.Location = new System.Drawing.Point(260, 78);
+            this.Ingredients_dataGridView2.Location = new System.Drawing.Point(260, 84);
             this.Ingredients_dataGridView2.Name = "Ingredients_dataGridView2";
             this.Ingredients_dataGridView2.RowTemplate.Height = 23;
-            this.Ingredients_dataGridView2.Size = new System.Drawing.Size(560, 374);
+            this.Ingredients_dataGridView2.Size = new System.Drawing.Size(560, 400);
             this.Ingredients_dataGridView2.TabIndex = 5;
             // 
             // Require_dataGridView3
             // 
             this.Require_dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Require_dataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Require_dataGridView3.Location = new System.Drawing.Point(826, 78);
+            this.Require_dataGridView3.Location = new System.Drawing.Point(826, 84);
             this.Require_dataGridView3.Name = "Require_dataGridView3";
             this.Require_dataGridView3.RowTemplate.Height = 23;
-            this.Require_dataGridView3.Size = new System.Drawing.Size(165, 374);
+            this.Require_dataGridView3.Size = new System.Drawing.Size(165, 405);
             this.Require_dataGridView3.TabIndex = 6;
             // 
             // Instructions_richTextBox1
             // 
             this.Instructions_richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Instructions_richTextBox1.Location = new System.Drawing.Point(997, 78);
+            this.Instructions_richTextBox1.Location = new System.Drawing.Point(997, 84);
             this.Instructions_richTextBox1.Name = "Instructions_richTextBox1";
-            this.Instructions_richTextBox1.Size = new System.Drawing.Size(424, 374);
+            this.Instructions_richTextBox1.Size = new System.Drawing.Size(424, 405);
             this.Instructions_richTextBox1.TabIndex = 7;
             this.Instructions_richTextBox1.Text = "";
             // 
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(3, 458);
+            this.button1.Location = new System.Drawing.Point(3, 495);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(251, 39);
+            this.button1.Size = new System.Drawing.Size(251, 44);
             this.button1.TabIndex = 8;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -200,9 +201,9 @@
             // button2
             // 
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Location = new System.Drawing.Point(260, 458);
+            this.button2.Location = new System.Drawing.Point(260, 495);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(560, 39);
+            this.button2.Size = new System.Drawing.Size(560, 44);
             this.button2.TabIndex = 9;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
@@ -210,9 +211,9 @@
             // button3
             // 
             this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.Location = new System.Drawing.Point(826, 458);
+            this.button3.Location = new System.Drawing.Point(826, 495);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(165, 39);
+            this.button3.Size = new System.Drawing.Size(165, 44);
             this.button3.TabIndex = 10;
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
@@ -220,9 +221,9 @@
             // button4
             // 
             this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button4.Location = new System.Drawing.Point(997, 458);
+            this.button4.Location = new System.Drawing.Point(997, 495);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(424, 39);
+            this.button4.Size = new System.Drawing.Size(424, 44);
             this.button4.TabIndex = 11;
             this.button4.Text = "button4";
             this.button4.UseVisualStyleBackColor = true;
@@ -249,17 +250,21 @@
             // 
             this.recipeBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.Recipe);
             // 
+            // ingredientBindingSource
+            // 
+            this.ingredientBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.Ingredient);
+            // 
             // nameDataGridViewTextBoxColumn1
             // 
             this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
             this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
             this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
             // 
-            // quantityDataGridViewTextBoxColumn
+            // defaultQuantityDataGridViewTextBoxColumn
             // 
-            this.quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
-            this.quantityDataGridViewTextBoxColumn.HeaderText = "Quantity";
-            this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
+            this.defaultQuantityDataGridViewTextBoxColumn.DataPropertyName = "Default_Quantity";
+            this.defaultQuantityDataGridViewTextBoxColumn.HeaderText = "Default_Quantity";
+            this.defaultQuantityDataGridViewTextBoxColumn.Name = "defaultQuantityDataGridViewTextBoxColumn";
             // 
             // priceDataGridViewTextBoxColumn
             // 
@@ -279,15 +284,11 @@
             this.unitDataGridViewTextBoxColumn.HeaderText = "Unit";
             this.unitDataGridViewTextBoxColumn.Name = "unitDataGridViewTextBoxColumn";
             // 
-            // ingredientBindingSource
-            // 
-            this.ingredientBindingSource.DataSource = typeof(Assignment_Framework_with_Classes.Ingredient);
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1424, 500);
+            this.ClientSize = new System.Drawing.Size(1424, 542);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.Text = "(Assignment_One)My Recipes";
@@ -321,12 +322,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn yieldDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn instructionDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource recipeBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quantityDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn energyDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn unitDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn defaultQuantityDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource ingredientBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn unitDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn energyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn1;
     }
 }
 

@@ -88,11 +88,29 @@ namespace Assignment_Framework_with_Classes
         /// <param name="e"></param>
         private void Recipes_dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            try {
+                int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
+                if (recipeIndex >= 0)
+                {
+                    Recipe rep = recipes_[recipeIndex];
+                    Instructions_richTextBox1.Text = rep.Instruction;
+                }
+            }
+            catch
+            {
+                MessageBox.Show(":-) \nNow, there is no recipes. \nPlease edit a new one for all functionality.", "Information");
+            }
+        }
+
+        private void Recipes_dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
             int recipeIndex = Recipes_dataGridView1.CurrentCell.RowIndex;
-            if (recipeIndex >= 0)
+            if (recipeIndex >= 0 && e.KeyCode == Keys.Delete) 
             {
                 Recipe rep = recipes_[recipeIndex];
-                Instructions_richTextBox1.Text = rep.Instruction;
+                recipes_.Remove(rep);
+                Recipes_dataGridView1.DataSource = null;
+                Recipes_dataGridView1.DataSource = recipes_;
             }
         }
     }
