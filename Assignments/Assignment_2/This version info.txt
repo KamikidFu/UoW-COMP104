@@ -1,3 +1,10 @@
+Version: 10032330
+1. After playing the base game many times, continue to fix any bugs and improve the algorithms to make it more efficient.
+2. Catched screenshoot of some cases of game running and implement the Debug function in the game, in some way it is kind of cheating, however, the function will be cancled at last.
+3. The fix of 10021200-2. is not focused yet
+4. New bug need to fix, the autoplay need to consider other discovered ship to attack. if(robotFindShip == null)...etc.
+5. Easily to change the discovered number to 5, which the ships total number. (May change the discoverNum in player class where make it easy to add on)
+
 Version: 10022300
 1. Implement AI almost complete
 2. Considered different algorithms in AI of different situation

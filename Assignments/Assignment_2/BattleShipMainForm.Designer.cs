@@ -73,12 +73,17 @@
             this.gamePlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startNewGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.robotDeploymentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.robotHandCardsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.outputHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox4_Function = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5_Function = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label_GameStatus = new System.Windows.Forms.Label();
             this.listBox_GameHistory = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1_MainForm.SuspendLayout();
             this.groupBox2_Player.SuspendLayout();
             this.tableLayoutPanel3_PlayerSea.SuspendLayout();
@@ -616,7 +621,8 @@
             // menuStrip1_SettingMenu
             // 
             this.menuStrip1_SettingMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gamePlayToolStripMenuItem});
+            this.gamePlayToolStripMenuItem,
+            this.debugToolStripMenuItem});
             this.menuStrip1_SettingMenu.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1_SettingMenu.Name = "menuStrip1_SettingMenu";
             this.menuStrip1_SettingMenu.Size = new System.Drawing.Size(693, 25);
@@ -645,6 +651,37 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // debugToolStripMenuItem
+            // 
+            this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.robotDeploymentToolStripMenuItem,
+            this.robotHandCardsToolStripMenuItem,
+            this.outputHistoryToolStripMenuItem});
+            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
+            this.debugToolStripMenuItem.Text = "Debug";
+            // 
+            // robotDeploymentToolStripMenuItem
+            // 
+            this.robotDeploymentToolStripMenuItem.Name = "robotDeploymentToolStripMenuItem";
+            this.robotDeploymentToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.robotDeploymentToolStripMenuItem.Text = "Robot Deployment";
+            this.robotDeploymentToolStripMenuItem.Click += new System.EventHandler(this.robotDeploymentToolStripMenuItem_Click);
+            // 
+            // robotHandCardsToolStripMenuItem
+            // 
+            this.robotHandCardsToolStripMenuItem.Name = "robotHandCardsToolStripMenuItem";
+            this.robotHandCardsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.robotHandCardsToolStripMenuItem.Text = "Robot Hand Cards";
+            this.robotHandCardsToolStripMenuItem.Click += new System.EventHandler(this.robotHandCardsToolStripMenuItem_Click);
+            // 
+            // outputHistoryToolStripMenuItem
+            // 
+            this.outputHistoryToolStripMenuItem.Name = "outputHistoryToolStripMenuItem";
+            this.outputHistoryToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.outputHistoryToolStripMenuItem.Text = "Output History";
+            this.outputHistoryToolStripMenuItem.Click += new System.EventHandler(this.outputHistoryToolStripMenuItem_Click);
             // 
             // groupBox4_Function
             // 
@@ -799,6 +836,11 @@
         private System.Windows.Forms.RadioButton radioButton8_MyCard8;
         private System.Windows.Forms.RadioButton radioButton9_MyCard9;
         private System.Windows.Forms.RadioButton radioButton10_MyCard10;
+        private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem robotDeploymentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem robotHandCardsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem outputHistoryToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 
