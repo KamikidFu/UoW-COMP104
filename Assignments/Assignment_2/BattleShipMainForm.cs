@@ -120,5 +120,12 @@ namespace BattleshipHiddenThreat
             //groupBox3_HandCard.Controls[0].Dock = DockStyle.Fill;
             //groupBox3_HandCard.Controls[0].Name = "tableLayoutPanel4_PlayerHandCards";            
         }
+
+        
+
+        private void BattleShipMainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

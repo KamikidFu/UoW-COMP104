@@ -690,6 +690,7 @@
             this.MaximizeBox = false;
             this.Name = "BattleShipMainForm";
             this.Text = "BattleShip Hidden Threat";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BattleShipMainForm_FormClosed);
             this.tableLayoutPanel1_MainForm.ResumeLayout(false);
             this.tableLayoutPanel1_MainForm.PerformLayout();
             this.groupBox2_Player.ResumeLayout(false);

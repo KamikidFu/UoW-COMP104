@@ -1,10 +1,14 @@
+Version: 09292300
+1. Constructe essentially Player and Card Class to process the further game functionality
+2. Fix some bugs
+
 Version: 09292000
 1. Add button as different cards into playing main form
 2. Constructe a History Class to record the game status
-3. Fix some logic problem
+3. Fix some bugs
 
 
 Version: 09291150
 1. Add switch windows, Main game form and Game setting form
 2. New tablelayout in respective groupbox
-3. Fix some logic problem
+3. Fix some bugs
