@@ -1,3 +1,8 @@
+Version: 09301111
+1. Player now can deploy their ships into sea
+2. Add some methods to help deploying nicely
+3. Fix some bugs
+
 Version: 09292300
 1. Constructe essentially Player and Card Class to process the further game functionality
 2. Fix some bugs

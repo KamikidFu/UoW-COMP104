@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleshipHiddenThreat
 {
-    class Power: Card
+    public partial class Power: Card
     {
         private string name_;
         

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleshipHiddenThreat
 {
-    class Ship: Card
+    public partial class Ship: Card
     {
         private string name_;
         private int healthNum_;
@@ -27,6 +27,11 @@ namespace BattleshipHiddenThreat
         public override void useCard(Card target)
         {
            
+        }
+
+        public override string ToString()
+        {
+            return name_ + " " + healthNum_;
         }
     }
 }

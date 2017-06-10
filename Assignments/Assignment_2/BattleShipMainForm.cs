@@ -14,6 +14,8 @@ namespace BattleshipHiddenThreat
     {        
         //Instance Variables
         History history = new History(0);
+        Ship[,] playerDeployment_ = new Ship[3, 4];
+        Ship[,] robotDeployment_ = new Ship[3, 4];
 
         public BattleShipMainForm()
         {
@@ -38,7 +40,7 @@ namespace BattleshipHiddenThreat
             listBox_GameHistory.DataSource = history.HistoryList;
         }
 
-        public BattleShipMainForm(string playerName, string playerTeam, string playMode, History currentHistory)
+        public BattleShipMainForm(string playerName, string playerTeam, string playMode, History currentHistory, Ship[,] playerDeployment)
         {
             InitializeComponent();
             history = currentHistory;
@@ -55,6 +57,9 @@ namespace BattleshipHiddenThreat
                 groupBox1_Robot.ForeColor = Color.Red;
                 groupBox2_Player.ForeColor = Color.Blue;
             }
+
+            deployPlayerShips(playerDeployment);
+
             listBox_GameHistory.DataSource = null;
             listBox_GameHistory.DataSource = history.HistoryList;
             label_GameStatus.Text = history.HistoryList[history.HistoryList.Count - 1];
@@ -73,7 +78,26 @@ namespace BattleshipHiddenThreat
             gameSetting.Show();
         }
 
-
+        private void deployPlayerShips(Ship[,] playerDeploy)
+        {
+            int arrayX = 0;
+            int arrayY = 0;
+            for (int i = 0; i < tableLayoutPanel3_PlayerSea.Controls.Count; i++)
+            {
+                if (tableLayoutPanel3_PlayerSea.Controls[i] is Button)
+                {
+                    tableLayoutPanel3_PlayerSea.Controls[i].Text = playerDeploy[arrayX, arrayY].Name;
+                    playerDeployment_[arrayX, arrayY] = playerDeploy[arrayX, arrayY];
+                    arrayY++;
+                    if (arrayY == 4)
+                    {
+                        arrayY = 0;
+                        arrayX++;
+                    }
+                    tableLayoutPanel3_PlayerSea.Controls[i].Enabled = false;
+                }
+            }
+        }
         private void updateHandCards()
         {
             //###############################################################################
