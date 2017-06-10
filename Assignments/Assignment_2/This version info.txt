@@ -1,3 +1,15 @@
+Version: Upload
+1. Finish commenting code
+2. Improve some function while commenting code
+3. Read-me.txt file is ready
+
+Version: 10122330
+1. Fixed power bugs
+2. All the ship abilities are ready
+3. All the application is done
+4. After testing, it runs okay
+5. Start comments
+
 Version: 10112330
 1. All the power is coded but having some bugs
 2. Improve human and AI play logic
@@ -33,7 +45,6 @@ Version: 10062300
 3. 10052320 bug is that the power card doesnot implement, it comes nothings.
 4. Simply fix 10052321 bug, if statement is add-on while the power card is not ready.
 5. 10052317 bug, because it can not find the max int of attack due to power cards.
-
 
 Version: 10052330
 1. Fix player winning logic, i.e. fix 10032330-5 bug.

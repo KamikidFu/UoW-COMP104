@@ -15,7 +15,7 @@ namespace BattleshipHiddenThreat
         public Card(string name)
         {
             name_ = name;
-        }       
+        }
 
         //Abstract method
         public abstract void useCard(Card target);

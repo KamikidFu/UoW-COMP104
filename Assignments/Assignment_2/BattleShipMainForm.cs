@@ -11,6 +11,11 @@ using System.IO;
 
 namespace BattleshipHiddenThreat
 {
+    /// <summary>
+    /// This program is for Assignment 2 COMP104-16B
+    /// Written by Yunhao Fu, Oct. 2016
+    /// Thank you very much :-)
+    /// </summary>
     public partial class BattleShipMainForm : Form
     {
         /*#############################################################################
@@ -41,27 +46,25 @@ namespace BattleshipHiddenThreat
         ***Robot does not have robot_PT because the ability in robot team will automatically***
         ***be used when there having a dameged ship:-)                                      ***
         * ############################################################################*/
-        int robotDiscover = 0;
-        List<Point> robotDiscoverMatrix = new List<Point>() { new Point(0, 0), new Point(0, 1), new Point(0, 2), new Point(3,0),
-                                                            new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(3,1),
-                                                            new Point(2, 0), new Point(2, 1), new Point(2, 2), new Point(3,2)};
-        int playerDiscover = 0;
-        List<Ship> robotFindShips = new List<Ship>();
+        int robotDiscover;
+        List<Point> robotDiscoverMatrix;
+        int playerDiscover;
+        List<Ship> robotFindShips;
         History history = new History(0);
-        Ship[,] playerDeployment_ = new Ship[3, 4];
-        Ship[,] robotDeployment_ = new Ship[3, 4];
-        int[,] robotDiscoveredMatrix = new int[3, 4];
+        Ship[,] playerDeployment_;
+        Ship[,] robotDeployment_;
+        int[,] robotDiscoveredMatrix;
         Player human_;
         Player robot_;
-        bool playerRepair = false;
-        bool robotWin = false;
-        bool humanWin = false;
-        bool baseMode = false;
-        bool robot_Des = false;
-        bool robot_Bat = false;
-        bool player_Des = false;
-        bool player_Bat = false;
-        bool player_PT = false;
+        bool playerRepair;
+        bool robotWin;
+        bool humanWin;
+        bool baseMode;
+        bool robot_Des;
+        bool robot_Bat;
+        bool player_Des;
+        bool player_Bat;
+        bool player_PT;
         Random rand = new Random();
 
         /*#############################################################################
@@ -112,8 +115,18 @@ namespace BattleshipHiddenThreat
         public BattleShipMainForm(string playerName, string playerTeam, string playMode, History currentHistory
             , Ship[,] playerDeployment, Ship[,] robotDeployment)
         {
-            //Initial component in this form
+            //Initial component and instance variables in this form
             InitializeComponent();
+
+            robotDiscoverMatrix = new List<Point>() { new Point(0, 0), new Point(0, 1), new Point(0, 2), new Point(3,0),
+                                                            new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(3,1),
+                                                            new Point(2, 0), new Point(2, 1), new Point(2, 2), new Point(3,2)};
+            robotFindShips = new List<Ship>();
+            playerDeployment_ = new Ship[3, 4];
+            robotDeployment_ = new Ship[3, 4];
+            robotDiscoveredMatrix = new int[3, 4];
+            robotDiscover = 0;
+            playerDiscover = 0;
             //Is this base game or full game?
             if (playMode == "Base")
             {
@@ -122,13 +135,22 @@ namespace BattleshipHiddenThreat
             else
             {
                 baseMode = false;
+                playerRepair = false;
+                robotWin = false;
+                humanWin = false;
+                baseMode = false;
+                robot_Des = false;
+                robot_Bat = false;
+                player_Des = false;
+                player_Bat = false;
+                player_PT = false;
             }
             //Construct the player, human_, with name, team and game mode
             human_ = new Player(playerName, playerTeam, playMode);
             //Local variable to store robot team
             string robotTeam = "";
             //Pass values like the current history to this new form's instance variables.
-            history = currentHistory;            
+            history = currentHistory;
             playerDeployment_ = playerDeployment;
             robotDeployment_ = robotDeployment;
             //Update history
@@ -196,7 +218,7 @@ namespace BattleshipHiddenThreat
                         robotDeployment_[j, i].DeploymentX = i;
                     }
                 }
-            }            
+            }
             //Who get first round? Use rand to generate a number and make different player play
             int first = rand.Next();
             if (first % 2 == 0)
@@ -225,79 +247,6 @@ namespace BattleshipHiddenThreat
         /*#############################################################################
          * This part of code is general private method for any function need
          * ############################################################################*/
-         /// <summary>
-         /// This method is to check any abilities is currently on or need to be off
-         /// </summary>
-         /// <param name="whichCheck">The deployment of player or robot which need to be checked</param>
-         /// <param name="whoCheck">The player or robot need to be checked</param>
-         /// <param name="whickPanelCheck">The table layout panel to check enability</param>
-        private void checkAbility(Ship[,] whichCheck, Player whoCheck, TableLayoutPanel whickPanelCheck)
-        {
-            //We have at most 12 ships objects, loop them all for checking
-            for (int i = 0; i < 12; i++)
-            {
-                //the current ship is not a sea
-                if (whichCheck[i / 4, i % 4].Name != "Sea")
-                {
-                    //It is Aircraft carrier, and having more than 0 health, the control is enable, or, do the ability
-                    if (whichCheck[i / 4, i % 4].Name == "Aircraft Carrier" && whichCheck[i / 4, i % 4].HealthNum > 0 && whickPanelCheck.Controls[i].Enabled==true)
-                    {
-                        whoCheck.Full_RestOfCard = 7;
-                    }
-                    //else not do the ability
-                    else if (whichCheck[i / 4, i % 4].Name == "Aircraft Carrier" && whichCheck[i / 4, i % 4].HealthNum <= 0)
-                    {
-                        whoCheck.Full_RestOfCard = 5;
-                    }
-                    //As similar as above code
-                    if (whichCheck[i / 4, i % 4].Name == "Destroyer" && whichCheck[i / 4, i % 4].HealthNum > 0 && whickPanelCheck.Controls[i].Enabled == true)
-                    {
-                        if (whoCheck.Name == "NameMaxLengthOfHumanIs16")
-                        {
-                            robot_Des = true;
-                        }
-                        else
-                        {
-                            player_Des = true;
-                        }
-                    }
-                    else if (whichCheck[i / 4, i % 4].Name == "Destroyer" && whichCheck[i / 4, i % 4].HealthNum <= 0)
-                    {
-                        if (whoCheck.Name == "NameMaxLengthOfHumanIs16")
-                        {
-                            robot_Des = false;
-                        }
-                        else
-                        {
-                            player_Des = false;
-                        }
-                    }
-                    //As similar as above code
-                    if (whichCheck[i / 4, i % 4].Name == "Battleship" && whichCheck[i / 4, i % 4].HealthNum > 0 && whickPanelCheck.Controls[i].Enabled == true)
-                    {
-                        if (whoCheck.Name == "NameMaxLengthOfHumanIs16")
-                        {
-                            robot_Bat = true;
-                        }
-                        else
-                        {
-                            player_Bat = true;
-                        }
-                    }
-                    else if (whichCheck[i / 4, i % 4].Name == "Battleship" && whichCheck[i / 4, i % 4].HealthNum <= 0)
-                    {
-                        if (whoCheck.Name == "NameMaxLengthOfHumanIs16")
-                        {
-                            robot_Bat = false;
-                        }
-                        else
-                        {
-                            player_Bat = false;
-                        }
-                    }
-                }
-            }
-        }
 
         /// <summary>
         /// Exit this application
@@ -414,22 +363,21 @@ namespace BattleshipHiddenThreat
             //No mode means the original form
             if (!this.Text.Contains("No Mode"))
             {
-                //output variable
-                string output = "";
+
                 //Writer for writting a file
                 StreamWriter wr;
+                saveFileDialog1.Filter = "*.txt|TXT Files";
                 //Choosed a path
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     //Writer set up
-                    wr = File.CreateText(saveFileDialog1.FileName);
+                    wr = File.CreateText(saveFileDialog1.FileName + ".txt");
                     //Add to string variable
                     for (int i = 0; i < history.HistoryList.Count; i++)
                     {
-                        output += history.HistoryList[i] + "\n";
+                        //Write things
+                        wr.WriteLine(history.HistoryList[i]);
                     }
-                    //Write things
-                    wr.Write(output);
                     //Close writer
                     wr.Close();
                 }
@@ -504,16 +452,97 @@ namespace BattleshipHiddenThreat
             for (int i = 0; i < 12; i++)
             {
                 //If the button is now enabled
-                if (whichTableLayoutPanel.Controls[i].Enabled == true)
+                if (whichTableLayoutPanel.Controls[i].Enabled == true && whichTableLayoutPanel.Controls[i].Text != "Robot Ship")
                 {
                     //If the text is not Sea
-                    if (whichTableLayoutPanel.Controls[i].Text != "Sea")
+                    if (!whichTableLayoutPanel.Controls[i].Text.Contains("Sea"))
                     {
                         //Update the button text with ship object
                         Ship updateShip = (Ship)robotDeployment_[i / 4, i % 4];
+                        whichTableLayoutPanel.Controls[i].Text = updateShip.Name + "\n(Health:" + updateShip.HealthNum + ")";
                         if (updateShip.ShieldNum > 0)
                         {
                             whichTableLayoutPanel.Controls[i].Text = updateShip.Name + "\n(Health:" + updateShip.HealthNum + ")(Shield:" + updateShip.ShieldNum + ")";
+                        }
+                        else if (updateShip.ShieldNum <= 0 && updateShip.ShieldOn != null)
+                        {
+                            Power Shield = updateShip.ShieldOn;
+                            human_.MyCards.discards(Shield);
+                            updateShip.ShieldOn = null;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// This method is to check any abilities is currently on or need to be off
+        /// </summary>
+        /// <param name="whichCheck">The deployment of player or robot which need to be checked</param>
+        /// <param name="whoCheck">The player or robot need to be checked</param>
+        /// <param name="whickPanelCheck">The table layout panel to check enability</param>
+        private void updateAbility(Ship[,] whichCheck, Player whoCheck, TableLayoutPanel whickPanelCheck)
+        {
+            //We have at most 12 ships objects, loop them all for checking
+            for (int i = 0; i < 12; i++)
+            {
+                //the current ship is not a sea
+                if (whichCheck[i / 4, i % 4].Name != "Sea")
+                {
+                    //It is Aircraft carrier, and having more than 0 health, the control is enable, or, do the ability
+                    if (whichCheck[i / 4, i % 4].Name == "Aircraft Carrier" && whichCheck[i / 4, i % 4].HealthNum > 0 && whickPanelCheck.Controls[i].Enabled == true)
+                    {
+                        whoCheck.Full_RestOfCard = 7;
+                    }
+                    //else not do the ability
+                    else if (whichCheck[i / 4, i % 4].Name == "Aircraft Carrier" && whichCheck[i / 4, i % 4].HealthNum <= 0)
+                    {
+                        whoCheck.Full_RestOfCard = 5;
+                    }
+                    //As similar as above code
+                    if (whichCheck[i / 4, i % 4].Name == "Destroyer" && whichCheck[i / 4, i % 4].HealthNum > 0 && whickPanelCheck.Controls[i].Enabled == true)
+                    {
+                        if (whoCheck.Name == "NameMaxLengthOfHumanIs16")
+                        {
+                            robot_Des = true;
+                        }
+                        else
+                        {
+                            player_Des = true;
+                        }
+                    }
+                    else if (whichCheck[i / 4, i % 4].Name == "Destroyer" && whichCheck[i / 4, i % 4].HealthNum <= 0)
+                    {
+                        if (whoCheck.Name == "NameMaxLengthOfHumanIs16")
+                        {
+                            robot_Des = false;
+                        }
+                        else
+                        {
+                            player_Des = false;
+                        }
+                    }
+                    //As similar as above code
+                    if (whichCheck[i / 4, i % 4].Name == "Battleship" && whichCheck[i / 4, i % 4].HealthNum > 0 && whickPanelCheck.Controls[i].Enabled == true)
+                    {
+                        if (whoCheck.Name == "NameMaxLengthOfHumanIs16")
+                        {
+                            robot_Bat = true;
+                        }
+                        else
+                        {
+                            player_Bat = true;
+                        }
+                    }
+                    else if (whichCheck[i / 4, i % 4].Name == "Battleship" && whichCheck[i / 4, i % 4].HealthNum <= 0)
+                    {
+                        if (whoCheck.Name == "NameMaxLengthOfHumanIs16")
+                        {
+                            robot_Bat = false;
+                        }
+                        else
+                        {
+                            player_Bat = false;
                         }
                     }
                 }
@@ -557,8 +586,8 @@ namespace BattleshipHiddenThreat
                 //Pass the value to variable like reference
                 HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
                 //Call check ability if there any ability changed in FULL GAME
-                if(!baseMode)
-                    checkAbility(playerDeployment_, human_, tableLayoutPanel3_PlayerSea);
+                if (!baseMode)
+                    updateAbility(playerDeployment_, human_, tableLayoutPanel3_PlayerSea);
                 //If it is peg
                 if (currentCard is Peg)
                 {
@@ -584,39 +613,7 @@ namespace BattleshipHiddenThreat
                         addition.usePegCard(robotDeployment_[robotY, robotX], human_.Mode);
                     }
                     //Any new ship appear and record it for the ability
-                    if (robotDeployment_[robotY, robotX].Name == "Aircraft Carrier")
-                    {
-                        if (robotDeployment_[robotY, robotX].HealthNum > 0)
-                        {
-                            robot_.Full_RestOfCard = 7;
-                        }
-                        else
-                        {
-                            robot_.Full_RestOfCard = 5;
-                        }
-                    }
-                    else if (robotDeployment_[robotY, robotX].Name == "Battleship")
-                    {
-                        if (robotDeployment_[robotY, robotX].HealthNum > 0)
-                        {
-                            robot_Bat = true;
-                        }
-                        else
-                        {
-                            robot_Bat = false;
-                        }
-                    }
-                    else if (robotDeployment_[robotY, robotX].Name == "Destroyer")
-                    {
-                        if (robotDeployment_[robotY, robotX].HealthNum > 0)
-                        {
-                            robot_Des = true;
-                        }
-                        else
-                        {
-                            robot_Des = false;
-                        }
-                    }
+                    updateAbility(playerDeployment_, human_, tableLayoutPanel3_PlayerSea);
                     //Discard the peg card
                     human_.disCards(pegCurrent);
                     human_.MyCards.InHandCards.Remove(pegCurrent);
@@ -672,13 +669,7 @@ namespace BattleshipHiddenThreat
                 }
                 else
                 {
-                    //Else it is others, add the health info
-                    targetButton.Text += "\n(Health:" + robotDeployment_[y, x].HealthNum + ")";
-                    if (robotDeployment_[y, x].ShieldNum > 0)
-                    {
-                        //Having shield? add the shield info
-                        targetButton.Text += "(Shield:" + robotDeployment_[y, x].ShieldNum + ")";
-                    }
+                    updateButtonText(tableLayoutPanel2_RobotSea);
                 }
                 //Is the ship sunk?
                 if (robotDeployment_[y, x].HealthNum <= 0 && robotDeployment_[y, x].Name != "Sea")
@@ -690,31 +681,14 @@ namespace BattleshipHiddenThreat
                     //Play discovered one more
                     playerDiscover++;
                     //Change the ability
-                    if (robotDeployment_[y, x].Name == "Aircraft Carrier")
-                    {
-                        robot_.Full_RestOfCard = 5;
-                    }
-                    else if (robotDeployment_[y, x].Name == "Battleship")
-                    {
-                        robot_Bat = false;
-                    }
-                    else if (robotDeployment_[y, x].Name == "Destroyer")
-                    {
-                        robot_Des = false;
-                    }
+                    updateAbility(robotDeployment_, robot_, tableLayoutPanel2_RobotSea);
                 }
                 //If you discover 5 ships, you win!
                 if (playerDiscover == 5)
                 {
-                    for (int i = 0; i < tableLayoutPanel2_RobotSea.Controls.Count; i++)
-                    {
-                        tableLayoutPanel2_RobotSea.Controls[i].Enabled = false;
-                        tableLayoutPanel3_PlayerSea.Controls[i].Enabled = false;
-                    }
-                    for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
-                    {
-                        tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = false;
-                    }
+                    tableLayoutPanel2_RobotSea.Enabled = false;
+                    tableLayoutPanel3_PlayerSea.Enabled = false;
+                    tableLayoutPanel4_PlayerHandCards.Enabled = false;
                     updateHistory("Player Wins The Game.");
                     MessageBox.Show(":-)\nGreat! You Win!");
                     humanWin = true;
@@ -815,7 +789,7 @@ namespace BattleshipHiddenThreat
                         //use the repair power
                         usePower.useCard(usePower, "1", human_, targetShip);
                         //Update history
-                        updateHistory("Player repaired the " + targetShip.Name+" by "+usePower.Name);
+                        updateHistory("Player repaired the " + targetShip.Name + " by " + usePower.Name);
                         //reenable the radiobuttons
                         tableLayoutPanel4_PlayerHandCards.Enabled = true;
                         //Player discard the power
@@ -1102,7 +1076,7 @@ namespace BattleshipHiddenThreat
                     //minus human rest round
                     human_.Full_RestOfRound--;
                     //player discard the power
-                    human_.disCards(human_.MyCards.InHandCards[playerCardIndex]);                    
+                    human_.disCards(human_.MyCards.InHandCards[playerCardIndex]);
                     human_.MyCards.InHandCards.RemoveAt(playerCardIndex);
                     //Restyle it
                     for (int i = 0; i < tableLayoutPanel3_PlayerSea.Controls.Count; i++)
@@ -1145,7 +1119,7 @@ namespace BattleshipHiddenThreat
                 //If it is shield, stylize button for using shield
                 for (int i = 0; i < tableLayoutPanel3_PlayerSea.Controls.Count; i++)
                 {
-                    
+
                     if (tableLayoutPanel3_PlayerSea.Controls[i].Text != "Sea" && tableLayoutPanel3_PlayerSea.Controls[i].Enabled == true)
                     {
                         tableLayoutPanel3_PlayerSea.Controls[i].ForeColor = Color.Yellow;
@@ -1275,21 +1249,7 @@ namespace BattleshipHiddenThreat
                         Ship pt = robotPlay_Full_FindAppearedShip("PT Boat");
                         pt.useCard(damegedShip);
                         updateHistory("Robot repair " + damegedShip.Name + " by PT Boat");
-                        if (damegedShip.Name != "Sea")
-                        {
-                            tableLayoutPanel2_RobotSea.Controls[damegedShip.DeploymentY * 4 + damegedShip.DeploymentX].Text = robotDeployment_[damegedShip.DeploymentY, damegedShip.DeploymentX].Name + "\n(Health:" + robotDeployment_[damegedShip.DeploymentY, damegedShip.DeploymentX].HealthNum + ")";
-                            if (damegedShip.ShieldNum > 0)
-                            {
-                                tableLayoutPanel3_PlayerSea.Controls[damegedShip.DeploymentY * 4 + damegedShip.DeploymentX].Text = playerDeployment_[damegedShip.DeploymentY, damegedShip.DeploymentX].Name + "\n(Health:" + playerDeployment_[damegedShip.DeploymentY, damegedShip.DeploymentX].HealthNum + ")" +
-                                    "(Shield:" + damegedShip.ShieldNum + ")";
-                            }
-                            else if (damegedShip.ShieldNum <= 0 && damegedShip.ShieldOn != null)
-                            {
-                                Power Shield = damegedShip.ShieldOn;
-                                human_.MyCards.discards(Shield);
-                                damegedShip.ShieldOn = null;
-                            }
-                        }
+                        updateButtonText(tableLayoutPanel2_RobotSea);
                     }
                     else
                     {
@@ -1392,7 +1352,7 @@ namespace BattleshipHiddenThreat
         /// This method to achieve logic NO.3, to find a new place in player sea
         /// </summary>
         private void robotPlay_Full_FindNewShipOrOtherAct()
-        {            
+        {
             //Three cards reference ready
             Card currentCard;
             Peg pegCurrentCard;
@@ -1405,7 +1365,7 @@ namespace BattleshipHiddenThreat
                 //Cast to peg
                 pegCurrentCard = (Peg)currentCard;
                 //Check the current ability
-                checkAbility(robotDeployment_, robot_,tableLayoutPanel2_RobotSea);
+                updateAbility(robotDeployment_, robot_, tableLayoutPanel2_RobotSea);
                 //Find if AI has white peg to find ships
                 if (pegCurrentCard.Color != "White")
                 {
@@ -1418,101 +1378,49 @@ namespace BattleshipHiddenThreat
                         }
                     }
                 }
-                //Use white or red peg to find/attack ships
-                Point playerSea = robotDiscoverMatrix[rand.Next(robotDiscoverMatrix.Count)];
-                //DiscoverMatrix remove this point
-                robotDiscoverMatrix.Remove(playerSea);
-                //Check if this point is searched before
-                if (robotDiscoveredMatrix[playerSea.Y, playerSea.X] != 1)
+                try
                 {
-                    //reference the ship
-                    Ship targetShip = playerDeployment_[playerSea.Y, playerSea.X];
-                    //Get the Deployment location
-                    targetShip.DeploymentX = playerSea.X;
-                    targetShip.DeploymentY = playerSea.Y;
-                    //Use peg card to attack
-                    pegCurrentCard.usePegCard(targetShip, robot_.Mode);
-                    //Robot dis card
-                    robot_.disCards(pegCurrentCard);
-                    robot_.MyCards.InHandCards.Remove(pegCurrentCard);
-                    //Update history
-                    updateHistory("Robot use " + pegCurrentCard.Name + " to find " + human_.Name + "'s " + targetShip.Name);
-                    //Enable the button
-                    tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = true;
-                    //If the target ship is not sea, then update the text of button and changing the ability
-                    if (targetShip.Name != "Sea")
+                    //Use white or red peg to find/attack ships
+                    Point playerSea = robotDiscoverMatrix[rand.Next(robotDiscoverMatrix.Count)];
+                    //DiscoverMatrix remove this point
+                    robotDiscoverMatrix.Remove(playerSea);
+                    //Check if this point is searched before
+                    if (robotDiscoveredMatrix[playerSea.Y, playerSea.X] != 1)
                     {
-                        tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text = playerDeployment_[playerSea.Y, playerSea.X].Name + "\n(Health:" + playerDeployment_[playerSea.Y, playerSea.X].HealthNum + ")";
-                        if (targetShip.ShieldNum > 0 && targetShip.ShieldOn != null)
-                        {
-                            tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text = playerDeployment_[playerSea.Y, playerSea.X].Name + "\n(Health:" + playerDeployment_[playerSea.Y, playerSea.X].HealthNum + ")" +
-                                "(Shield:" + targetShip.ShieldNum + ")";
-                        }
-                        else if (targetShip.ShieldNum <= 0 && targetShip.ShieldOn != null)
-                        {
-                            Power Shield = targetShip.ShieldOn;
-                            human_.MyCards.discards(Shield);
-                            targetShip.ShieldOn = null;
-                        }
+                        //reference the ship
+                        Ship targetShip = playerDeployment_[playerSea.Y, playerSea.X];
+                        //Get the Deployment location
+                        targetShip.DeploymentX = playerSea.X;
+                        targetShip.DeploymentY = playerSea.Y;
+                        //Use peg card to attack
+                        pegCurrentCard.usePegCard(targetShip, robot_.Mode);
+                        //Robot dis card
+                        robot_.disCards(pegCurrentCard);
+                        robot_.MyCards.InHandCards.Remove(pegCurrentCard);
+                        //Update history
+                        updateHistory("Robot use " + pegCurrentCard.Name + " to find " + human_.Name + "'s " + targetShip.Name);
+                        //Enable the button
+                        tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = true;
+                        //If the target ship is not sea, then update the text of button and changing the ability                        
+                        updateButtonText(tableLayoutPanel3_PlayerSea);
                         robotFindShips.Add(targetShip);
-                        if (targetShip.Name == "Aircraft Carrier")
-                        {
-                            if (targetShip.HealthNum > 0)
-                            {
-                                human_.Full_RestOfCard = 7;
-                            }
-                            else
-                            {
-                                human_.Full_RestOfCard = 5;
-                            }
-                        }
-                        else if (targetShip.Name == "Battleship")
-                        {
-                            if (targetShip.HealthNum > 0)
-                            {
-                                player_Bat = true;
-                            }
-                            else
-                            {
-                                player_Bat = false;
-                            }
-                        }
-                        else if (targetShip.Name == "Destroyer")
-                        {
-                            if (targetShip.HealthNum > 0)
-                            {
-                                player_Des = true;
-                            }
-                            else
-                            {
-                                player_Des = false;
-                            }
-                        }
-                    }
-                    //if one target ship is sunk, then update history and update the ability
-                    if (targetShip.HealthNum <= 0 && targetShip.Name != "Sea")
-                    {
-                        tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = false;
-                        updateHistory("Player's " + targetShip.Name + " is now sunk.");
-                        robotFindShips.Remove(targetShip);
-                        robotDiscover++;
-                        if (targetShip.Name == "Aircraft Carrier")
-                        {
-                            human_.Full_RestOfCard = 5;
-                        }
-                        else if (targetShip.Name == "Battleship")
-                        {
-                            player_Bat = false;
-                        }
-                        else if (targetShip.Name == "Destroyer")
-                        {
-                            player_Des = false;
-                        }
-                    }
-                    //Flag that AI check the area
-                    robotDiscoveredMatrix[playerSea.Y, playerSea.X] = 1;
-                }
+                        updateAbility(playerDeployment_, human_, tableLayoutPanel3_PlayerSea);
 
+                        //if one target ship is sunk, then update history and update the ability
+                        if (targetShip.HealthNum <= 0 && targetShip.Name != "Sea")
+                        {
+                            tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = false;
+                            updateHistory("Player's " + targetShip.Name + " is now sunk.");
+                            robotFindShips.Remove(targetShip);
+                            robotDiscover++;
+                            updateAbility(playerDeployment_, human_, tableLayoutPanel3_PlayerSea);
+                        }
+                        //Flag that AI check the area
+                        robotDiscoveredMatrix[playerSea.Y, playerSea.X] = 1;
+                    }
+                }
+                catch
+                { Console.WriteLine("AI Find all ships but do not have peg card to attack"); }
             }
             else
             {
@@ -1541,7 +1449,7 @@ namespace BattleshipHiddenThreat
                         //If want to use Repair a ship or draw 3 card
                         Ship ship = robotPlay_Full_FindDamegedShip();
                         int functionnum = 0;
-                        if (ship!=null)
+                        if (ship != null)
                         {
                             functionnum = 1;
                         }
@@ -1576,7 +1484,7 @@ namespace BattleshipHiddenThreat
             if (currentCard != null)
             {
                 //Check the ability
-                checkAbility(robotDeployment_, robot_,tableLayoutPanel2_RobotSea);
+                updateAbility(robotDeployment_, robot_, tableLayoutPanel2_RobotSea);
                 //Attacking with abilities
                 if (currentCard.Color == "White" && robot_Des)
                 {
@@ -1596,22 +1504,7 @@ namespace BattleshipHiddenThreat
                 robot_.MyCards.InHandCards.Remove(currentCard);
                 robot_.disCards(currentCard);
                 //Update button text and shield stuff
-                if (targetShip.Name != "Sea")
-                {
-                    tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text = playerDeployment_[targetShip.DeploymentY, targetShip.DeploymentX].Name + "\n(Health:" + playerDeployment_[targetShip.DeploymentY, targetShip.DeploymentX].HealthNum + ")";
-                    if (targetShip.ShieldNum > 0)
-                    {
-                        tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text = playerDeployment_[targetShip.DeploymentY, targetShip.DeploymentX].Name + "\n(Health:" + playerDeployment_[targetShip.DeploymentY, targetShip.DeploymentX].HealthNum + ")" +
-                            "(Shield:" + targetShip.ShieldNum + ")";
-                    }
-                    else if (targetShip.ShieldNum <= 0 && targetShip.ShieldOn != null)
-                    {
-                        Power Shield = targetShip.ShieldOn;
-                        human_.MyCards.discards(Shield);
-                        targetShip.ShieldNum = 0;
-                        targetShip.ShieldOn = null;
-                    }
-                }
+                updateButtonText(tableLayoutPanel3_PlayerSea);
                 //Any ship is sunk?
                 if (!targetShip.Name.Contains("Sea") && targetShip.HealthNum <= 0)
                 {
@@ -1620,18 +1513,7 @@ namespace BattleshipHiddenThreat
                     updateHistory("Player's " + targetShip.Name + " is now sunk.");
                     robotFindShips.Remove(targetShip);
                     robotDiscover++;
-                    if (targetShip.Name == "Aircraft Carrier")
-                    {
-                        robot_.Full_RestOfCard = 5;
-                    }
-                    else if (targetShip.Name == "Battleship")
-                    {
-                        robot_Bat = false;
-                    }
-                    else if (targetShip.Name == "Destroyer")
-                    {
-                        robot_Des = false;
-                    }
+                    updateAbility(playerDeployment_, human_, tableLayoutPanel3_PlayerSea);
                 }
             }
             else
@@ -1708,15 +1590,8 @@ namespace BattleshipHiddenThreat
                 if (robotDiscover == 5)
                 {
                     //Disable all controls
-                    for (int i = 0; i < tableLayoutPanel2_RobotSea.Controls.Count; i++)
-                    {
-                        tableLayoutPanel2_RobotSea.Controls[i].Enabled = false;
-                        tableLayoutPanel3_PlayerSea.Controls[i].Enabled = false;
-                    }
-                    for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
-                    {
-                        tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = false;
-                    }
+                    tableLayoutPanel2_RobotSea.Enabled = false;
+                    tableLayoutPanel3_PlayerSea.Enabled = false;
                     //Update history and show message box
                     updateHistory("Robot Wins The Game.");
                     MessageBox.Show(":-(\nSad... You Lose...");
@@ -1866,7 +1741,7 @@ namespace BattleshipHiddenThreat
          *      1.2.1 check the rest round of player
          *          1.2.1.1 player have rest round then player plays again
          *          1.2.1.2 player does not have rest round, then robot play
-         *############################################################################*/         
+         *############################################################################*/
         private void button_RobotShip1_Click(object sender, EventArgs e)
         {
             int playerCardIndex = -1;
@@ -1902,7 +1777,7 @@ namespace BattleshipHiddenThreat
             }
             else
             {
-                MessageBox.Show("Please play a card");                
+                MessageBox.Show("Please play a card");
             }
         }
         private void button_RobotShip2_Click(object sender, EventArgs e)
@@ -2305,7 +2180,8 @@ namespace BattleshipHiddenThreat
                     }
                     human_.Full_RestOfRound = 1;
                 }
-            }else
+            }
+            else
             {
                 MessageBox.Show("Please play a card");
             }

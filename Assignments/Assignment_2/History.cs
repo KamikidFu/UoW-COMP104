@@ -18,11 +18,11 @@ namespace BattleshipHiddenThreat
             history_ = new List<string>();
             historyCounter_ = startCounter;
         }
-               
+
         //Method
         public void Add(int history_Counter, string history_information)
         {
-            history_.Add(history_Counter + ". "+history_information);
+            history_.Add(history_Counter + ". " + history_information);
         }
 
         //Properties
@@ -34,6 +34,7 @@ namespace BattleshipHiddenThreat
             }
         }
 
+        //Current history index
         public int HistoryCounter
         {
             get
