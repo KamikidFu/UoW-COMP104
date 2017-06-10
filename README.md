@@ -1,7 +1,7 @@
 # UoW-COMP104
 
 Welcome to this repository, if you feel this is helpful, please star it at the top of page.
->**Please note:** This git repository is about my duration of paper 'COMP104' at [University of Waikato](http://www.waikato.ac.nz/). Practicals and assignments definitely vary from yours. I, the author and this repository owner, wish you use the git only as a reference or extend learning materials of your study and workload. Please DO NOT DO ANY things about academic plagiarsim.
+>**Please note:** This git repository is about my duration of paper 'COMP104' at [University of Waikato](http://www.waikato.ac.nz/). Practicals and assignments may vary from yours. I, the author and this repository owner, wish you use the git only as a reference or extend learning materials of your study and workload. Please DO NOT DO ANY things about academic plagiarsim.
 
 ## About License
 
