@@ -132,7 +132,7 @@ namespace Assignment_Framework_with_Classes
             Require_dataGridView3.DefaultCellStyle.Format = "N2";
             Ingredients_dataGridView2.DefaultCellStyle.Format = "N2";
 
-            metric_radioButton1.Checked = true;
+            radioButton_Metic.Checked = true;
         }
 
         /// <summary>
@@ -150,8 +150,8 @@ namespace Assignment_Framework_with_Classes
                     Recipe rep = recipes_[recipeIndex];
                     Instructions_richTextBox1.Text = rep.Instruction;
                     Require_dataGridView3.DataSource = rep.Requirements_;
-                    cost_label6.Text = rep.calculateCost(ingredients_).ToString("c");
-                    energy_label8.Text = rep.calculateEnergy(ingredients_).ToString("f2");
+                    cost_label.Text = rep.calculateCost(ingredients_).ToString("c");
+                    energy_label.Text = rep.calculateEnergy(ingredients_).ToString("f2");
                 }
                 else
                 {
@@ -200,8 +200,8 @@ namespace Assignment_Framework_with_Classes
             {
                 Recipe rep = recipes_[recipeIndex];
                 Require_dataGridView3.DataSource = rep.Requirements_;
-                cost_label6.Text = rep.calculateCost(ingredients_).ToString("c");
-                energy_label8.Text = rep.calculateEnergy(ingredients_).ToString("f2");
+                cost_label.Text = rep.calculateCost(ingredients_).ToString("c");
+                energy_label.Text = rep.calculateEnergy(ingredients_).ToString("f2");
             }
         }
               
@@ -249,8 +249,8 @@ namespace Assignment_Framework_with_Classes
 
                     Require_dataGridView3.DataSource = null;
                     Require_dataGridView3.DataSource = rep.Requirements_;
-                    cost_label6.Text = rep.calculateCost(ingredients_).ToString("c");
-                    energy_label8.Text = rep.calculateEnergy(ingredients_).ToString("f2");
+                    cost_label.Text = rep.calculateCost(ingredients_).ToString("c");
+                    energy_label.Text = rep.calculateEnergy(ingredients_).ToString("f2");
                 }
             }
             else
@@ -296,8 +296,8 @@ namespace Assignment_Framework_with_Classes
                     rep.updateUnit();
                     Require_dataGridView3.DataSource = null;
                     Require_dataGridView3.DataSource = rep.Requirements_;
-                    cost_label6.Text = rep.calculateCost(ingredients_).ToString("c");
-                    energy_label8.Text = rep.calculateEnergy(ingredients_).ToString("N2");
+                    cost_label.Text = rep.calculateCost(ingredients_).ToString("c");
+                    energy_label.Text = rep.calculateEnergy(ingredients_).ToString("N2");
                     //if(metric_radioButton1.Checked)
                     //{
                     //    rep.changeUnit(imperial_radioButton2.Text);
@@ -531,11 +531,11 @@ namespace Assignment_Framework_with_Classes
                     }
                     reader.Close();
 
-                    if(metric_radioButton1.Checked)
+                    if(radioButton_Imperial.Checked)
                     {
                         newRecipe.changeUnit("Metric");
                     }
-                    else if(imperial_radioButton2.Checked)
+                    else if(radioButton_Imperial.Checked)
                     {
                         newRecipe.changeUnit("Imperial");
                     }
