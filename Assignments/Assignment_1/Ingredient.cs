@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace Assignment_1
+namespace Assignment_Framework_with_Classes
 {
+    /// <summary>
+    /// Ingredient which we like to set up different ingredients for recipes
+    /// Ingredient needs a NAME, QUANTITY, PRICE, ENERGY VALUE
+    /// Written by Yunhao Fu and Jiayi Hu, 2016
+    /// Thank you very much :-)
+    /// </summary>
     class Ingredient : INotifyPropertyChanged
     {
         //***********************************
@@ -16,12 +22,12 @@ namespace Assignment_1
         /// As for property-changed event, using INotifyPropertyChanged.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-       
+
         /// <summary>
         /// Auxiliary method to send a property-change event for a given property.
         /// </summary>
         /// <param name="prop">The name of the property that has changed.</param>
-        private void FirePropertyChanged(string properties)
+        private void CatchPropertyChanged(string properties)
         {
             // if there are registered listeners
             if (PropertyChanged != null)
@@ -53,7 +59,7 @@ namespace Assignment_1
         ///Unit of ingredient, e.g."g" is unit, like 10g
         ///</summary>
         private string unit_;
-        
+
 
         //***********************************
         //*Constructors
@@ -61,7 +67,7 @@ namespace Assignment_1
         ///Default constructor. Which for the functionality to add new ingredient as said in Task2 b)
         ///Using the last row of datagrid view with empty things
         ///</summary>
-        public Ingredient():this("",0,"",0,0)
+        public Ingredient() : this("", 0, "", 0, 0)
         { }
         ///<summary>
         ///Create a new recipe by given name, yield, instruction
@@ -88,11 +94,11 @@ namespace Assignment_1
             set
             {
                 //IF the name of ingredient has changed
-                if(name_!=value)
-                {                    
+                if (name_ != value)
+                {
                     name_ = value;
                     //Send property-changed notification to those that want to know
-                    FirePropertyChanged("Name");
+                    CatchPropertyChanged("Name");
                 }
             }
         }
@@ -111,7 +117,7 @@ namespace Assignment_1
                 {
                     quantity_ = value;
                     //Send property-changed notification to those that want to know
-                    FirePropertyChanged("Quantity");
+                    CatchPropertyChanged("Quantity");
                 }
             }
         }
@@ -130,7 +136,7 @@ namespace Assignment_1
                 {
                     price_ = value;
                     //Send property-changed notification to those that want to know
-                    FirePropertyChanged("Price");
+                    CatchPropertyChanged("Price");
                 }
             }
         }
@@ -149,7 +155,7 @@ namespace Assignment_1
                 {
                     energy_ = value;
                     //Send property-changed notification to those that want to know
-                    FirePropertyChanged("Energy");
+                    CatchPropertyChanged("Energy");
                 }
             }
         }
@@ -168,7 +174,7 @@ namespace Assignment_1
                 {
                     unit_ = value;
                     //Send property-changed notification to those that want to know
-                    FirePropertyChanged("Unit");
+                    CatchPropertyChanged("Unit");
                 }
             }
         }

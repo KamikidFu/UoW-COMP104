@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace Assignment_1
+namespace Assignment_Framework_with_Classes
 {
     /// <summary>
     /// Recipes which we like to make delious things
@@ -32,16 +32,16 @@ namespace Assignment_1
         private void RequirementListChanged(object sender, ListChangedEventArgs e)
         {
             // Notify listeners that the number of enrolled students may have changed
-            FirePropertyChanged("NAME");
-            FirePropertyChanged("YIELD");
-            FirePropertyChanged("INSTRUCTION");
+            CatchPropertyChanged("NAME");
+            CatchPropertyChanged("YIELD");
+            CatchPropertyChanged("INSTRUCTION");
         }
 
         /// <summary>
         /// Method to send a property-change event for a given property.
         /// </summary>
         /// <param name="prop">The name of the property that has changed.</param>
-        private void FirePropertyChanged(string properties)
+        private void CatchPropertyChanged(string properties)
         {
             // if there are registered listeners
             if (PropertyChanged != null)
@@ -49,9 +49,9 @@ namespace Assignment_1
                 // send the notification
                 PropertyChanged(this, new PropertyChangedEventArgs(properties));
             }
-        }        
+        }
 
-        
+
 
         //***********************************
         //*Instance Variables
@@ -79,7 +79,7 @@ namespace Assignment_1
         ///Default constructor. Which for the functionality to add new recipe as said in Task2 b)
         ///Using the last row of datagrid view with empty things
         ///</summary>
-        public Recipe():this("",0,"")
+        public Recipe() : this("", 0, "")
         { }
         ///<summary>
         ///Create a new recipe by given name, yield, instruction
@@ -89,10 +89,11 @@ namespace Assignment_1
             // Initialise variable
             name_ = NAME;
             yield_ = YIELD;
+            instruction_ = INSTRUCTION;
             // Create an empty list of requirements for this new recipe
             requirements_ = new BindingList<Ingredient>();
             //Register decleared above is for a list-changed event to handler on the enrolment list.
-            requirements_.ListChanged += new ListChangedEventHandler(RequirementListChanged);            
+            requirements_.ListChanged += new ListChangedEventHandler(RequirementListChanged);
         }
 
         //***********************************
@@ -100,7 +101,7 @@ namespace Assignment_1
         /// <summary>
         /// 
         /// </summary>
-        
+
         //***********************************
         //*Properties
         public string Name
