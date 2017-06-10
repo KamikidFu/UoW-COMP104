@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Assignment_Framework_with_Classes
 {
-    public class RecipeItems:INotifyPropertyChanged
+    class RecipeItems:INotifyPropertyChanged
     {
         //***********************************
         //* Event Handling
@@ -71,8 +71,6 @@ namespace Assignment_Framework_with_Classes
             quantity_ = QUANTITY;
             unit_ = UNIT;
         }
-
-        
 
         //***********************************
         //*Properties

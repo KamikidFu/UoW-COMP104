@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Print_richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.update_button1 = new System.Windows.Forms.Button();
-            this.yield_textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.yield_textBox1 = new System.Windows.Forms.TextBox();
+            this.update_button1 = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.Print_richTextBox1);
+            this.groupBox1.Controls.Add(this.richTextBox1);
             this.groupBox1.Controls.Add(this.update_button1);
             this.groupBox1.Controls.Add(this.yield_textBox1);
             this.groupBox1.Controls.Add(this.label1);
@@ -49,13 +49,21 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Your Recipe";
             // 
-            // Print_richTextBox1
+            // label1
             // 
-            this.Print_richTextBox1.Location = new System.Drawing.Point(6, 41);
-            this.Print_richTextBox1.Name = "Print_richTextBox1";
-            this.Print_richTextBox1.Size = new System.Drawing.Size(292, 281);
-            this.Print_richTextBox1.TabIndex = 3;
-            this.Print_richTextBox1.Text = "";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Yield:";
+            // 
+            // yield_textBox1
+            // 
+            this.yield_textBox1.Location = new System.Drawing.Point(53, 14);
+            this.yield_textBox1.Name = "yield_textBox1";
+            this.yield_textBox1.Size = new System.Drawing.Size(32, 21);
+            this.yield_textBox1.TabIndex = 1;
             // 
             // update_button1
             // 
@@ -67,21 +75,13 @@
             this.update_button1.UseVisualStyleBackColor = true;
             this.update_button1.Click += new System.EventHandler(this.update_button1_Click);
             // 
-            // yield_textBox1
+            // richTextBox1
             // 
-            this.yield_textBox1.Location = new System.Drawing.Point(53, 14);
-            this.yield_textBox1.Name = "yield_textBox1";
-            this.yield_textBox1.Size = new System.Drawing.Size(32, 21);
-            this.yield_textBox1.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Yield:";
+            this.richTextBox1.Location = new System.Drawing.Point(6, 41);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(292, 281);
+            this.richTextBox1.TabIndex = 3;
+            this.richTextBox1.Text = "";
             // 
             // DisplayForm
             // 
@@ -103,6 +103,6 @@
         private System.Windows.Forms.Button update_button1;
         private System.Windows.Forms.TextBox yield_textBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RichTextBox Print_richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
