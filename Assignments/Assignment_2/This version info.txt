@@ -1,4 +1,10 @@
+Version: 09292000
+1. Add button as different cards into playing main form
+2. Constructe a History Class to record the game status
+3. Fix some logic problem
+
+
 Version: 09291150
 1. Add switch windows, Main game form and Game setting form
 2. New tablelayout in respective groupbox
-3. Some logic problem fixed
+3. Fix some logic problem

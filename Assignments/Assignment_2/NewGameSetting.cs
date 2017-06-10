@@ -13,16 +13,17 @@ namespace BattleshipHiddenThreat
     public partial class NewGameSetting : Form
     {
         Form PreviousForm_ = null;
-
+        History history_;
         public NewGameSetting()
         {
             InitializeComponent();
         }
 
-        public NewGameSetting(Form previousForm)
+        public NewGameSetting(Form previousForm, History currentHistory)
         {
             InitializeComponent();
             PreviousForm_ = previousForm;
+            history_ = currentHistory;
         }
 
         private void button1_StartGame_Click(object sender, EventArgs e)
@@ -38,7 +39,7 @@ namespace BattleshipHiddenThreat
                 if (radioButton3_Mode_Full.Checked) playMode = radioButton3_Mode_Full.Text;
                 else playMode = radioButton4_Mode_Easy.Text;
                 this.Hide();
-                BattleShipMainForm newBattle = new BattleShipMainForm(playName,playTeam,playMode);
+                BattleShipMainForm newBattle = new BattleShipMainForm(playName,playTeam,playMode, history_);
                 newBattle.Show();
             }
             else
