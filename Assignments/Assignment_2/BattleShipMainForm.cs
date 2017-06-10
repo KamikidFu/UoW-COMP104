@@ -13,11 +13,18 @@ namespace BattleshipHiddenThreat
     public partial class BattleShipMainForm : Form
     {
         int robotDiscover = 0;
+        int robotDiscoveredShipButtonIndex = 0;
+        int robotDiscoveredExceptionShipButtonIndex = 0;
+        List<int> robotXDiscover = new List<int>() { 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3 };
+        List<int> robotYDiscover = new List<int>() { 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2 };
         int playerDiscover = 0;
+        Ship robotFindShip = null;
+        Ship robotFindExceptionShip = null;
         //Instance Variables
         History history = new History(0);
         Ship[,] playerDeployment_ = new Ship[3, 4];
         Ship[,] robotDeployment_ = new Ship[3, 4];
+        int[,] robotDiscoveredMatrix = new int[3, 4];
         Player human_;
         Player robot_;
         public BattleShipMainForm()
@@ -138,6 +145,155 @@ namespace BattleshipHiddenThreat
             }
         }
 
+        private void robotAutoPlay()
+        {
+            if (robotFindShip == null || robotFindShip.Name == "Sea")
+            {
+                Random rand = new Random();
+                int cardIndex = rand.Next(5);
+                Peg currentCard = (Peg)robot_.MyCards.InHandCards[cardIndex];
+                if (currentCard.Color!="White")
+                {
+                    for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
+                    {
+                        if (robot_.MyCards.InHandCards[i].Name.Contains("White"))
+                        {
+                            currentCard = (Peg)robot_.MyCards.InHandCards[i];
+                            break;
+                        }
+                    }
+                }
+                int playerSeaX = robotXDiscover[rand.Next(robotXDiscover.Count)];
+                robotXDiscover.Remove(playerSeaX);
+                int playerSeaY = robotYDiscover[rand.Next(robotYDiscover.Count)];
+                robotYDiscover.Remove(playerSeaY);
+                if (robotDiscoveredMatrix[playerSeaY, playerSeaX] !=1)
+                { 
+                    Ship targerShip = playerDeployment_[playerSeaY, playerSeaX];
+                    robotFindShip = targerShip;
+                    currentCard.useCard(targerShip);
+                    robotDiscover++;
+                    robot_.MyCards.InHandCards.Remove(currentCard);
+                    int playerShipButtonIndex = playerSeaY * 4 + playerSeaX;
+                    robotDiscoveredShipButtonIndex = playerShipButtonIndex;
+                    tableLayoutPanel3_PlayerSea.Controls[playerShipButtonIndex].Enabled = true;
+                    if (robotFindShip.Name != "Sea")
+                    {
+                        tableLayoutPanel3_PlayerSea.Controls[playerShipButtonIndex].Text = playerDeployment_[playerSeaY,playerSeaX].Name+"\n(Health:" + playerDeployment_[playerSeaY, playerSeaX].HealthNum + ")";                       
+                    }
+                    robotDiscoveredMatrix[playerSeaY, playerSeaX] = 1;
+                }
+                else
+                {
+                    robotXDiscover.Add(playerSeaX);
+                    robotYDiscover.Add(playerSeaY);
+                    robotAutoPlay();
+                }
+            }
+            else
+            {
+                if (robotFindShip.Name != "Submarine")
+                {
+                    for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
+                    {
+                        if (robot_.MyCards.InHandCards[i].Name.Contains("Red"))
+                        {
+                            Peg hit = (Peg)robot_.MyCards.InHandCards[i];
+                            if (hit.AttackNum >= robotFindShip.HealthNum)
+                            {
+                                hit.useCard(robotFindShip);
+                                robotDiscover++;
+                                tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredShipButtonIndex].Text = robotFindShip.Name + "\n(Health:" + robotFindShip.HealthNum + ")";
+                                robot_.MyCards.InHandCards.Remove(hit);
+                                break;
+                            }
+                            else
+                            {
+                                hit.useCard(robotFindShip);
+                                robotDiscover++;                   
+                                tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredShipButtonIndex].Text = robotFindShip.Name + "\n(Health:" + robotFindShip.HealthNum + ")";
+                                robot_.MyCards.InHandCards.Remove(hit);
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for(int i=0;i<robot_.MyCards.InHandCards.Count;i++)
+                    {
+                        if(robot_.MyCards.InHandCards[i].Name.Contains("White"))
+                        {
+                            Peg hit = (Peg)robot_.MyCards.InHandCards[i];
+                            hit.useCard(robotFindShip);
+                            robotDiscover++;
+                            tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredShipButtonIndex].Text = robotFindShip.Name + "\n(Health:" + robotFindShip.HealthNum + ")";
+                            robot_.MyCards.InHandCards.Remove(hit);
+                            break;
+                        }
+                        //if(i==4)
+                        //{
+                        //    robotAutoPlay();
+                        //    break;
+                        //}
+                        //如果没有白弹且存在潜艇时AI将不做任何事情了
+                        //此时，我们要让AI用红弹任意射击其他目标实验
+                        if(i==4)
+                        {
+                            robotExceptionPlay();
+                            break;
+                        }
+                    }
+
+                }
+            }
+            if (robotFindShip.HealthNum <= 0 && robotFindShip.Name!="Sea")
+            {
+                tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredShipButtonIndex].Enabled = false;
+                robotFindShip = null;
+            }
+            if(robotFindExceptionShip!=null && robotFindExceptionShip.HealthNum<=0 && robotFindExceptionShip.Name!="Sea")
+            {
+                tableLayoutPanel3_PlayerSea.Controls[robotDiscoveredExceptionShipButtonIndex].Enabled = false;
+                robotFindExceptionShip = null;
+            }
+            if (robot_.MyCards.InHandCards.Count < 5)
+            {
+                robot_.MyCards.drawCards(5-robot_.MyCards.InHandCards.Count);
+            }
+        }
+
+        private void robotExceptionPlay()
+        {
+            Random rand = new Random();
+            int cardIndex = rand.Next(5);
+            Peg currentCard = (Peg)robot_.MyCards.InHandCards[cardIndex];
+            int playerSeaX = robotXDiscover[rand.Next(robotXDiscover.Count)];
+            robotXDiscover.Remove(playerSeaX);
+            int playerSeaY = robotYDiscover[rand.Next(robotYDiscover.Count)];
+            robotYDiscover.Remove(playerSeaY);
+            if (robotDiscoveredMatrix[playerSeaY, playerSeaX] != 1)
+            {
+                Ship targerShip = playerDeployment_[playerSeaY, playerSeaX];
+                robotFindExceptionShip = targerShip;
+                currentCard.useCard(targerShip);
+                robotDiscover++;
+                robot_.MyCards.InHandCards.Remove(currentCard);
+                int playerShipButtonIndex = playerSeaY * 4 + playerSeaX;
+                robotDiscoveredExceptionShipButtonIndex = playerShipButtonIndex;
+                tableLayoutPanel3_PlayerSea.Controls[playerShipButtonIndex].Enabled = true;
+                if (robotFindExceptionShip.Name != "Sea")
+                {
+                    tableLayoutPanel3_PlayerSea.Controls[playerShipButtonIndex].Text = playerDeployment_[playerSeaY, playerSeaX].Name + "\n(Health:" + playerDeployment_[playerSeaY, playerSeaX].HealthNum + ")";
+                }
+                robotDiscoveredMatrix[playerSeaY, playerSeaX] = 1;
+            }
+            else
+            {
+                robotExceptionPlay();
+            }
+        }
+
         private void robotMatchShip(Button targetButton)
         {
             int buttonIndex = tableLayoutPanel2_RobotSea.Controls.GetChildIndex(targetButton);
@@ -247,6 +403,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 robotMatchShip(button_RobotShip1);
+                robotAutoPlay();
             }
             else
             {
@@ -284,6 +441,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 robotMatchShip(button_RobotShip2);
+                robotAutoPlay();
             }
             else
             {
@@ -321,6 +479,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 robotMatchShip(button_RobotShip3);
+                robotAutoPlay();
             }
             else
             {
@@ -358,6 +517,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 robotMatchShip(button_RobotShip4);
+                robotAutoPlay();
             }
             else
             {
@@ -395,6 +555,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 robotMatchShip(button_RobotShip5);
+                robotAutoPlay();
             }
             else
             {
@@ -432,6 +593,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 robotMatchShip(button_RobotShip6);
+                robotAutoPlay();
             }
             else
             {
@@ -469,6 +631,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 robotMatchShip(button_RobotShip7);
+                robotAutoPlay();
             }
             else
             {
@@ -506,6 +669,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 robotMatchShip(button_RobotShip8);
+                robotAutoPlay();
             }
             else
             {
@@ -543,6 +707,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 robotMatchShip(button_RobotShip9);
+                robotAutoPlay();
             }
             else
             {
@@ -580,6 +745,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 robotMatchShip(button_RobotShip10);
+                robotAutoPlay();
             }
             else
             {
@@ -617,6 +783,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 robotMatchShip(button_RobotShip11);
+                robotAutoPlay();
             }
             else
             {
@@ -654,6 +821,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
                 robotMatchShip(button_RobotShip12);
+                robotAutoPlay();
             }
             else
             {

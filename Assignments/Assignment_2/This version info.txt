@@ -1,3 +1,9 @@
+Version: 10022300
+1. Implement AI almost complete
+2. Considered different algorithms in AI of different situation
+3. Fix some bugs
+4. The fix of 10021200-2. is not focused yet
+
 Version: 10021200
 1. Initialise the deck of player and robot hand cards and deck of destruction.
 2. When deck of destruction is drawed over, new deck of destruction will generate a new group of cards, however, it is not from the used deck. NEED TO BE FIXED.
