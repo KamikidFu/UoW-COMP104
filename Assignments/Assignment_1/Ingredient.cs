@@ -83,87 +83,105 @@ namespace Assignment_Framework_with_Classes
         }
 
         //***********************************
-        //Method
+        //Method for task 3 e).
         public void changeUnit(string toUnit)
         {
+            //Check which unit's measure system that the user want to use.
+            //If user choose "Metric".
             if (toUnit == "Metric")
             {
-                //bool needChange = false;
-                //for(int i =0;i<this.requirements_.Count;i++)
-                //{
-                //    if (this.requirements_[i].Unit == "ml" || this.requirements_[i].Unit == "g" || this.requirements_[i].Unit == "kg" || this.requirements_[i].Unit == "l")
-                //    {
-                //        needChange = false;
-                //    }
-                //    else
-                //    {
-                //        needChange = true;
-                //    }
-                //}
-                
-             
-                    //if (checkItems.Unit == "cup" || checkItems.Unit == "tbsp" || checkItems.Unit == "tsp" || checkItems.Unit == "lb" || checkItems.Unit == "oz") 
-                    //{
-                    //Change Unit
-                    //checkItems.Quantity = changedQuantity;
-                    //checkItems.Unit = changedUnit;
-                    double changedQuantity = 0.0d;
-                    string changedUnit = "";
-                    if (this.unit_== "cup")
+                //Set two variables to change the volume units.
+                //One for the quantity and one for the unit.
+                double changedQuantity = 0.0d;
+                string changedUnit = "";
+                //If the unit which the user want to change is "cup".
+                if (this.unit_ == "cup")
+                {
+                    //Then change the quantity, 1 cup is 240ml.
+                    changedQuantity = this.defaultQuantity_ * 240;
+                    //If the quantity is greater than 1000, then it will be measured in "l", not "ml".
+                    if (changedQuantity > 1000)
                     {
-                        changedQuantity = this.defaultQuantity_ * 240;
-                        if (changedQuantity > 1000)
-                        {
-                            changedQuantity /= 1000;
-                            changedUnit = "l";
-                        }
-                        else
-                        {
-                            changedUnit = "ml";
-                        }
+                        changedQuantity /= 1000;
+                        changedUnit = "l";
                     }
-                    else if (this.unit_ == "tbsp")
+                    //Else the quantity will be measured in "ml".
+                    else
                     {
-                        changedQuantity = this.defaultQuantity_ * 15;
                         changedUnit = "ml";
                     }
-                    else if (this.unit_ == "tsp")
+                }
+                //Else if the unit which the user want to change is "tbsp".
+                else if (this.unit_ == "tbsp")
+                {
+                    //Then change the quantity, 1 tbsp is 15 ml.
+                    changedQuantity = this.defaultQuantity_ * 15;
+                    changedUnit = "ml";
+                }
+                //Else if the unit which the user want to change is "tsp".
+                else if (this.unit_ == "tsp")
+                {
+                    //Then chang the quantity, 1 tsp is 5 ml.
+                    changedQuantity = this.defaultQuantity_ * 5;
+                    changedUnit = "ml";
+                }
+                //Else if the unit which the user want to change is "lb".
+                else if (this.unit_ == "lb")
+                {
+                    //Then chang the quantity, 1 lb is 453.592 g.
+                    changedQuantity = this.defaultQuantity_ * 453.592;
+                    //If the quantity is greater than 1000, then it will be maesured in "kg" instead of "g".
+                    if (changedQuantity > 1000)
                     {
-                        changedQuantity = this.defaultQuantity_ * 5;
-                        changedUnit = "ml";
+                        changedQuantity /= 1000;
+                        changedUnit = "kg";
                     }
-                    else if (this.unit_ == "lb")
+                    //Else the quantity will be measured in "g".
+                    else
                     {
-                        changedQuantity = this.defaultQuantity_ * 453.592;
-                        if (changedQuantity > 1000)
-                        {
-                            changedQuantity /= 1000;
-                            changedUnit = "kg";
-                        }
-                        else
-                        {
-                            changedUnit = "g";
-                        }
-                    }
-                    else if (this.unit_ == "oz")
-                    {
-                        changedQuantity = this.defaultQuantity_ * 28.3495;
                         changedUnit = "g";
                     }
-                    else { return; }
-                    this.defaultQuantity_ = changedQuantity;
-                    this.unit_ = changedUnit;
-                }          
-
+                }
+                //Else if the unit which the user want to change is "oz".
+                else if (this.unit_ == "oz")
+                {
+                    //Then change the quantity, 1 oz is 28.3495 g.
+                    changedQuantity = this.defaultQuantity_ * 28.3495;
+                    changedUnit = "g";
+                }
+                //Else, do nothing.
+                else { return; }
+                //Change the quantity and the unit in datagirdview.
+                this.defaultQuantity_ = changedQuantity;
+                this.unit_ = changedUnit;
+            }
+            //If user choose "Imperial".
             if (toUnit == "Imperial")
             {
-                
-                    double changedQuantity = 0.0d;
-                    string changedUnit = "";
-                    if (this.unit_ == "ml")
+                //Set two variables to change the volume units.
+                //One for the quantity and one for the unit.
+                double changedQuantity = 0.0d;
+                string changedUnit = "";
+                //If the unit which the user want to change is "ml".
+                if (this.unit_ == "ml")
+                {
+                    //Yi bu yi bu to ce ta!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Hello??????
+                    //Then the changed quantity will be measured in "tbsp". 5 ml is 1 tsp.
+                    //changedQuantity = (int)this.defaultQuantity_ / 5;
+                    ////The max quantity for things measured in teaspoon i
+                    //if (changedQuantity > 10)
+                    //{
+                    //    changedQuantity /= (int)3;
+                    //    changedUnit = "tbsp";
+                    //}
+                    //else
+                    //{
+                    //    changedUnit = "tsp";
+                    //}
+                    changedQuantity = this.defaultQuantity_ / 5;
+                    if(changedQuantity<48)
                     {
-                        changedQuantity = this.defaultQuantity_ / 5;
-                        if (changedQuantity > 5)
+                        if(changedQuantity>10)
                         {
                             changedQuantity /= 3;
                             changedUnit = "tbsp";
@@ -173,46 +191,52 @@ namespace Assignment_Framework_with_Classes
                             changedUnit = "tsp";
                         }
                     }
-                    else if (this.unit_ == "l")
+                    else
                     {
-                        changedQuantity = this.defaultQuantity_ / 240;
+                        changedQuantity /= 48;
                         changedUnit = "cup";
                     }
-                    else if (this.unit_ == "g")
+                }
+                else if (this.unit_ == "l")
+                {
+                    changedQuantity = this.defaultQuantity_ / 240;
+                    changedUnit = "cup";
+                }
+                else if (this.unit_ == "g")
+                {
+                    changedQuantity = this.defaultQuantity_ / 28.3495;
+                    if (changedQuantity < 16)
                     {
-                        changedQuantity = this.defaultQuantity_ / 28.3495;
-                        if (changedQuantity < 16)
-                        {
-                            changedUnit = "oz";
-                        }
-                        else
-                        {
-                            changedQuantity /= 16;
-                            changedUnit = "lb";
-                        }
-                    }
-                    else if (this.unit_ == "kg")
-                    {
-                        changedQuantity = (this.defaultQuantity_ * 1000) / 28.3495;
-                        if (changedQuantity < 16)
-                        {
-                            changedUnit = "oz";
-                        }
-                        else
-                        {
-                            changedQuantity /= 16;
-                            changedUnit = "lb";
-                        }
+                        changedUnit = "oz";
                     }
                     else
                     {
-                    return;
+                        changedQuantity /= 16;
+                        changedUnit = "lb";
                     }
-                    this.defaultQuantity_ = changedQuantity;
-                    this.unit_ = changedUnit;
                 }
+                else if (this.unit_ == "kg")
+                {
+                    changedQuantity = (this.defaultQuantity_ * 1000) / 28.3495;
+                    if (changedQuantity < 16)
+                    {
+                        changedUnit = "oz";
+                    }
+                    else
+                    {
+                        changedQuantity /= 16;
+                        changedUnit = "lb";
+                    }
+                }
+                else
+                {
+                    return;
+                }
+                this.defaultQuantity_ = changedQuantity;
+                this.unit_ = changedUnit;
             }
-        
+        }
+
 
         //***********************************
         //*Properties

@@ -287,14 +287,22 @@ namespace Assignment_Framework_with_Classes
                     if (checkItems.Unit == "ml" || checkItems.Unit == "ml ")
                     {
                         changedQuantity = checkItems.Quantity / 5;
-                        if (changedQuantity >= 3)
+                        if (changedQuantity < 48)
                         {
-                            changedQuantity /= 3;
-                            changedUnit = "tbsp";
+                            if (changedQuantity > 10)
+                            {
+                                changedQuantity /= 3;
+                                changedUnit = "tbsp";
+                            }
+                            else
+                            {
+                                changedUnit = "tsp";
+                            }
                         }
                         else
                         {
-                            changedUnit = "tsp";
+                            changedQuantity /= 48;
+                            changedUnit = "cup";
                         }
                     }
                     else if (checkItems.Unit == "l" || checkItems.Unit == "l ")
@@ -351,7 +359,7 @@ namespace Assignment_Framework_with_Classes
         {
             foreach (RecipeItems checkItems in this.requirements_)
             {
-                if (checkItems.Unit == "tsp" && checkItems.Quantity > 3 && checkItems.Quantity < 48)
+                if (checkItems.Unit == "tsp" && checkItems.Quantity > 10 && checkItems.Quantity < 48)
                 {
                     checkItems.Quantity /= 3;
                     checkItems.Unit = "tbsp";
@@ -361,10 +369,15 @@ namespace Assignment_Framework_with_Classes
                     checkItems.Quantity /= 48;
                     checkItems.Unit = "cup";
                 }
-                else if (checkItems.Unit == "tbsp" && checkItems.Quantity > 16)
+                else if (checkItems.Unit == "tbsp" && checkItems.Quantity >= 16)
                 {
                     checkItems.Quantity /= 16;
                     checkItems.Unit = "cup";
+                }
+                else if(checkItems.Unit=="tbsp")
+                {
+                    checkItems.Quantity *= 3;
+                    checkItems.Unit = "tsp";
                 }
                 else if (checkItems.Unit == "oz" && checkItems.Quantity > 16)
                 {
