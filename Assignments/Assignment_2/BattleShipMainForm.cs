@@ -27,6 +27,7 @@ namespace BattleshipHiddenThreat
         Player robot_;
         bool robotWin = false;
         bool humanWin = false;
+        bool baseMode = false;
         Random rand = new Random();
 
         public BattleShipMainForm()
@@ -56,7 +57,15 @@ namespace BattleshipHiddenThreat
             , Ship[,] playerDeployment, Ship[,] robotDeployment)
         {
             InitializeComponent();
-
+            
+            if(playMode=="Base")
+            {
+                baseMode = true;
+            }
+            else
+            {
+                baseMode = false;
+            }
             human_ = new Player(playerName, playerTeam, playMode);
             string robotTeam = "";
             history = currentHistory;
@@ -103,7 +112,7 @@ namespace BattleshipHiddenThreat
                     Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
                     tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
                 }
-                else if(human_.MyCards.InHandCards[i] is Power)
+                else if (human_.MyCards.InHandCards[i] is Power)
                 {
                     Power powerCard = (Power)human_.MyCards.InHandCards[i];
                     tableLayoutPanel4_PlayerHandCards.Controls[i].Text = powerCard.Name;
@@ -116,14 +125,21 @@ namespace BattleshipHiddenThreat
             label_GameStatus.Text = history.HistoryList[history.HistoryList.Count - 1];
 
             int first = rand.Next();
-            if(first%2==0)
+            if (first % 2 == 0)
             {
                 MessageBox.Show("Cool! You get first round!");
             }
             else
             {
                 MessageBox.Show("Robot gets first round!");
-                robotPlay();
+                if(baseMode)
+                {
+                    robotPlay_Base();
+                }
+                else
+                {
+                    robotPlay_Full();
+                }
             }
         }
 
@@ -171,7 +187,7 @@ namespace BattleshipHiddenThreat
                         Peg card = (Peg)robot_.MyCards.InHandCards[i];
                         outputData += robot_.MyCards.InHandCards[i].Name + "   " + card.AttackNum + "\n";
                     }
-                    else if(robot_.MyCards.InHandCards[i] is Power)
+                    else if (robot_.MyCards.InHandCards[i] is Power)
                     {
                         Power card = (Power)robot_.MyCards.InHandCards[i];
                         outputData += robot_.MyCards.InHandCards[i].Name + "\n";
@@ -211,78 +227,186 @@ namespace BattleshipHiddenThreat
         {
             Application.Exit();
         }
-                       
+
         private void button_RobotShip1_Click(object sender, EventArgs e)
         {
-            playerPlay(0, 0);
-            playerMatchRobotShip(button_RobotShip1);
-            robotPlay();            
+            if (baseMode)
+            {
+                playerPlay(0, 0);
+                playerMatchRobotShip(button_RobotShip1);
+                robotPlay_Base();
+            }
+            else
+            {
+                playerPlay(0, 0);
+                playerMatchRobotShip(button_RobotShip1);
+                robotPlay_Full();
+            }
         }
         private void button_RobotShip2_Click(object sender, EventArgs e)
         {
-            playerPlay(0, 1);
-            playerMatchRobotShip(button_RobotShip2);
-            robotPlay();
+            if (baseMode)
+            {
+                playerPlay(0, 1);
+                playerMatchRobotShip(button_RobotShip2);
+                robotPlay_Base();
+            }
+            else
+            {
+                playerPlay(0, 1);
+                playerMatchRobotShip(button_RobotShip2);
+                robotPlay_Full();
+            }
         }
         private void button_RobotShip3_Click(object sender, EventArgs e)
         {
-            playerPlay(0, 2);
-            playerMatchRobotShip(button_RobotShip3);
-            robotPlay();
+            if (baseMode)
+            {
+                playerPlay(0, 2);
+                playerMatchRobotShip(button_RobotShip3);
+                robotPlay_Base();
+            }
+            else
+            {
+                playerPlay(0, 2);
+                playerMatchRobotShip(button_RobotShip3);
+                robotPlay_Full();
+            }
         }
         private void button_RobotShip4_Click(object sender, EventArgs e)
         {
-            playerPlay(0, 3);
-            playerMatchRobotShip(button_RobotShip4);
-            robotPlay();
+            if (baseMode)
+            {
+                playerPlay(0, 3);
+                playerMatchRobotShip(button_RobotShip4);
+                robotPlay_Base();
+            }
+            else
+            {
+                playerPlay(0, 3);
+                playerMatchRobotShip(button_RobotShip4);
+                robotPlay_Full();
+            }
         }
         private void button_RobotShip5_Click(object sender, EventArgs e)
         {
-            playerPlay(1, 0);
-            playerMatchRobotShip(button_RobotShip5);
-            robotPlay();
+            if (baseMode)
+            {
+                playerPlay(1, 0);
+                playerMatchRobotShip(button_RobotShip5);
+                robotPlay_Base();
+            }
+            else
+            {
+                playerPlay(1, 0);
+                playerMatchRobotShip(button_RobotShip5);
+                robotPlay_Full();
+            }
         }
         private void button_RobotShip6_Click(object sender, EventArgs e)
         {
-            playerPlay(1, 1);
-            playerMatchRobotShip(button_RobotShip6);
-            robotPlay();
+            if (baseMode)
+            {
+                playerPlay(1, 1);
+                playerMatchRobotShip(button_RobotShip6);
+                robotPlay_Base();
+            }
+            else
+            {
+                playerPlay(1,1);
+                playerMatchRobotShip(button_RobotShip6);
+                robotPlay_Full();
+            }
         }
         private void button_RobotShip7_Click(object sender, EventArgs e)
         {
-            playerPlay(1, 2);
-            playerMatchRobotShip(button_RobotShip7);
-            robotPlay();
+            if (baseMode)
+            {
+                playerPlay(1, 2);
+                playerMatchRobotShip(button_RobotShip7);
+                robotPlay_Base();
+            }
+            else
+            {
+                playerPlay(1,2);
+                playerMatchRobotShip(button_RobotShip7);
+                robotPlay_Full();
+            }
         }
         private void button_RobotShip8_Click(object sender, EventArgs e)
         {
-            playerPlay(1, 3);
-            playerMatchRobotShip(button_RobotShip8);
-            robotPlay();
+            if (baseMode)
+            {
+                playerPlay(1,3);
+                playerMatchRobotShip(button_RobotShip8);
+                robotPlay_Base();
+            }
+            else
+            {
+                playerPlay(1,3);
+                playerMatchRobotShip(button_RobotShip8);
+                robotPlay_Full();
+            }
         }
         private void button_RobotShip9_Click(object sender, EventArgs e)
         {
-            playerPlay(2, 0);
-            playerMatchRobotShip(button_RobotShip9);
-            robotPlay();
+            if (baseMode)
+            {
+                playerPlay(2, 0);
+                playerMatchRobotShip(button_RobotShip9);
+                robotPlay_Base();
+            }
+            else
+            {
+                playerPlay(2, 0);
+                playerMatchRobotShip(button_RobotShip9);
+                robotPlay_Full();
+            }
         }
         private void button_RobotShip10_Click(object sender, EventArgs e)
         {
-            playerPlay(2, 1);
-            playerMatchRobotShip(button_RobotShip10);
-            robotPlay();
+            if (baseMode)
+            {
+                playerPlay(2, 1);
+                playerMatchRobotShip(button_RobotShip10);
+                robotPlay_Base();
+            }
+            else
+            {
+                playerPlay(2, 1);
+                playerMatchRobotShip(button_RobotShip10);
+                robotPlay_Full();
+            }
         }
         private void button_RobotShip11_Click(object sender, EventArgs e)
         {
-            playerPlay(2, 2);
-            playerMatchRobotShip(button_RobotShip11);
-            robotPlay();
+            if (baseMode)
+            {
+                playerPlay(2, 2);
+                playerMatchRobotShip(button_RobotShip11);
+                robotPlay_Base();
+            }
+            else
+            {
+                playerPlay(2, 2);
+                playerMatchRobotShip(button_RobotShip11);
+                robotPlay_Full();
+            }
         }
         private void button_RobotShip12_Click(object sender, EventArgs e)
         {
-            playerPlay(2, 3);
-            playerMatchRobotShip(button_RobotShip12);
-            robotPlay();
+            if (baseMode)
+            {
+                playerPlay(2, 3);
+                playerMatchRobotShip(button_RobotShip12);
+                robotPlay_Base();
+            }
+            else
+            {
+                playerPlay(2, 3);
+                playerMatchRobotShip(button_RobotShip12);
+                robotPlay_Full();
+            }
         }
 
         private void initialDeployShips(TableLayoutPanel targetControl, Ship[,] playerDeploy)
@@ -307,7 +431,69 @@ namespace BattleshipHiddenThreat
                 }
             }
         }
-        private void robotPlay()
+        private void robotPlay_Full()
+        {
+            //Full Game
+            if (!humanWin)
+            {
+                if (robotFindShips.Count != 0)
+                {
+                    Random rand = new Random();
+                    Ship targetShip = robotFindShips[rand.Next(robotFindShips.Count)];
+                    Peg currentCard = (Peg)robotPlay_ChooseOneCardAttack(targetShip);
+                    if (currentCard != null)
+                    {
+                        currentCard.useCard(targetShip);
+                        robot_.MyCards.InHandCards.Remove(currentCard);
+                        robot_.disCards(currentCard);
+                        if (targetShip.Name != "Sea")
+                        {
+                            tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text = playerDeployment_[targetShip.DeploymentY, targetShip.DeploymentX].Name + "\n(Health:" + playerDeployment_[targetShip.DeploymentY, targetShip.DeploymentX].HealthNum + ")";
+                            if (targetShip.ShieldNum > 0)
+                            {
+                                tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text +=
+                                    "(Shield:" + targetShip.ShieldNum + ")";
+                            }
+                        }
+                        if (!targetShip.Name.Contains("Sea") && targetShip.HealthNum <= 0)
+                        {
+                            tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = false;
+                            updateHistory("Player's " + targetShip.Name + " is now sunk.");
+                            robotFindShips.Remove(targetShip);
+                            robotDiscover++;
+                        }
+                    }
+                    else
+                    {
+                        robotPlay_Full_FindNewShipOrOtherAct();
+                    }
+                }
+                else
+                {
+                    robotPlay_Full_FindNewShipOrOtherAct();
+                }
+                if (robotDiscover == 5)
+                {
+                    for (int i = 0; i < tableLayoutPanel2_RobotSea.Controls.Count; i++)
+                    {
+                        tableLayoutPanel2_RobotSea.Controls[i].Enabled = false;
+                        tableLayoutPanel3_PlayerSea.Controls[i].Enabled = false;
+                    }
+                    for (int i = 0; i < tableLayoutPanel4_PlayerHandCards.Controls.Count; i++)
+                    {
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = false;
+                    }
+                    updateHistory("Robot Wins The Game.");
+                    MessageBox.Show(":-(\nSad... You Lose...");
+                    robotWin = true;
+                }
+                if (robot_.MyCards.InHandCards.Count < 5)
+                {
+                    robot_.MyCards.drawCards(5 - robot_.MyCards.InHandCards.Count);
+                }
+            }
+        }
+        private void robotPlay_Base()
         {
             if (!humanWin)
             {
@@ -340,12 +526,12 @@ namespace BattleshipHiddenThreat
                     }
                     else
                     {
-                        robotPlay_FindNewShipOrOtherAct();
+                        robotPlay_Base_FindNewShipOrOtherAct();
                     }
                 }
                 else
                 {
-                    robotPlay_FindNewShipOrOtherAct();
+                    robotPlay_Base_FindNewShipOrOtherAct();
                 }
                 if (robotDiscover == 5)
                 {
@@ -368,18 +554,98 @@ namespace BattleshipHiddenThreat
                 }
             }
         }
-        private void robotPlay_FindNewShipOrOtherAct()
+        private void robotPlay_Full_FindNewShipOrOtherAct()
         {
             Random rand = new Random();
             Card currentCard;
             Peg pegCurrentCard;
             Power powerCurrentCard;
             if (robot_.MyCards.InHandCards.Count == 5)
-            {                 
+            {
                 currentCard = robot_.MyCards.InHandCards[rand.Next(5)];
-                if(currentCard is Peg)
+                if (currentCard is Peg)
                 {
-                   pegCurrentCard = (Peg)currentCard;
+                    pegCurrentCard = (Peg)currentCard;
+                    if (pegCurrentCard.Color != "White")
+                    {
+                        for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
+                        {
+                            if (robot_.MyCards.InHandCards[i] is Peg && robot_.MyCards.InHandCards[i].Name.Contains("White"))
+                            {
+                                currentCard = (Peg)robot_.MyCards.InHandCards[i];
+                                break;
+                            }
+
+                        }
+                        //Use white or red peg to find/attack ships
+                        Point playerSea = robotDiscoverMatrix[rand.Next(robotDiscoverMatrix.Count)];
+                        robotDiscoverMatrix.Remove(playerSea);
+                        if (robotDiscoveredMatrix[playerSea.Y, playerSea.X] != 1)
+                        {
+                            Ship targetShip = playerDeployment_[playerSea.Y, playerSea.X];
+                            targetShip.DeploymentX = playerSea.X;
+                            targetShip.DeploymentY = playerSea.Y;
+                            if (targetShip.Name != "Sea")
+                            {
+                                robotFindShips.Add(targetShip);
+                            }
+                            pegCurrentCard.useCard(targetShip);
+                            robot_.disCards(pegCurrentCard);
+                            updateHistory("Robot use " + pegCurrentCard.Name + " to find " + human_.Name + "'s " + targetShip.Name);
+                            robot_.MyCards.InHandCards.Remove(pegCurrentCard);
+                            tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = true;
+                            if (targetShip.Name != "Sea")
+                            {
+                                tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text = playerDeployment_[playerSea.Y, playerSea.X].Name + "\n(Health:" + playerDeployment_[playerSea.Y, playerSea.X].HealthNum + ")";
+                                if (targetShip.ShieldNum > 0)
+                                {
+                                    tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text +=
+                                        "(Shield:" + targetShip.ShieldNum + ")";
+                                }
+                                else
+                                {
+                                    Power Shield = new Power("Shield");
+                                    human_.MyCards.discards(new HandCard(Shield.Name, "Full"));
+                                }
+                            }                            
+                            if (targetShip.HealthNum <= 0 && targetShip.Name != "Sea")
+                            {
+                                tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Enabled = false;
+                                updateHistory("Player's " + targetShip.Name + " is now sunk.");
+                                robotFindShips.Remove(targetShip);
+                                robotDiscover++;
+                            }
+                            robotDiscoveredMatrix[playerSea.Y, playerSea.X] = 1;
+                        }
+
+                    }
+                    else
+                    {
+                        powerCurrentCard = (Power)currentCard;
+                        MessageBox.Show("Sorry, Power Card is not implemented yet!" + powerCurrentCard.Name);
+                        robot_.MyCards.InHandCards.Remove(powerCurrentCard);
+                        robot_.disCards(powerCurrentCard);
+                    }
+                }
+                else
+                {
+                    robot_.drawCards(1);
+                    robotPlay_Full_FindNewShipOrOtherAct();
+                }
+            }
+        }
+        
+        private void robotPlay_Base_FindNewShipOrOtherAct()
+        {
+            Random rand = new Random();
+            Card currentCard;
+            Peg pegCurrentCard;
+            if (robot_.MyCards.InHandCards.Count == 5)
+            {
+                currentCard = robot_.MyCards.InHandCards[rand.Next(5)];
+                if (currentCard is Peg)
+                {
+                    pegCurrentCard = (Peg)currentCard;
                     if (pegCurrentCard.Color != "White")
                     {
                         for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
@@ -410,11 +676,6 @@ namespace BattleshipHiddenThreat
                         if (targetShip.Name != "Sea")
                         {
                             tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text = playerDeployment_[playerSea.Y, playerSea.X].Name + "\n(Health:" + playerDeployment_[playerSea.Y, playerSea.X].HealthNum + ")";
-                            if (targetShip.ShieldNum > 0)
-                            {
-                                tableLayoutPanel3_PlayerSea.Controls[targetShip.DeploymentY * 4 + targetShip.DeploymentX].Text +=
-                                    "(Shield:" + targetShip.ShieldNum + ")";
-                            }
                         }
                         if (targetShip.HealthNum <= 0 && !targetShip.Name.Contains("Sea"))
                         {
@@ -426,21 +687,13 @@ namespace BattleshipHiddenThreat
                         robotDiscoveredMatrix[playerSea.Y, playerSea.X] = 1;
                     }
                 }
-                else
-                {
-                   powerCurrentCard = (Power)currentCard;
-                    MessageBox.Show("Sorry, Power Card is not implemented yet!");
-                    robot_.MyCards.InHandCards.Remove(powerCurrentCard);
-                    robot_.disCards(powerCurrentCard);
-                }
             }
             else
             {
                 robot_.drawCards(1);
-                robotPlay_FindNewShipOrOtherAct();
+                robotPlay_Base_FindNewShipOrOtherAct();
             }
-            
-        }
+        }    
         private HandCard robotPlay_ChooseOneCardAttack(Ship targerShip)
         {
             if (targerShip.Name != "Submarine")
@@ -448,7 +701,7 @@ namespace BattleshipHiddenThreat
                 Dictionary<int, HandCard> choosedCardWithDamage = new Dictionary<int, HandCard>();
                 for (int i = 0; i < robot_.MyCards.InHandCards.Count; i++)
                 {
-                    if (robot_.MyCards.InHandCards[i].Name.Contains("Red"))
+                    if (robot_.MyCards.InHandCards[i].Name.Contains("Red") && robot_.MyCards.InHandCards[i] is Peg)
                     {
                         Peg choosedPeg = (Peg)robot_.MyCards.InHandCards[i];
                         try
@@ -457,13 +710,20 @@ namespace BattleshipHiddenThreat
                         }
                         catch
                         {
-                            Console.WriteLine("Dictionary find the same object, just ignore it");
+                            Console.WriteLine("Dictionary find an object with same property, just ignore it");
                         }
                     }
                 }
-                int maxDamage = choosedCardWithDamage.Keys.Max();
-                HandCard attack = choosedCardWithDamage[maxDamage];
-                return attack;
+                try
+                {
+                    int maxDamage = choosedCardWithDamage.Keys.Max();
+                    HandCard attack = choosedCardWithDamage[maxDamage];
+                    return attack;
+                }
+                catch
+                {
+                    return null;
+                }
             }
             else
             {
@@ -474,7 +734,6 @@ namespace BattleshipHiddenThreat
                         return robot_.MyCards.InHandCards[i];
                     }
                 }
-                //robotPlay_FindNewShipOrOtherAct();
                 return null;
             }
         }
@@ -539,24 +798,32 @@ namespace BattleshipHiddenThreat
             if (playerCardIndex > -1)
             {
                 HandCard currentCard = human_.MyCards.InHandCards[playerCardIndex];
-                currentCard.useCard(robotDeployment_[robotY, robotX]);
-                human_.disCards(currentCard);
-                human_.MyCards.InHandCards.Remove(currentCard);
-                updateHistory("Player uses " + currentCard.Name + " to attack robot's " + robotDeployment_[robotY, robotX].Name);
-                human_.MyCards.drawCards(1);
-                for (int i = 0; i < 5; i++)
+                if (currentCard is Peg)
                 {
-                    tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
-                    if (human_.MyCards.InHandCards[i] is Peg)
+                    Peg pegCurrent = (Peg)currentCard;
+                    pegCurrent.useCard(robotDeployment_[robotY, robotX]);
+                    human_.disCards(pegCurrent);
+                    human_.MyCards.InHandCards.Remove(pegCurrent);
+                    updateHistory("Player uses " + pegCurrent.Name + " " + pegCurrent.AttackNum + " to attack robot's " + robotDeployment_[robotY, robotX].Name);
+                    human_.MyCards.drawCards(1);
+                    for (int i = 0; i < 5; i++)
                     {
-                        Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
-                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                        if (human_.MyCards.InHandCards[i] is Peg)
+                        {
+                            Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                            tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                        }
+                        else if (human_.MyCards.InHandCards[i] is Power)
+                        {
+                            Power powerCard = (Power)human_.MyCards.InHandCards[i];
+                            tableLayoutPanel4_PlayerHandCards.Controls[i].Text = powerCard.Name;
+                        }
                     }
-                    else if(human_.MyCards.InHandCards[i] is Power)
-                    {
-                        Power powerCard = (Power)human_.MyCards.InHandCards[i];
-                        tableLayoutPanel4_PlayerHandCards.Controls[i].Text = powerCard.Name;
-                    }
+                }
+                else if(currentCard is Power)
+                {
+                    //NEED APPLY
                 }
             }
             else
@@ -564,6 +831,7 @@ namespace BattleshipHiddenThreat
                 MessageBox.Show("Please play one card to robot sea!");
             }
         }
+        
         private void updateHistory(string addHistory)
         {
             history.Add(history.HistoryCounter++, addHistory);
@@ -592,6 +860,24 @@ namespace BattleshipHiddenThreat
                     }
                 }
             }
+            else
+            {
+                for (int i = 0; i < tableLayoutPanel3_PlayerSea.Controls.Count; i++)
+                {
+                    if (tableLayoutPanel3_PlayerSea.Controls[i].Text != "Sea" && tableLayoutPanel3_PlayerSea.Controls[i].Enabled == true)
+                    {
+                        tableLayoutPanel3_PlayerSea.Controls[i].BackColor = Control.DefaultBackColor;
+                        if (human_.Team == "Red")
+                        {
+                            tableLayoutPanel3_PlayerSea.Controls[i].ForeColor = Color.Red;
+                        }
+                        else
+                        {
+                            tableLayoutPanel3_PlayerSea.Controls[i].ForeColor = Color.Blue;
+                        }
+                    }
+                }
+            }
         }
         private void playerShipsAct(Button targetShip)
         {
@@ -604,6 +890,7 @@ namespace BattleshipHiddenThreat
                     if (r.Checked)
                     {
                         playerCardIndex = i;
+                        break;
                     }
                 }
             }
@@ -622,110 +909,138 @@ namespace BattleshipHiddenThreat
                     human_.MyCards.InHandCards.Remove(currentCard);
                     human_.disCards(currentCard);
                     human_.drawCards(1);
+                    for (int i = 0; i < 5; i++)
+                    {
+                        tableLayoutPanel4_PlayerHandCards.Controls[i].Enabled = true;
+                        if (human_.MyCards.InHandCards[i] is Peg)
+                        {
+                            Peg pegCard = (Peg)human_.MyCards.InHandCards[i];
+                            tableLayoutPanel4_PlayerHandCards.Controls[i].Text = pegCard.Name + pegCard.AttackNum;
+                        }
+                        else if (human_.MyCards.InHandCards[i] is Power)
+                        {
+                            Power powerCard = (Power)human_.MyCards.InHandCards[i];
+                            tableLayoutPanel4_PlayerHandCards.Controls[i].Text = powerCard.Name;
+                        }
+                    }
                 }
             }
-        }
-
-        private void radioButton1_MyCard1_CheckedChanged(object sender, EventArgs e)
-        {
-            playerShieldUse(radioButton1_MyCard1);
-        }
-
-        private void radioButton3_MyCard3_CheckedChanged(object sender, EventArgs e)
-        {
-            playerShieldUse(radioButton3_MyCard3);
-        }
-
-        private void radioButton4_MyCard4_CheckedChanged(object sender, EventArgs e)
-        {
-            playerShieldUse(radioButton4_MyCard4);
-        }
-
-        private void radioButton5_MyCard5_CheckedChanged(object sender, EventArgs e)
-        {
-            playerShieldUse(radioButton5_MyCard5);
-        }
+        }        
 
         private void button_PlayerShip1_Click(object sender, EventArgs e)
         {
-            playerShipsAct(button_PlayerShip1);
-            robotPlay();
+            if (!baseMode)
+            {
+                playerShipsAct(button_PlayerShip1);
+                robotPlay_Full();
+            }
         }
         private void button_PlayerShip2_Click(object sender, EventArgs e)
         {
-            playerShipsAct(button_PlayerShip2);
-            robotPlay();
+            if (!baseMode)
+            {
+                playerShipsAct(button_PlayerShip2);
+                robotPlay_Full();
+            }
         }
 
         private void button_PlayerShip3_Click(object sender, EventArgs e)
         {
-            playerShipsAct(button_PlayerShip3);
-            robotPlay();
+            if (!baseMode)
+            {
+                playerShipsAct(button_PlayerShip3);
+                robotPlay_Full();
+            }
         }
 
         private void button_PlayerShip4_Click(object sender, EventArgs e)
         {
-            playerShipsAct(button_PlayerShip4);
-            robotPlay();
+            if (!baseMode)
+            {
+                playerShipsAct(button_PlayerShip4);
+                robotPlay_Full();
+            }
         }
 
         private void button_PlayerShip5_Click(object sender, EventArgs e)
         {
-            playerShipsAct(button_PlayerShip5);
-            robotPlay();
+            if (!baseMode)
+            {
+                playerShipsAct(button_PlayerShip5);
+                robotPlay_Full();
+            }
         }
 
         private void button_PlayerShip6_Click(object sender, EventArgs e)
         {
-            playerShipsAct(button_PlayerShip6);
-            robotPlay();
+            if (!baseMode)
+            {
+                playerShipsAct(button_PlayerShip6);
+                robotPlay_Full();
+            }
         }
 
         private void button_PlayerShip7_Click(object sender, EventArgs e)
         {
-            playerShipsAct(button_PlayerShip7);
-            robotPlay();
+            if (!baseMode)
+            {
+                playerShipsAct(button_PlayerShip7);
+                robotPlay_Full();
+            }
         }
 
         private void button_PlayerShip8_Click(object sender, EventArgs e)
         {
-            playerShipsAct(button_PlayerShip8);
-            robotPlay();
+            if (!baseMode)
+            {
+                playerShipsAct(button_PlayerShip8);
+                robotPlay_Full();
+            }
         }
 
         private void button_PlayerShip9_Click(object sender, EventArgs e)
         {
-            playerShipsAct(button_PlayerShip9);
-            robotPlay();
+            if (!baseMode)
+            {
+                playerShipsAct(button_PlayerShip9);
+                robotPlay_Full();
+            }
         }
 
         private void button_PlayerShip10_Click(object sender, EventArgs e)
         {
-            playerShipsAct(button_RobotShip10);
-            robotPlay();
+            if (!baseMode)
+            {
+                playerShipsAct(button_PlayerShip10);
+                robotPlay_Full();
+            }
         }
 
         private void button_PlayerShip11_Click(object sender, EventArgs e)
         {
-            playerShipsAct(button_RobotShip11);
-            robotPlay();
+            if (!baseMode)
+            {
+                playerShipsAct(button_PlayerShip11);
+                robotPlay_Full();
+            }
         }
 
         private void button_PlayerShip12_Click(object sender, EventArgs e)
         {
-            playerShipsAct(button_RobotShip12);
-            robotPlay();
+            if (!baseMode)
+            {
+                playerShipsAct(button_PlayerShip12);
+                robotPlay_Full();
+            }
         }
-
-        private void radioButton2_MyCard2_Click(object sender, EventArgs e)
-        {
-            playerShieldUse(radioButton2_MyCard2);
-        }
-
         private void radioButton1_MyCard1_Click(object sender, EventArgs e)
         {
             playerShieldUse(radioButton1_MyCard1);
         }
+        private void radioButton2_MyCard2_Click(object sender, EventArgs e)
+        {
+            playerShieldUse(radioButton2_MyCard2);
+        }       
 
         private void radioButton3_MyCard3_Click(object sender, EventArgs e)
         {

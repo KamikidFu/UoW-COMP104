@@ -56,5 +56,13 @@ namespace BattleshipHiddenThreat
                 return team_;
             }
         }
+
+        public string Mode
+        {
+            get
+            {
+                return mode_;
+            }
+        }
     }
 }

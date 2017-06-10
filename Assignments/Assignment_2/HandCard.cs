@@ -72,34 +72,7 @@ namespace BattleshipHiddenThreat
         {
             int index = 0;
             int randIndexOfShip = 0;
-            if (mode_ == "Full")
-            {
-                cardsIndex_ = new int[26];
-                while (index != 25)
-                {
-                    randIndexOfShip = rand_.Next(26);
-                    if (!cardsIndex_.Contains(randIndexOfShip))
-                    {
-                        cardsIndex_[index] = randIndexOfShip;
-                        index++;
-                    }
-                }
-            }
-            else if(mode_=="Base")
-            {
-                cardsIndex_ = new int[20];
-                while (index !=19)
-                {
-                    randIndexOfShip = rand_.Next(20);
-                    if (!cardsIndex_.Contains(randIndexOfShip))
-                    {
-                        cardsIndex_[index] = randIndexOfShip;
-                        index++;
-                    }
-                }
-            }
-            else
-            {
+            
                 cardsIndex_ = new int[restDestructionCards_.Count];
                 while(index!=restDestructionCards_.Count-1)
                 {
@@ -111,7 +84,7 @@ namespace BattleshipHiddenThreat
                     }
                 }
 
-            }
+            
         }
         public void drawCards(int HowManyCardsToDraw)
         {
@@ -165,11 +138,13 @@ namespace BattleshipHiddenThreat
         }
         public void discards(HandCard whichToDiscard)
         {
+            //Index problem
+            //restDestructionCards_[cardsIndex_[currentIndexOFCardsIndex_]] = null;
             usedDestructionCards_.Add(whichToDiscard);
         }
         public override void useCard(Card target)
         {
-
+            //Note: Player use one card and then use the card's useCard method, not the method here!
         }
     }
 }

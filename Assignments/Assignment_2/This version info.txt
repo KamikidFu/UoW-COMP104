@@ -1,8 +1,16 @@
+Version: 10072330
+1. Fix 10052317, add try catch to return a null to find new ship if there is no red peg.
+2. Simply fix 10052320, now just show a message box, until all power cards are ready.
+3. Fix 10071056, select and deselect shield to change the style of button.
+4. Fix 10052321, fix the method of chooseOneCardAttack, in order to not return a power card when wants to attack.
+5. Fix when rest cards running out, do the shuffle of used card deck to be new restDestructionCards.
+6. Fix Shield Power bugs, now, it can add to appeared ship, not add health to ship, once shield broken until next round attck health.
+
 Version: 10062300
 1. Fix robot find two ships(10062300-1) bug.
 2. Fix radio button event handler(10062300-2) that just check once, use click event.
 3. 10052320 bug is that the power card doesnot implement, it comes nothings.
-4. 10052321 bug, if statement is add-on while the power card is not ready.
+4. Simply fix 10052321 bug, if statement is add-on while the power card is not ready.
 5. 10052317 bug, because it can not find the max int of attack due to power cards.
 
 
@@ -10,7 +18,7 @@ Version: 10052330
 1. Fix player winning logic, i.e. fix 10032330-5 bug.
 2. Fix bug 10021200-2, where use the used deck of cards to new deck of cards when run out of previous one.
 3. Base Game is Compelet!
-4. Start coding Full Game, Shield Function is ready to use. While other bugs come.
+4. Start coding Full Game, Shield Function is ready to use but with bugs coming.
 5. Bug,10052317, can not find the attacking card when have all power card or some power card and white peg.
 6. Bug, 10052320, AI did not act when it is its first round.
 7. Bug, 10052321, Need new logic when performing AI, i.e. Power uses as power way, peg uses as peg way. Need if statement.
