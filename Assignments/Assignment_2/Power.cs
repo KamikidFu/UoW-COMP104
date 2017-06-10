@@ -29,5 +29,42 @@ namespace BattleshipHiddenThreat
                 targetButton.Text += "(Shield:" + myShip.ShieldNum + ")";     
             }
         }
+        public void useCard(Card usingCard, string whichFunction, Player whoPlay, Ship powerUsedShip)
+        {
+            if(this.name_== "Discard White Peg or Play 2 Cards")
+            {
+                if(whichFunction=="1")
+                {
+                    for(int i=0;i<whoPlay.MyCards.InHandCards.Count;i++)
+                    {
+                       if( whoPlay.MyCards.InHandCards[i].Name=="White Peg")
+                        {
+                            whoPlay.disCards(whoPlay.MyCards.InHandCards[i]);
+                            whoPlay.MyCards.InHandCards.RemoveAt(i);
+                        }
+                    }
+                }
+                else
+                {
+                    whoPlay.Full_RestOfRound = 2;
+                }
+            }
+            else
+            {
+                if(whichFunction=="1")
+                {
+                    if (powerUsedShip != null)
+                    {
+                        powerUsedShip.HealthNum++;
+                    }
+                    whoPlay.Full_RestOfRound = 1;
+                }
+                else
+                {
+                    whoPlay.drawCards(3);
+                    whoPlay.Full_RestOfRound = 1;
+                }
+            }
+        }
     }
 }
