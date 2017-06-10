@@ -9,4 +9,4 @@ To make it clear and simple, once you downloaded/cloned/forked this repository o
 
 ## About Repository
 
-In order to reduce the size of repository, only the source codes will be commited in its folder. This repository may keep active and commit what is necessary.
+In order to reduce the size of repository, only the source codes will be commited in its folder. This repository may keep active and commit what is necessary. If you have any ideas or advices on this repository, please contact me at my [blog](http://www.kamikid.me/wp/2017/06/10/begin-coding-with-cs/)(Recommand) or my [facebook](https://www.facebook.com/KamikidFu) with your greetings.
