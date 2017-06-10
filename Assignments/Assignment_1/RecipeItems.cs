@@ -8,6 +8,16 @@ using System.Windows.Forms;
 
 namespace Assignment_Framework_with_Classes
 {
+    ///<summary>
+    ///RecipeItems class is a class to store information about the items required in recipe.
+    ///These item has three property, ingredient name, quantity and unit.
+    ///It is aimed to generate a list in Recipe class
+    ///</summary>
+
+    ///<summary>
+    ///These following code(INotifyPropertyChanged Event Handling) is refered by Lecture 17 Programming demo writen by Robi.
+    ///Thanks for hits and helps :-)
+    ///</summary>
     public class RecipeItems:INotifyPropertyChanged
     {
         //***********************************
@@ -121,7 +131,13 @@ namespace Assignment_Framework_with_Classes
 
             set
             {
-                unit_ = value;
+                //IF the name of ingredient has changed
+                if (unit_ != value)
+                {
+                    unit_ = value;
+                    //Send property-changed notification to those that want to know
+                    CatchPropertyChanged("Unit");
+                }
             }
         }
     }

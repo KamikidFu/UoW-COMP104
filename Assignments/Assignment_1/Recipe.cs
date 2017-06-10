@@ -17,6 +17,11 @@ namespace Assignment_Framework_with_Classes
     /// Written by Yunhao Fu and Jiayi Hu, 2016
     /// Thank you very much :-)
     /// </summary>
+
+    ///<summary>
+    ///These following code(INotifyPropertyChanged Event Handling) is refered by Lecture 17 Programming demo writen by Robi.
+    ///Thanks for hits and helps :-)
+    ///</summary>
     public class Recipe : INotifyPropertyChanged
     {
         //***********************************
@@ -50,10 +55,7 @@ namespace Assignment_Framework_with_Classes
                 PropertyChanged(this, new PropertyChangedEventArgs(properties));
             }
         }
-
         
-                   
-
         //***********************************
         //*Instance Variables
         ///<summary>
@@ -61,11 +63,11 @@ namespace Assignment_Framework_with_Classes
         ///</summary>        
         private string name_;
         ///<summary>
-        ///Yield of recipe, e.g. "1" means 1 serving it normally produces
+        ///Yield of recipe, e.g. "1" means 1 serving it normally produces, and the yield should be the unsigned integer
         ///</summary>
         private uint yield_;
         /// <summary>
-        /// Previous yield for every recipes, like a reference when change yield.
+        /// Previous yield for every recipes, like a reference when change yield, , and the yield should be the unsigned integer
         /// </summary>
         private uint previousYield_;
         ///<summary>
@@ -101,18 +103,7 @@ namespace Assignment_Framework_with_Classes
             //Register decleared above is for a list-changed event to handler on the enrolment list.
             Requirements_.ListChanged += new ListChangedEventHandler(RequirementListChanged);
         }
-        //public Recipe(string NAME, uint YIELD)
-        //{
-        //    // Initialise variable
-        //    name_ = NAME;
-        //    yield_ = YIELD;
-        //    previousYield_ = YIELD;
-        //    instruction_ = "";
-        //    // Create an empty list of requirements for this new recipe
-        //    Requirements_ = new BindingList<RecipeItems>();
-        //    //Register decleared above is for a list-changed event to handler on the enrolment list.
-        //    Requirements_.ListChanged += new ListChangedEventHandler(RequirementListChanged);
-        //}
+
         //***********************************
         //* Public Method        
        /// <summary>
@@ -122,46 +113,57 @@ namespace Assignment_Framework_with_Classes
        /// <returns></returns>
         public double calculateCost(BindingList<Ingredient> ingredientList)
         {
+            //Set up local varibles
             double cost = 0.0d;
+            //For each required items to calculate the cost
             for(int i=0;i<requirements_.Count;i++)
             {
+                //For each ingredients in the reference list passed into the method
                 for(int j=0;j<ingredientList.Count;j++)
                 {
+                    //If the required item name is the same as ingredient name in passed list
                     if(requirements_[i].IngredientName==ingredientList[j].Name)
                     {
-                        //cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity);
-                        //Need in one unit to calculate
+                        //Different units may in different cases to calculate the cost
                         if (requirements_[i].Unit == ingredientList[j].Unit)
                         {
+                            //If the unit is same, simply add up the cost
                             cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity);
                         }
                         else if (requirements_[i].Unit == "lb" && ingredientList[j].Unit == "oz")
                         {
+                            //If the units are lb and oz in item and list, due to 1 lb = 16 oz, the formula is as below
                             cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity * 16);
                         }
                         else if (requirements_[i].Unit == "tbsp" && ingredientList[j].Unit == "tsp")
                         {
+                            //If the units are tbsp and tsp, due to 1 tbsp = 3 tsp, the formula is as below
                             cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity * 3);
                         }
                         else if(requirements_[i].Unit=="cup" && ingredientList[j].Unit=="tbsp")
                         {
+                            //If the units are cup and tbsp, due to 1 cup = 16 tsp, the formula is as below
                             cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity * 16);
                         }
                         else if(requirements_[i].Unit=="cup"&&ingredientList[j].Unit=="tsp")
                         {
+                            //If the units are cup and tsp, due to 1 cup = (16*3)48 tsp, the formula is as below
                             cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity * 48);
                         }
                         else if (requirements_[i].Unit == "kg" && ingredientList[j].Unit == "g")
                         {
+                            //If the units are kg and g, due to 1 kg = 1000g, the formula is as below
                             cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity * 1000);
                         }
                         else if (requirements_[i].Unit == "l" && ingredientList[j].Unit == "ml")
                         {
+                            //If the units are l and ml, due to 1 l = 1000ml, the formula is as below
                             cost = cost + (((double)ingredientList[j].Price / ingredientList[j].Default_Quantity) * requirements_[i].Quantity * 1000);
                         }
                     }
                 }
             }
+            //Return the cost value to where call the method
             return cost;
         }
 
@@ -172,17 +174,23 @@ namespace Assignment_Framework_with_Classes
         /// <returns></returns>
         public double calculateEnergy(BindingList<Ingredient> ingredientList)
         {
+            //Set up varible
             double energy = 0.0d;
+            //For each required items to calculate the cost
             for (int i = 0; i < requirements_.Count; i++)
             {
+                //For each ingredients in the reference list passed into the method
                 for (int j = 0; j < ingredientList.Count; j++)
                 {
+                    //If the required item name is the same as ingredient name in passed list
                     if (requirements_[i].IngredientName == ingredientList[j].Name)
                     {
+                        //Because there is not unit difference in energy, so just add them one by one
                         energy = energy + (((double)ingredientList[j].Energy / ingredientList[j].Default_Quantity) * requirements_[i].Quantity);
                     }
                 }
             }
+            //Return the energy value where call the method
             return energy;
         }
 
@@ -192,92 +200,113 @@ namespace Assignment_Framework_with_Classes
         /// <param name="RecipeNeedItem">A new RecipeItems object from ingredients</param>
         public void Add(RecipeItems RecipeNeedItem)
         {
+            //Add required items into local list
             this.requirements_.Add(RecipeNeedItem);
         }
 
-
+        /// <summary>
+        /// Change the quantity when yield is changed by user
+        /// </summary>
+        /// <param name="newYield">The new yield value pass into method</param>
         public void changeQuantity(uint newYield)
         {
+            //Calculate how many times the yield changed
             double yieldChange = (double)newYield / this.previousYield_;
+            //For each items in local list to change the quantity
             for (int i = 0; i < requirements_.Count; i++)
             {
+                //The new quantity is equal to the old quantity times the yieldChange
                 requirements_[i].Quantity *= yieldChange;
             }
+            //Save the yield value to previousYield varible for next change or call the method
             previousYield_ = newYield;
         }
 
+        /// <summary>
+        /// Change the unit when the radio button value is changed
+        /// </summary>
+        /// <param name="toUnit">Which unit is aimed to change to</param>
         public void changeUnit(string toUnit)
         {
+            //If user wants to change unit to metric
             if (toUnit == "Metric")
-            {
-                //bool needChange = false;
-                //for(int i =0;i<this.requirements_.Count;i++)
-                //{
-                //    if (this.requirements_[i].Unit == "ml" || this.requirements_[i].Unit == "g" || this.requirements_[i].Unit == "kg" || this.requirements_[i].Unit == "l")
-                //    {
-                //        needChange = false;
-                //    }
-                //    else
-                //    {
-                //        needChange = true;
-                //    }
-                //}
+            {                
+                //For each items in local list as they need to be changed
                 foreach (RecipeItems checkItems in this.requirements_)
                 {
-                    //if (checkItems.Unit == "cup" || checkItems.Unit == "tbsp" || checkItems.Unit == "tsp" || checkItems.Unit == "lb" || checkItems.Unit == "oz") 
-                    //{
-                    //Change Unit
-                    //checkItems.Quantity = changedQuantity;
-                    //checkItems.Unit = changedUnit;
+                    //Set varibles
+                    //changedQuantity is for storing the result of exchanging units
                     double changedQuantity = 0.0d;
+                    //New unit will store in this changedUnit string varible
                     string changedUnit = "";                    
+                    //Different units cases in each items
                     if (checkItems.Unit == "cup" || checkItems.Unit == "cup ")
                     {
+                        //If the item is cup or cup with a spare space
+                        //Firstly change the quantity, due to 1 cup = 240 ml
                         changedQuantity = checkItems.Quantity * 240;
+                        //If the final result is greater than 1000, the final unit need to be Liter, "l"
                         if (changedQuantity >= 1000)
                         {
+                            //Divide 1000 to how many l
                             changedQuantity /= 1000;
+                            //Change unit to l
                             changedUnit = "l";
                         }
                         else
                         {
+                            //Or it is not over 1000, change unit to ml
                             changedUnit = "ml";
                         }
                     }
+                    //change tbsp to ml
                     else if (checkItems.Unit == "tbsp" || checkItems.Unit=="tbsp ")
                     {
+                        //1 tbsp = 15 ml
                         changedQuantity = checkItems.Quantity * 15;
                         changedUnit = "ml";
                     }
+                    //change tsp to ml
                     else if (checkItems.Unit == "tsp" || checkItems.Unit == "tsp ")
                     {
+                        //1 tsp = 5ml
                         changedQuantity = checkItems.Quantity * 5;
                         changedUnit = "ml";
                     }
+                    //change lb to kg
                     else if (checkItems.Unit == "lb" || checkItems.Unit == "lb ")
                     {
+                        //1 lb = 543.592 g
                         changedQuantity = checkItems.Quantity * 453.592;
+                        //Over 1000?
                         if (changedQuantity >= 1000)
                         {
+                            //1 kg = 1000 g
                             changedQuantity /= 1000;
                             changedUnit = "kg";
                         }
                         else
                         {
+                            //Or just g
                             changedUnit = "g";
                         }
                     }
+                    //change oz to g
                     else if (checkItems.Unit == "oz" || checkItems.Unit == "oz ")
                     {
+                        //1oz=28.3495g
                         changedQuantity = checkItems.Quantity * 28.3495;
                         changedUnit = "g";
                     }
                     else { continue; }
+                    //Update the property
                     checkItems.Quantity = changedQuantity;
                     checkItems.Unit = changedUnit;
                 }
             }
-
+            /*
+             * Change unit from metric to imperial is similar to the code above***************************
+             */
             if (toUnit == "Imperial")
             {
                 foreach (RecipeItems checkItems in this.requirements_)
@@ -344,21 +373,16 @@ namespace Assignment_Framework_with_Classes
                     checkItems.Unit = changedUnit;
                 }
             }
-            //if(needChange)
-            //{
-            //    foreach(RecipeItems items in this.requirements_)
-            //    {
-            //        if(items.Unit=="cup"|| items.Unit == "tbsp"||items.Unit=="tsp")                                                  
-            //    }
-            //}
-
-
         }
 
+        //Update unit, this is for any uncommon amount to update to common amount unit
         public void updateUnit()
         {
+            //Foreach recipe items to update
             foreach (RecipeItems checkItems in this.requirements_)
             {
+                //tsp to other unit in same system
+                //1 cup = 16 tbsp = 48 tsp
                 if (checkItems.Unit == "tsp" && checkItems.Quantity > 10 && checkItems.Quantity < 48)
                 {
                     checkItems.Quantity /= 3;
@@ -369,6 +393,8 @@ namespace Assignment_Framework_with_Classes
                     checkItems.Quantity /= 48;
                     checkItems.Unit = "cup";
                 }
+                //tbsp to other unit in same system
+                //1 cup = 16 tbsp =48 tsp
                 else if (checkItems.Unit == "tbsp" && checkItems.Quantity >= 16)
                 {
                     checkItems.Quantity /= 16;
@@ -379,31 +405,43 @@ namespace Assignment_Framework_with_Classes
                     checkItems.Quantity *= 3;
                     checkItems.Unit = "tsp";
                 }
+                //oz to other unit in same system
+                //1 lb = 16 oz
                 else if (checkItems.Unit == "oz" && checkItems.Quantity > 16)
                 {
                     checkItems.Quantity /= 16;
                     checkItems.Unit = "lb";
                 }
+                //g to other unit in same system
+                //1kg = 1000g
                 else if (checkItems.Unit == "g" && checkItems.Quantity > 1000)
                 {
                     checkItems.Quantity /= 1000;
                     checkItems.Unit = "kg";
                 }
+                //ml to other unit in same system
+                //1 l = 1000 ml
                 else if (checkItems.Unit == "ml" && checkItems.Quantity > 1000)
                 {
                     checkItems.Quantity /= 1000;
                     checkItems.Unit = "l";
                 }
+                //cup to other unit in same system
+                //1 cup = 16 tbsp
                 else if (checkItems.Unit == "cup" && checkItems.Quantity < 1)
                 {
                     checkItems.Quantity *= 16;
                     checkItems.Unit = "tbsp";
                 }
+                //kg to other unit in same system
+                //1kg = 1000g
                 else if (checkItems.Unit == "kg" && checkItems.Quantity < 1)
                 {
                     checkItems.Quantity *= 1000;
                     checkItems.Unit = "g";
                 }
+                //l to other unit in same system
+                //1l=1000ml
                 else if (checkItems.Unit == "l" && checkItems.Quantity < 1)
                 {
                     checkItems.Quantity *= 1000;
@@ -439,6 +477,18 @@ namespace Assignment_Framework_with_Classes
                 yield_ = value;
             }
         }
+        public uint PreviousYield
+        {
+            get
+            {
+                return previousYield_;
+            }
+
+            set
+            {
+                previousYield_ = value;
+            }
+        }
         public string Instruction
         {
             get
@@ -465,17 +515,5 @@ namespace Assignment_Framework_with_Classes
             }
         }
 
-        public uint PreviousYield
-        {
-            get
-            {
-                return previousYield_;
-            }
-
-            set
-            {
-                previousYield_ = value;
-            }
-        }
     }
 }

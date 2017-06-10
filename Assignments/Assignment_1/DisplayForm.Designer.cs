@@ -42,18 +42,20 @@
             this.groupBox1.Controls.Add(this.update_button1);
             this.groupBox1.Controls.Add(this.yield_textBox1);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(304, 328);
+            this.groupBox1.Size = new System.Drawing.Size(328, 352);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Your Recipe";
             // 
             // Print_richTextBox1
             // 
-            this.Print_richTextBox1.Location = new System.Drawing.Point(6, 41);
+            this.Print_richTextBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Print_richTextBox1.Location = new System.Drawing.Point(3, 41);
             this.Print_richTextBox1.Name = "Print_richTextBox1";
-            this.Print_richTextBox1.Size = new System.Drawing.Size(292, 281);
+            this.Print_richTextBox1.Size = new System.Drawing.Size(322, 308);
             this.Print_richTextBox1.TabIndex = 3;
             this.Print_richTextBox1.Text = "";
             // 

@@ -11,9 +11,14 @@ namespace Assignment_Framework_with_Classes
     /// <summary>
     /// Ingredient which we like to set up different ingredients for recipes
     /// Ingredient needs a NAME, QUANTITY, PRICE, ENERGY VALUE
-    /// Written by Yunhao Fu and Jiayi Hu, 2016
+    /// Written by Yunhao Fu and Jiayi Hu
     /// Thank you very much :-)
     /// </summary>
+    
+    ///<summary>
+    ///These following code(INotifyPropertyChanged Event Handling) is refered by Lecture 17 Programming demo writen by Robi.
+    ///Thanks for hits and helps :-)
+    ///</summary>
     public class Ingredient : INotifyPropertyChanged
     {
         //***********************************
@@ -165,59 +170,66 @@ namespace Assignment_Framework_with_Classes
                 //If the unit which the user want to change is "ml".
                 if (this.unit_ == "ml")
                 {
-                    //Yi bu yi bu to ce ta!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Hello??????
-                    //Then the changed quantity will be measured in "tbsp". 5 ml is 1 tsp.
-                    //changedQuantity = (int)this.defaultQuantity_ / 5;
-                    ////The max quantity for things measured in teaspoon i
-                    //if (changedQuantity > 10)
-                    //{
-                    //    changedQuantity /= (int)3;
-                    //    changedUnit = "tbsp";
-                    //}
-                    //else
-                    //{
-                    //    changedUnit = "tsp";
-                    //}
+                    //Change the quantity to match the unit      
                     changedQuantity = this.defaultQuantity_ / 5;
+                    //If the quantity is less than 48, where 16*3=48, it is tbsp or tsp unit
                     if(changedQuantity<48)
                     {
+                        //The max quantity of tsp unit is 10, when it is over 10, need to be tbsp unit
                         if(changedQuantity>10)
                         {
+                            //Devide by 3 to change the quantity
                             changedQuantity /= 3;
+                            //Change the unit to tbsp
                             changedUnit = "tbsp";
                         }
                         else
                         {
+                            //Change the unit to tsp
                             changedUnit = "tsp";
                         }
                     }
                     else
                     {
+                        //Or it is over 48, need to be how many cup
                         changedQuantity /= 48;
+                        //Change the unit to cup
                         changedUnit = "cup";
                     }
                 }
+                //If it is liter, l
                 else if (this.unit_ == "l")
                 {
+                    //1 l =240 ml, divide by 240
                     changedQuantity = this.defaultQuantity_ / 240;
+                    //Change unit to cup
                     changedUnit = "cup";
                 }
+                //If it is gram, g
                 else if (this.unit_ == "g")
                 {
+                    //1oz = 28.3495 g, divide by 28.3495
                     changedQuantity = this.defaultQuantity_ / 28.3495;
+                    //The max quantity of oz is 16, if it is less than 16
                     if (changedQuantity < 16)
                     {
+                        //Change unit to oz
                         changedUnit = "oz";
                     }
                     else
                     {
+                        //Or divide by 16 to lb, due to 1lb = 16oz
                         changedQuantity /= 16;
+                        //Change unit to lb
                         changedUnit = "lb";
                     }
                 }
+                //If it is kilogram, kg
                 else if (this.unit_ == "kg")
                 {
+                    //Firstly change to how many gram and to how many oz
                     changedQuantity = (this.defaultQuantity_ * 1000) / 28.3495;
+                    //As same as above
                     if (changedQuantity < 16)
                     {
                         changedUnit = "oz";
@@ -230,8 +242,10 @@ namespace Assignment_Framework_with_Classes
                 }
                 else
                 {
+                    //Else, return nothings
                     return;
                 }
+                //Any changes happened, change the quantity and unit
                 this.defaultQuantity_ = changedQuantity;
                 this.unit_ = changedUnit;
             }
