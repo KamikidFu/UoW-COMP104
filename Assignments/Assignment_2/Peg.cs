@@ -30,9 +30,12 @@ namespace BattleshipHiddenThreat
                 if (target is Ship)
                 {
                     Ship targetShip = (Ship)target;
-                    if (targetShip.Name != "Sea")
+                    if (this.color_ == "Red")
                     {
-                        targetShip.HealthNum -= this.attackNum_;
+                        if (targetShip.Name != "Sea")
+                        {
+                            targetShip.HealthNum -= this.attackNum_;
+                        }
                     }
                 }
             }

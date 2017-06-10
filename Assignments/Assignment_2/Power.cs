@@ -26,7 +26,7 @@ namespace BattleshipHiddenThreat
             {
                 Ship myShip = (Ship)target;
                 myShip.ShieldNum += 2;
-                targetButton.Text += "(Shield:" + myShip.ShieldNum + ")";     
+                targetButton.Text = myShip.Name + "\n(Health:" + myShip.HealthNum + ")(Shield:" + myShip.ShieldNum + ")";
             }
         }
         public void useCard(Card usingCard, string whichFunction, Player whoPlay, Ship powerUsedShip)

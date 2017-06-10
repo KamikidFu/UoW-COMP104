@@ -1,3 +1,9 @@
+Version: 10112330
+1. All the power is coded but having some bugs
+2. Improve human and AI play logic
+3. Ship abilities are coding
+4. Bugs fixing
+
 Version: 10102330
 1. AI is improved by logic and simplification.
 2. Rewrite player playing logic, now it works with more than 1 round.

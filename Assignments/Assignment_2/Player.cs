@@ -13,6 +13,7 @@ namespace BattleshipHiddenThreat
         private string mode_;
         private HandCard myCards_;
         private int full_restOfRound_;
+        private int full_restOfCard_;
 
         public Player(string NAME, string TEAM, string MODE)
         {
@@ -20,7 +21,8 @@ namespace BattleshipHiddenThreat
             team_ = TEAM;
             mode_ = MODE;
             myCards_ = new HandCard(Name+"'sCards",mode_);
-            if (MODE == "Full") full_restOfRound_ = 1;
+            if (MODE == "Full")
+            { full_restOfRound_ = 1; full_restOfCard_ = 5; }
         }
         
 
@@ -76,6 +78,19 @@ namespace BattleshipHiddenThreat
             set
             {
                 full_restOfRound_ = value;
+            }
+        }
+
+        public int Full_RestOfCard
+        {
+            get
+            {
+                return full_restOfCard_;
+            }
+
+            set
+            {
+                full_restOfCard_ = value;
             }
         }
     }
