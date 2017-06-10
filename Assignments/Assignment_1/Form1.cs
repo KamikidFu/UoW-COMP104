@@ -11,16 +11,33 @@ using System.IO;
 
 namespace Assignment_Framework_with_Classes
 {
+    /// <summary>
+    /// This is the main class of our programme
+    /// In this class, it is asscoiated with the Form1
+    /// Here having two private list of recipes_ and ingredients_
+    /// Written by Yunhao Fu and Jiayi Hu
+    /// Thank you very much :-)
+    /// </summary>
     public partial class Form1 : Form
     {
         /// <summary>
         /// The list of all recipes. We like to use datagrid view to show things.
         /// </summary>
-        internal BindingList<Recipe> recipes_;
+        private BindingList<Recipe> recipes_;
         /// <summary>
         /// The list of all papers. We like to use datagrid view to show things.
         /// </summary>
-        internal BindingList<Ingredient> ingredients_;
+        private BindingList<Ingredient> ingredients_;
+        /// <summary>
+        /// ********************************************************************
+        /// This method for initially loading any files and data into programme
+        /// is for the Task 2a).
+        ///     1. Initialise lists of recipes and ingredients and display them
+        ///     2. Display the ingredient file ingredients.csv and three of recipes
+        ///     3. Recipes are aimed to display the name, yield.
+        ///     4. Ingredients are aimed to display the name, default quantity, price and energy value
+        /// ********************************************************************
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -167,6 +184,22 @@ namespace Assignment_Framework_with_Classes
 
         /// <summary>
         /// These following methods are for DataGridViews
+        /// ******************************************************************************************************
+        /// Mainly the aim is for the Task 2b).
+        ///     1. Provide funcitionality to edit the lists of recipes and ingredients.
+        ///     2. For recipes, it can CREATE and DELETE recipes.
+        ///     3. For ingredient, it can CREATE ingredients.
+        ///     4. Both can edit it-self name and other its attributes.
+        /// Some methods and some of the button methods are for Task 2c)
+        ///     1. Provide functionality to edit the recipe's ingredient and its associated quantities.
+        ///     2. It should display the required ingredient when user selects one recipe.
+        ///     3. It can select one of ingredients to add it to selected recipe.
+        ///     4. Remove one of ingredients in selected recipe.
+        ///     5. It offers functionality to change the quantity of an ingredient used separately for each recipe. 
+        /// ******************************************************************************************************
+        /// Some codes in these methods are to answer the question Task 3a)
+        ///     1. Provide functionality to display the cooking instructions of recipe
+        /// ******************************************************************************************************
         /// </summary>
         /// <param name="sender">Automatically pass to methods</param>
         /// <param name="e">Automatically pass to methods</param>
@@ -324,6 +357,13 @@ namespace Assignment_Framework_with_Classes
 
         /// <summary>
         /// These following is for button methods
+        /// *********************************************************************************************************
+        /// Methods are for implement Task 3
+        ///     a. Change the instruction of recipe and save it
+        ///     b. Calculate the price and energy for every recipes
+        ///     c. Provide functionality to read recipes from a text file
+        ///     d. Provide functionality to display a recipe. (This programme is to display the recipe in a new form)
+        /// *********************************************************************************************************
         /// </summary>
         /// <param name="sender">Automatically pass to methods</param>
         /// <param name="e">Automatically pass to methods</param>
@@ -381,7 +421,8 @@ namespace Assignment_Framework_with_Classes
                                 if (rep.Name == splitedData[0])
                                 {
                                     //Show the message to user that we have a same recipe
-                                    MessageBox.Show(":-(\nThis recipe " + splitedData[0] + " has already in programme.\nIt is at the No." + (hasRepIndex + 1) + " row in Recipes DataGridView.\nSorry, it is failed to read.");
+                                    MessageBox.Show(":-(\nThis recipe " + splitedData[0] + " has already in programme.\nIt is at the No." + (hasRepIndex + 1) 
+                                                    + " row in Recipes DataGridView.\nSorry, it is failed to read.\nIf it is just a recipe in different unit, easily change the unit system in main form.:-)");
                                     //Set the bool varible to false, means it is not a new recipe
                                     isNewRecipe = false;
                                     //Break the foreach
@@ -702,10 +743,12 @@ namespace Assignment_Framework_with_Classes
 
         /// <summary>
         /// These following methods are for radioButton
+        /// This is for the Task 3 e)
+        ///     e. Add functionality for other units system when defining ingredient quantities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        // This is to change the unit system to metric when the radio button is checked
+        // This is to change the unit system to metric (may from imperial) when the radio button is checked
         private void Metric_radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             try
@@ -746,7 +789,7 @@ namespace Assignment_Framework_with_Classes
                 //For initial default setting, to run the programme directly
             }
         }
-        // This
+        // This is to change the unit system to imperial (may from metric) when the radio button is checked
         private void Imperial_radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             try
