@@ -1,6 +1,6 @@
 # UoW-COMP104/COMPX102
 
-Welcome to my repo of COMP104 (OR `COMPX102` as new paper code but not sure if this repo covered all). This paper is taught at [University of Waikato](https://www.waikato.ac.nz/). This repo recorded all my work for this paper.
+Welcome to my repo of COMP104 - Introduction to Computer Science 2 (OR `COMPX102` as new paper code but not sure if this repo covered all). This paper is taught at [University of Waikato](https://www.waikato.ac.nz/). This repo recorded all my work for this paper.
 
 
 
