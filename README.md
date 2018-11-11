@@ -1,12 +1,39 @@
-# UoW-COMP104
+# UoW-COMP104/COMPX102
 
-Welcome to this repository, if you feel this is helpful, please star it at the top of page.
->**Please note:** This git repository is about my duration of paper 'COMP104' at [University of Waikato](http://www.waikato.ac.nz/). Practicals and assignments may vary from yours. I, the author and this repository owner, wish you use the git only as a reference or extend learning materials of your study and workload. Please DO NOT DO ANY things about academic plagiarsim.
+Welcome to my repo of COMP104 (OR `COMPX102` as new paper code but not sure if this repo covered all). This paper is taught at [University of Waikato](https://www.waikato.ac.nz/). This repo recorded all my work for this paper.
 
-## About License
 
-To make it clear and simple, once you downloaded/cloned/forked this repository or used some code from this repository please leave a comment with author name and reference URL in your code to acknowledge this work and star this repository at the top of page. Your cooperation would be appreciated.
 
-## About Repository
+## Get start!
 
-In order to reduce the size of repository, only the source codes will be commited in its folder. This repository may keep active and commit what is necessary. If you have any ideas or advices on this repository, please contact me at my [blog](http://www.kamikid.me/wp/2017/06/10/begin-coding-with-cs/)(Recommand) or my [facebook](https://www.facebook.com/KamikidFu) with your greetings.
+You can just simply clone this repo to your computer or download as zip file.
+
+```shell
+git clone https://github.com/KamikidFu/UoW-COMP104.git
+```
+
+
+
+## Known Questions
+
+-
+
+
+
+## Known Bugs
+
+-
+
+### Bug Report
+
+I would like to hear from you if there is any bugs you found out! Just report bug to me though [email](mailto:kidfu@live.com).
+
+
+
+## About
+
+In order to reduce the size of repo, only the source codes will be committed. It contains each week exercises though out this paper.
+
+Since this repo is for school work. You are welcome to use this repo as a reference but **DO NOT** just copy and paste. You may not learn something from courses and may face serious problem of plagiarism.
+
+Enjoy!
